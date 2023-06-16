@@ -8,3 +8,14 @@ endif
 ifeq ($(strip $(CUSTOM_DRAGSCROLL)), yes)
 	OPT_DEFS += -DCUSTOM_DRAGSCROLL
 endif
+
+
+QUANTUM_PAINTER_ENABLE ?= yes
+ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
+	SRC += arcboard_mk17_qp.c
+	QUANTUM_PAINTER_DRIVERS = st7789_spi
+	BACKLIGHT_DRIVER = pwm
+	BACKLIGHT_ENABLE = yes
+else
+	BACKLIGHT_ENABLE = no
+endif

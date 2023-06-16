@@ -12,6 +12,15 @@
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 void post_process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
+// this feels kinda janky...is it really needed?
+#ifdef QUANTUM_PAINTER_ENABLE
+    #include <qp.h>
+    #pragma pack(push)
+    #pragma pack(1)
+    extern painter_device_t st7789;
+    #pragma pack(pop)
+#endif // QUANTUM_PAINTER_ENABLE
+
 enum userspace_layers {
     _QWERTY             = 0,
     FIRST_DEFAULT_LAYER = 0,

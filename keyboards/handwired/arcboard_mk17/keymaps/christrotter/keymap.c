@@ -19,6 +19,22 @@
 #include "arcboard_mk17.h"
 #include "keymap.h"
 
+#ifdef QUANTUM_PAINTER_ENABLE
+const char *current_layer_name(void) {
+    switch (get_highest_layer(layer_state)) {
+        case _QWERTY:
+            return "qwerty";
+        case _NAV:
+            return "nav";
+        case _SYMBOLS:
+            return "symbols";
+        case _MOUSE:
+            return "mouse";
+    }
+    return "unknown";
+}
+#endif // QUANTUM_PAINTER_ENABLE
+
 #if defined(RGB_MATRIX_LEDMAPS_ENABLED)
     #include "rgb_ledmaps.h"
 #endif
@@ -405,11 +421,26 @@ const ledmap ledmaps[] = {
 
 // encoder functions per layer, LEFT        RIGHT
 #if defined(ENCODER_MAP_ENABLE)
-    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-        [_QWERTY]   =  { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN),    ENCODER_CCW_CW(TO(_MOUSE), KC_NO)},
-        [_MOUSE]    =  { ENCODER_CCW_CW(KC_SPCLEFT, KC_SPCRGHT),            ENCODER_CCW_CW(TO(_SYMBOLS), TO(_QWERTY))},
-        [_SYMBOLS]  =  { ENCODER_CCW_CW(GDOCZMIN, GDOCZMOU),            ENCODER_CCW_CW(TO(_NAV), TO(_MOUSE))},
-        [_NAV]      =  { ENCODER_CCW_CW(KC_VOLU, KC_VOLD),              ENCODER_CCW_CW(KC_NO, TO(_SYMBOLS))},
+    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+        // so here, [_LAYERNAME] = { ENCODER_CCW_CW(ccw-action,cw-action), ENCODER_CCW_CW(ccw-action,cw-action), ENCODER_CCW_CW(ccw-action,cw-action), ENCODER_CCW_CW(ccw-action,cw-action) }
+        // where you have FalconL1, FalconL2, FalconR1, FalconR2 as the index
+        // as is right now, this means each side has identical encoder mappings
+        [_QWERTY]   =  {
+            ENCODER_CCW_CW(KC_A, KC_B), ENCODER_CCW_CW(KC_C, KC_D),
+            ENCODER_CCW_CW(KC_A, KC_B), ENCODER_CCW_CW(KC_C, KC_D)
+        },
+        [_MOUSE]    =  {
+            ENCODER_CCW_CW(KC_A, KC_B), ENCODER_CCW_CW(KC_C, KC_D),
+            ENCODER_CCW_CW(KC_A, KC_B), ENCODER_CCW_CW(KC_C, KC_D)
+        },
+        [_SYMBOLS]  =  {
+            ENCODER_CCW_CW(KC_A, KC_B), ENCODER_CCW_CW(KC_C, KC_D),
+            ENCODER_CCW_CW(KC_A, KC_B), ENCODER_CCW_CW(KC_C, KC_D)
+        },
+        [_NAV]      =  {
+            ENCODER_CCW_CW(KC_A, KC_B), ENCODER_CCW_CW(KC_C, KC_D),
+            ENCODER_CCW_CW(KC_A, KC_B), ENCODER_CCW_CW(KC_C, KC_D)
+        },
     };
 #endif
 

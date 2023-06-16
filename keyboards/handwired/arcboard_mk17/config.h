@@ -79,6 +79,7 @@
 // WS2812 RGB LED strip input and number of LEDs
 #if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
     #define RGB_DI_PIN GP28
+    #define WS2812_DI_PIN GP28
     #define RGBLED_NUM 112                       // Total number of LEDs, total of both halves
     #define RGB_MATRIX_SPLIT { 56, 56 }
     #define RGB_MATRIX_LED_COUNT RGBLED_NUM
@@ -92,7 +93,30 @@
 #endif
 
 #if defined(ENCODER_ENABLE)
-    #define ENCODERS_PAD_A { GP8 }
-    #define ENCODERS_PAD_B { GP9 }
+    #define ENCODERS_PAD_A { GP14, GP26 }
+    #define ENCODERS_PAD_B { GP15, GP27 }
     #define ENCODER_RESOLUTION 4
+#endif
+
+// For the tft display
+#if defined(QUANTUM_PAINTER_ENABLE)
+    #define SPI_MATRIX_DIVISOR 8
+    #define DISPLAY_SPI_DIVISOR 4
+    #define DISPLAY_DC_PIN GP8
+    #define DISPLAY_CS_PIN GP9
+    #define DISPLAY_RST_PIN GP0
+    #define ST7789_NUM_DEVICES 2
+    #define QUANTUM_PAINTER_CONCURRENT_ANIMATIONS 8
+    #define QUANTUM_PAINTER_LOAD_FONTS_TO_RAM TRUE
+    #define QUANTUM_PAINTER_NUM_IMAGES 14
+    #define QUANTUM_PAINTER_SUPPORTS_256_PALETTE TRUE
+    #define QP_MATRIX_SCAN_INTERVAL 1000
+    #define DEBUG_MATRIX_SCAN_RATE // we call it on the TFTs
+    #if defined(BACKLIGHT_ENABLE)
+        #define BACKLIGHT_PWM_DRIVER PWMD0
+        #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A // waveshare rp2040-plus has 16 pwm channels
+        #define BACKLIGHT_PIN GP22
+        #define BACKLIGHT_LIMIT_VAL	128 // limiting this cuz...don't want to crash the board?...is that founded?
+        #define BACKLIGHT_LEVELS 1
+    #endif // BACKLIGHT_ENABLE
 #endif

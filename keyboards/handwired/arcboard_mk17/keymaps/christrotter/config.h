@@ -24,3 +24,7 @@
     #define ROTATIONAL_TRANSFORM_ANGLE -60
     #define DRAGSCROLL_BUFFER_SIZE 6
 #endif
+
+#ifdef BACKLIGHT_ENABLE
+    #define SCREEN_TIMEOUT 180000 // this is 180s
+#endif // BACKLIGHT_ENABLE

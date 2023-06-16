@@ -3,6 +3,10 @@
 
 #include "arcboard_mk17.h"
 
+#ifdef QUANTUM_PAINTER_ENABLE
+    bool lcd_power = false;
+#endif
+
 // clang-format off
     /* row,col
      * .------+------+------+------+------+------.                                                       .------+------+------+------+------+------.
@@ -105,9 +109,18 @@ led_config_t g_led_config = {
 };
 #endif
 
-
+#ifdef QUANTUM_PAINTER_ENABLE
+    #include "qp_st7789.h"
+    extern painter_device_t qp_display;
+    __attribute__((weak)) void draw_ui_user(void) {} //_user should not be in the keyboard.c
+    __attribute__((weak)) void ui_init(void) {}
+#endif
 
 void keyboard_post_init_kb(void) {
+    #ifdef QUANTUM_PAINTER_ENABLE
+        ui_init(); //initialize display // if this is missing you will crash qmk on kb boot
+        wait_ms(50);
+    #endif
     pointing_device_set_cpi_on_side(true, LEFT_PMW_CPI);
     pointing_device_set_cpi_on_side(false, RIGHT_PMW_CPI);
     // if (is_keyboard_left()) {
@@ -121,6 +134,22 @@ void keyboard_post_init_kb(void) {
     //     uprintf("Our Right CPI: %d \n", pointing_device_get_cpi());
     // }
     keyboard_post_init_user(); //_user should not be in the keyboard.c
+}
+
+void housekeeping_task_kb(void) {
+    #ifdef QUANTUM_PAINTER_ENABLE
+        // set the lcd_power state bool based on matrix activity vs. SCREEN_TIMEOUT value
+        lcd_power = (last_input_activity_elapsed() < SCREEN_TIMEOUT) ? 1 : 0;
+        setPinOutput(BACKLIGHT_PIN);
+        if (lcd_power) {
+            writePinHigh(BACKLIGHT_PIN);
+        } else {
+            writePinLow(BACKLIGHT_PIN);
+        }
+        if (lcd_power) {
+            draw_ui_user(); //_user should not be in the keyboard.c
+        }
+    #endif // QUANTUM_PAINTER_ENABLE
 }
 
 // Forward declare RP2040 SDK declaration.

@@ -8,15 +8,15 @@ BOARD 					= GENERIC_RP_RP2040
 # Functionality options
 BOOTMAGIC_ENABLE		= yes
 CONSOLE_ENABLE			= yes        # Enables the use of qmk console; debug messages need this
-POINTING_DEBUG_ENABLE	= yes
+POINTING_DEBUG_ENABLE	= no
 MOUSEKEY_ENABLE 		= yes       # Mouse keys
 EXTRAKEY_ENABLE 		= yes       # Audio control and System control
 NKRO_ENABLE 			= yes 		# Enable N-Key Rollover
 TAP_DANCE_ENABLE        = yes
 
 # LED settings
-RGB_MATRIX_ENABLE 		= no 		# matrix enable turns on the white background lighting
-RGB_MATRIX_LEDMAPS_ENABLED = no 	# turn on per-key colours
+RGB_MATRIX_ENABLE 		= yes 		# matrix enable turns on the white background lighting
+RGB_MATRIX_LEDMAPS_ENABLED = yes 	# turn on per-key colours
 RGB_MATRIX_DRIVER 		= WS2812
 WS2812_DRIVER 			= vendor  	# RP2040 lyfe
 
@@ -34,5 +34,9 @@ PICO_INTRINSICS_ENABLED = no # ATM Unsupported by ChibiOS.
 SERIAL_DRIVER = vendor
 
 # Encoder
-ENCODER_ENABLE = no
-ENCODER_MAP_ENABLE = no
+ENCODER_ENABLE = yes
+ENCODER_MAP_ENABLE = yes
+
+# Enable the TFT screens
+# currently disabled cuz transport woes, probably related to SPI config
+QUANTUM_PAINTER_ENABLE 	= yes
