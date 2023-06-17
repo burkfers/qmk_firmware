@@ -92,12 +92,20 @@ enum custom_keycodes {
     #define HRM_GUI PURPLE
     #define HRM_SFT GREEN
 
-    #define FL_L0 GOLD
-    #define FL_L1 ORANGE
-    #define FL_L2 BLUE
-    #define FL_L3 GREEN
-    #define FR_L0 WHITE
-    #define FR_L1 RED
-    #define FR_L2 PINK
-    #define FR_L3 CHART
+    #define FAL1_L0 GOLD
+    #define FAL1_L1 ORANGE
+    #define FAL1_L2 BLUE
+    #define FAL1_L3 GREEN
+    #define FAL2_L0 WHITE
+    #define FAL2_L1 RED
+    #define FAL2_L2 PINK
+    #define FAL2_L3 CHART
+    #define FAL3_L0 GOLD
+    #define FAL3_L1 ORANGE
+    #define FAL3_L2 BLUE
+    #define FAL3_L3 GREEN
+    #define FAL4_L0 WHITE
+    #define FAL4_L1 RED
+    #define FAL4_L2 PINK
+    #define FAL4_L3 CHART
 #endif

@@ -38,7 +38,6 @@ void ui_init(void) {
     qp_rect(qp_display, 0, 0, 240, 106, HSV_BLACK, true);
     qp_rect(qp_display, 0, 106, 240, 212, HSV_BLACK, true);
     qp_rect(qp_display, 0, 212, 240, 320, HSV_BLACK, true);
-    qp_flush(qp_display);
 }
 void draw_ui_user(void) {
     uint16_t width;
@@ -186,5 +185,4 @@ void draw_ui_user(void) {
             }
         }
     }
-    qp_flush(qp_display);
 }
