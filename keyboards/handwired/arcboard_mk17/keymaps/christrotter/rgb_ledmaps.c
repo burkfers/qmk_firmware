@@ -40,7 +40,7 @@ void set_rgb_led(int index, int hue, int sat, int val) {
     HSV hsv = {
         .h = hue,
         .s = sat,
-        .v = rgb_matrix_get_val(),
+        .v = 150,
     };
     if (hsv.h || hsv.s) {
         RGB rgb = hsv_to_rgb(hsv);
@@ -61,13 +61,13 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (is_shifted) {
         for (uint8_t i = led_min; i < led_max; i++) {
             if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
-                set_rgb_led(i, HSV_GREEN);
+                set_rgb_led(i, INDICATOR_SHIFT);
             }
         }
     } else {
         for (uint8_t i = led_min; i < led_max; i++) {
             if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
-                set_rgb_led(i, HSV_CYAN);
+                set_rgb_led(i, INDICATOR_BG);
             }
         }
     }
@@ -75,13 +75,13 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (is_oneshot) {
         for (uint8_t i = led_min; i < led_max; i++) {
             if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
-                set_rgb_led(i, HSV_GREEN);
+                set_rgb_led(i, INDICATOR_SHIFT);
             }
         }
     } else {
         for (uint8_t i = led_min; i < led_max; i++) {
             if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
-                set_rgb_led(i, HSV_CYAN);
+                set_rgb_led(i, INDICATOR_BG);
             }
         }
     }
@@ -94,7 +94,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     } else {
         for (uint8_t i = led_min; i < led_max; i++) {
             if (HAS_FLAGS(g_led_config.flags[i], 0x01)) {
-                set_rgb_led(i, HSV_AZURE);
+                set_rgb_led(i, INDICATOR_BG);
             }
         }
     }
