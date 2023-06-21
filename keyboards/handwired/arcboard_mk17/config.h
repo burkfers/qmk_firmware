@@ -39,7 +39,7 @@
     #define BOOTMAGIC_LITE_ROW 0
     #define BOOTMAGIC_LITE_COLUMN 0
     // this uses row/col numbering that starts on 0
-    #define BOOTMAGIC_LITE_ROW_RIGHT 5
+    #define BOOTMAGIC_LITE_ROW_RIGHT 13
     #define BOOTMAGIC_LITE_COLUMN_RIGHT 0
     // generic split config
     #define SPLIT_WATCHDOG_ENABLE // this took 30 off the scanrate
@@ -106,12 +106,11 @@
     #define DISPLAY_CS_PIN GP9
     #define DISPLAY_RST_PIN GP0
     #define ST7789_NUM_DEVICES 2
-    #define QUANTUM_PAINTER_CONCURRENT_ANIMATIONS 8
-    #define QUANTUM_PAINTER_LOAD_FONTS_TO_RAM TRUE
-    #define QUANTUM_PAINTER_NUM_IMAGES 14
-    #define QUANTUM_PAINTER_SUPPORTS_256_PALETTE TRUE
     #define QP_MATRIX_SCAN_INTERVAL 1000
     #define DEBUG_MATRIX_SCAN_RATE // we call it on the TFTs
+    #if defined(QP_DEBUG_ENABLE)
+        #define QUANTUM_PAINTER_DEBUG
+    #endif
     #if defined(BACKLIGHT_ENABLE)
         #define BACKLIGHT_PWM_DRIVER PWMD0
         #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A // waveshare rp2040-plus has 16 pwm channels

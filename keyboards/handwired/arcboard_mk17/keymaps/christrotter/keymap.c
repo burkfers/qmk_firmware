@@ -20,19 +20,22 @@
 #include "keymap.h"
 
 #ifdef QUANTUM_PAINTER_ENABLE
-const char *current_layer_name(void) {
-    switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
-            return "qwerty";
-        case _NAV:
-            return "nav";
-        case _SYMBOLS:
-            return "symbols";
-        case _MOUSE:
-            return "mouse";
+    #include "qp_st7789.h"
+    #include <qp.h>
+    extern painter_device_t display;
+    const char *current_layer_name(void) {
+        switch (get_highest_layer(layer_state)) {
+            case _QWERTY:
+                return "qwerty";
+            case _NAV:
+                return "nav";
+            case _SYMBOLS:
+                return "symbols";
+            case _MOUSE:
+                return "mouse";
+        }
+        return "unknown";
     }
-    return "unknown";
-}
 #endif // QUANTUM_PAINTER_ENABLE
 
 #if defined(RGB_MATRIX_LEDMAPS_ENABLED)
@@ -44,19 +47,6 @@ const char *current_layer_name(void) {
 #endif
 
 void keyboard_post_init_user(void) {
-    // I could not get the set_cpi_on_side to work properly.
-
-    // if (is_keyboard_left()) {
-    //     // pointing_device_set_cpi_on_side(true, LEFT_PMW_CPI);    //Set cpi on left side to a low value for slower scrolling.
-    //     pointing_device_set_cpi(LEFT_PMW_CPI);
-    //     uprintf("Our Left CPI:  %d \n", pointing_device_get_cpi());
-    // } else {
-    //     // pointing_device_set_cpi_on_side(false, RIGHT_PMW_CPI);  //Set cpi on right side to a reasonable value for mousing.
-    //     // pointing_device_set_cpi_on_side(false, RIGHT_PMW_CPI);
-    //     pointing_device_set_cpi(RIGHT_PMW_CPI);
-    //     uprintf("Our Right CPI: %d \n", pointing_device_get_cpi());
-    // }
-
     #if defined(CONSOLE_ENABLE)
         // Customise these values to desired behaviour
         // debug_enable=true;

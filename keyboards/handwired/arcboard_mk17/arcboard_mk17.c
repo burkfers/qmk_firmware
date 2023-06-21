@@ -117,9 +117,11 @@ led_config_t g_led_config = {
 };
 #endif
 
+
+////  QUANTUM PAINTER SECTION  ////
 #ifdef QUANTUM_PAINTER_ENABLE
     #include "qp_st7789.h"
-    extern painter_device_t qp_display;
+    extern painter_device_t display;
     __attribute__((weak)) void draw_ui_user(void) {} //_user should not be in the keyboard.c
     __attribute__((weak)) void ui_init(void) {}
 #endif
@@ -127,20 +129,11 @@ led_config_t g_led_config = {
 void keyboard_post_init_kb(void) {
     #ifdef QUANTUM_PAINTER_ENABLE
         ui_init(); //initialize display // if this is missing you will crash qmk on kb boot
+        // print here
         wait_ms(50);
     #endif
     pointing_device_set_cpi_on_side(true, LEFT_PMW_CPI);
     pointing_device_set_cpi_on_side(false, RIGHT_PMW_CPI);
-    // if (is_keyboard_left()) {
-    //     // pointing_device_set_cpi_on_side(true, LEFT_PMW_CPI);    //Set cpi on left side to a low value for slower scrolling.
-    //     pointing_device_set_cpi(LEFT_PMW_CPI);
-    //     uprintf("Our Left CPI:  %d \n", pointing_device_get_cpi());
-    // } else {
-    //     // pointing_device_set_cpi_on_side(false, RIGHT_PMW_CPI);  //Set cpi on right side to a reasonable value for mousing.
-    //     // pointing_device_set_cpi_on_side(false, RIGHT_PMW_CPI);
-    //     pointing_device_set_cpi(RIGHT_PMW_CPI);
-    //     uprintf("Our Right CPI: %d \n", pointing_device_get_cpi());
-    // }
     keyboard_post_init_user(); //_user should not be in the keyboard.c
 }
 
