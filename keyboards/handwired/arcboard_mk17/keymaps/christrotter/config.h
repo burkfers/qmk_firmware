@@ -28,3 +28,5 @@
 #ifdef BACKLIGHT_ENABLE
     #define SCREEN_TIMEOUT 180000 // this is 180s
 #endif // BACKLIGHT_ENABLE
+
+#define QUANTUM_PAINTER_DEBUG

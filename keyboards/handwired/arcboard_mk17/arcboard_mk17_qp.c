@@ -1,6 +1,9 @@
 // Copyright 2022 Chris Trotter (@christrotter)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
+#if defined(CONSOLE_ENABLE)
+    #include "print.h"
+#endif
 #include "arcboard_mk17_qp.h"
 #include <qp.h>
 #include <qp_st7789.h>
@@ -15,6 +18,11 @@ void ui_init(void) {
     }
     else {
         qp_init(display, QP_ROTATION_0);
+    }
+    qp_power(display, true);
+    qp_clear(display);
+    for (int i = 0; i < 239; i+=8) {
+        qp_rect(display, 0, i, 7, i+7, i, 255, 255, true);
     }
     qp_flush(display);
 }

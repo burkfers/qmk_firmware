@@ -121,16 +121,26 @@ led_config_t g_led_config = {
 ////  QUANTUM PAINTER SECTION  ////
 #ifdef QUANTUM_PAINTER_ENABLE
     #include "qp_st7789.h"
-    extern painter_device_t display;
+    #include <qp_lvgl.h>
+    #include <qp.h>
+    static painter_device_t display;
     __attribute__((weak)) void draw_ui_user(void) {} //_user should not be in the keyboard.c
     __attribute__((weak)) void ui_init(void) {}
 #endif
 
 void keyboard_post_init_kb(void) {
     #ifdef QUANTUM_PAINTER_ENABLE
-        ui_init(); //initialize display // if this is missing you will crash qmk on kb boot
+        // ui_init(); //initialize display // if this is missing you will crash qmk on kb boot
+        display = qp_st7789_make_spi_device(240, 320, DISPLAY_CS_PIN, DISPLAY_DC_PIN, DISPLAY_RST_PIN, DISPLAY_SPI_DIVISOR, 3);
+        qp_init(display, QP_ROTATION_0);
+        qp_rect(display, 0, 0, 240, 320, HSV_BLACK, true);
         // print here
         wait_ms(50);
+        if (qp_lvgl_attach(display)) {     // Attach LVGL to the display
+            lv_obj_t * btn = lv_btn_create(lv_scr_act());     /*Add a button the current screen*/
+            lv_obj_set_pos(btn, 10, 10);                            /*Set its position*/
+            lv_obj_set_size(btn, 120, 50);                          /*Set its size*/
+        }
     #endif
     pointing_device_set_cpi_on_side(true, LEFT_PMW_CPI);
     pointing_device_set_cpi_on_side(false, RIGHT_PMW_CPI);
@@ -144,12 +154,16 @@ void housekeeping_task_kb(void) {
         setPinOutput(BACKLIGHT_PIN);
         if (lcd_power) {
             writePinHigh(BACKLIGHT_PIN);
+            qp_power(display, true);
         } else {
             writePinLow(BACKLIGHT_PIN);
+            qp_power(display, false);
         }
-        if (lcd_power) {
-            draw_ui_user(); //_user should not be in the keyboard.c
-        }
+
+        // if (lcd_power) {
+            // draw_ui_user(); //_user should not be in the keyboard.c
+            // uprintf("lcd_power is: %d \n", lcd_power);
+        // }
     #endif // QUANTUM_PAINTER_ENABLE
 }
 

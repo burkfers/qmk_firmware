@@ -19,24 +19,24 @@
 #include "arcboard_mk17.h"
 #include "keymap.h"
 
-#ifdef QUANTUM_PAINTER_ENABLE
-    #include "qp_st7789.h"
-    #include <qp.h>
-    extern painter_device_t display;
-    const char *current_layer_name(void) {
-        switch (get_highest_layer(layer_state)) {
-            case _QWERTY:
-                return "qwerty";
-            case _NAV:
-                return "nav";
-            case _SYMBOLS:
-                return "symbols";
-            case _MOUSE:
-                return "mouse";
-        }
-        return "unknown";
-    }
-#endif // QUANTUM_PAINTER_ENABLE
+// #ifdef QUANTUM_PAINTER_ENABLE
+//     #include "qp_st7789.h"
+//     #include <qp.h>
+//     extern painter_device_t display;
+//     const char *current_layer_name(void) {
+//         switch (get_highest_layer(layer_state)) {
+//             case _QWERTY:
+//                 return "qwerty";
+//             case _NAV:
+//                 return "nav";
+//             case _SYMBOLS:
+//                 return "symbols";
+//             case _MOUSE:
+//                 return "mouse";
+//         }
+//         return "unknown";
+//     }
+// #endif // QUANTUM_PAINTER_ENABLE
 
 #if defined(RGB_MATRIX_LEDMAPS_ENABLED)
     #include "rgb_ledmaps.h"
@@ -49,9 +49,9 @@
 void keyboard_post_init_user(void) {
     #if defined(CONSOLE_ENABLE)
         // Customise these values to desired behaviour
-        // debug_enable=true;
+        debug_enable=true;
         // debug_matrix=true;
-        // debug_keyboard=true;
+        debug_keyboard=true;
         // debug_mouse=true;
     #endif
 }
