@@ -6,11 +6,6 @@
 
 #pragma once
 
-#ifdef CONSOLE_ENABLE
-    // #define SERIAL_DEBUG
-    // #define QUANTUM_PAINTER_DEBUG // this puts out crazy amounts of debug
-#endif
-
 #define MATRIX_ROW_PINS { GP7, GP6, GP5, GP4, GP3, GP2 }
 #define MATRIX_COL_PINS { GP21, GP20, GP19, GP18, GP17, GP16 }
 #define DIODE_DIRECTION COL2ROW
@@ -34,7 +29,19 @@
 // Split settings
 #ifdef SPLIT_KEYBOARD
     #define EE_HANDS                            // cuz we are using hand-targeted flashing, which sets eeprom handednesss
-    #define SERIAL_USART_TX_PIN GP1  // I could never get full-duplex working; this is the only config needed for half-duplex
+    #define SERIAL_USART_TX_PIN GP1             // I could never get full-duplex working; this is the only config needed for half-duplex
+    #define SERIAL_PIO_USE_PIO1                 // using PIO0 i get a lot of dropped packets; none using PIO1
+    /*
+        Scan rate changes...
+        230400 = 640 (default)
+        460800 = 780 (labeled as 'experimental')
+        700000 = 840
+        800000 = 860 (35% improvement!)
+        850000 = 'Failed to execute encoder/pointer' errors
+        900000 = 875, but inconsistent, ranges from 855-875
+        921600 = 'Failed to execute encoder' errors
+    */
+    #define SERIAL_USART_SPEED 800000
     // must have eeprom reset buttons on both halves
     #define BOOTMAGIC_LITE_ROW 0
     #define BOOTMAGIC_LITE_COLUMN 0
@@ -104,15 +111,12 @@
     #define DISPLAY_SPI_DIVISOR 4
     #define DISPLAY_DC_PIN GP8
     #define DISPLAY_CS_PIN GP9
-    #define DISPLAY_RST_PIN GP29
+    #define DISPLAY_RST_PIN NO_PIN
     #define ST7789_NUM_DEVICES 2
     #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0
     #define QUANTUM_PAINTER_SUPPORTS_256_PALETTE TRUE
     #define QP_MATRIX_SCAN_INTERVAL 1000
     #define DEBUG_MATRIX_SCAN_RATE // we call it on the TFTs
-    #if defined(QP_DEBUG_ENABLE)
-        #define QUANTUM_PAINTER_DEBUG
-    #endif
     #if defined(BACKLIGHT_ENABLE)
         #define BACKLIGHT_PWM_DRIVER PWMD0
         #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A // waveshare rp2040-plus has 16 pwm channels
