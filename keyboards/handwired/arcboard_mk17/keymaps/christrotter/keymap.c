@@ -19,6 +19,14 @@
 #include "arcboard_mk17.h"
 #include "keymap.h"
 
+#if defined(ENCODER_MAP_ENABLE)
+    #include "encoder_maps.c"
+#endif
+
+#if defined(POINTING_DEVICE_ENABLE)
+    #include "pointing.c"
+#endif
+
 // #ifdef QUANTUM_PAINTER_ENABLE
 //     #include "qp_st7789.h"
 //     #include <qp.h>
@@ -416,56 +424,3 @@ const ledmap ledmaps[] = {
    ),
 };
 #endif // RGB_MATRIX_LEDMAPS_ENABLED
-
-// encoder functions per layer, LEFT        RIGHT
-#if defined(ENCODER_MAP_ENABLE)
-    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-        // so here, [_LAYERNAME] = { ENCODER_CCW_CW(ccw-action,cw-action), ENCODER_CCW_CW(ccw-action,cw-action), ENCODER_CCW_CW(ccw-action,cw-action), ENCODER_CCW_CW(ccw-action,cw-action) }
-        // where you have FalconL1, FalconL2, FalconR1, FalconR2 as the index
-        // as is right now, this means each side has identical encoder mappings
-
-        //  ENCODER_CCW_CW(LEFT-FALCON1), ENCODER_CCW_CW(LEFT-FALCON2),
-        //  ENCODER_CCW_CW(RIGHT-FALCON1), ENCODER_CCW_CW(RIGHT-FALCON2)
-        // and this is kinda hard to grok, cuz the physical implementation is mirrored.
-        //          physically |  logically
-        //          L2,L1,     |  L1,L2,
-        //          R1,R2      |  R1,R2
-        // hindsight: this seems kinda dumb...why not just re-order logical to equal physical?
-        [_QWERTY]   =  {
-            ENCODER_CCW_CW(KC_SPCLEFT, KC_SPCRGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN),
-            ENCODER_CCW_CW(TO(_MOUSE), KC_NO)), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)
-        },
-        [_MOUSE]    =  {
-            ENCODER_CCW_CW(KC_MNXT, KC_MPRV), ENCODER_CCW_CW(KC_NO, KC_NO),
-            ENCODER_CCW_CW(TO(_SYMBOLS), TO(_QWERTY)), ENCODER_CCW_CW(KC_VOLU, KC_VOLD)
-        },
-        [_SYMBOLS]  =  {
-            ENCODER_CCW_CW(GDOCZMIN, GDOCZMOU), ENCODER_CCW_CW(KC_NO, KC_NO),
-            ENCODER_CCW_CW(TO(_NAV), TO(_MOUSE)), ENCODER_CCW_CW(KC_NO, KC_NO)
-        },
-        [_NAV]      =  {
-            ENCODER_CCW_CW(KC_NO, KC_NO), ENCODER_CCW_CW(KC_NO, KC_NO),
-            ENCODER_CCW_CW(KC_NO, TO(_SYMBOLS)), ENCODER_CCW_CW(KC_NO, KC_NO)
-        },
-    };
-#endif
-
-////  POINTING DEVICE SECTION  ////
-
-#if defined(POINTING_DEVICE_ENABLE)
-    void pointing_device_init_user(void) {
-        set_auto_mouse_enable(true);
-    }
-    // TODO do we need this?
-    void pointing_device_init_kb(void) {
-        pointing_device_init_user(); // set auto mouse layer
-    }
-
-    report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
-        left_report.h = left_report.x;
-        left_report.v = left_report.y;
-        left_report.x = 0;
-        left_report.y = 0;
-        return pointing_device_combine_reports(left_report, right_report);
-    }
-#endif

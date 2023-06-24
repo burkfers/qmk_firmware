@@ -15,9 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-#include QMK_KEYBOARD_H
+#include "quantum.h"
+#include "arcboard_mk17.h"
+#include "keymap.h"
 
-#include "color.h"
 
-#define HSV_DARK_ORANGE       21, 255, 150
+#if defined(POINTING_DEVICE_ENABLE)
+    void pointing_device_init_user(void) {
+        set_auto_mouse_enable(true);
+    }
+    // TODO do we need this?
+    void pointing_device_init_kb(void) {
+        pointing_device_init_user(); // set auto mouse layer
+    }
+
+    report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
+        left_report.h = left_report.x;
+        left_report.v = left_report.y;
+        left_report.x = 0;
+        left_report.y = 0;
+        return pointing_device_combine_reports(left_report, right_report);
+    }
+#endif

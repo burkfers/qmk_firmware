@@ -25,4 +25,4 @@
 // for the TFT screen
 #define HAL_USE_PWM TRUE
 
-#include_next "halconf.h"
+#include_next <halconf.h>

@@ -1,3 +1,20 @@
+/*
+ * Copyright 2023 Chris Trotter <ctrotter@gmail.com> (@christrotter)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Publicw License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #pragma once
 
 #include "quantum.h"
@@ -91,21 +108,4 @@ enum custom_keycodes {
     #define HRM_ALT YELLOW
     #define HRM_GUI PURPLE
     #define HRM_SFT GREEN
-
-    #define FAL1_L0 GOLD
-    #define FAL1_L1 ORANGE
-    #define FAL1_L2 BLUE
-    #define FAL1_L3 GREEN
-    #define FAL2_L0 WHITE
-    #define FAL2_L1 RED
-    #define FAL2_L2 PINK
-    #define FAL2_L3 CHART
-    #define FAL3_L0 GOLD
-    #define FAL3_L1 ORANGE
-    #define FAL3_L2 BLUE
-    #define FAL3_L3 GREEN
-    #define FAL4_L0 WHITE
-    #define FAL4_L1 RED
-    #define FAL4_L2 PINK
-    #define FAL4_L3 CHART
 #endif

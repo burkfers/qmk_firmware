@@ -6,9 +6,9 @@
 
 #pragma once
 
-#define MATRIX_ROW_PINS { GP7, GP6, GP5, GP4, GP3, GP2 }
-#define MATRIX_COL_PINS { GP21, GP20, GP19, GP18, GP17, GP16 }
-#define DIODE_DIRECTION COL2ROW
+// #define MATRIX_ROW_PINS { GP7, GP6, GP5, GP4, GP3, GP2 }
+// #define MATRIX_COL_PINS { GP21, GP20, GP19, GP18, GP17, GP16 }
+// #define DIODE_DIRECTION COL2ROW
 #define MATRIX_ROWS 24                          // Rows are doubled-up in a split kb
 #define MATRIX_COLS 6
 #define USB_POLLING_INTERVAL_MS 1 /* Set Polling rate to 1000Hz */
@@ -86,7 +86,6 @@
 
 // WS2812 RGB LED strip input and number of LEDs
 #if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
-    #define RGB_DI_PIN GP28 // do i still need this?
     #define WS2812_DI_PIN GP28 // evidently this is new
     #define RGBLED_NUM 128                       // Total number of LEDs, total of both halves
     #define RGB_MATRIX_SPLIT { 64, 64 }  //  (4x6) + 5 + 12 + 12 + 11 = 64
