@@ -1,13 +1,8 @@
-// Copyright 2023 christrotter (@christrotter)
-// SPDX-License-Identifier: GPL-2.0-or-later
-
 // Copyright 2023 Chris Trotter (@Chris Trotter)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
-// #define MATRIX_ROW_PINS { GP7, GP6, GP5, GP4, GP3, GP2 }
-// #define MATRIX_COL_PINS { GP21, GP20, GP19, GP18, GP17, GP16 }
 // #define DIODE_DIRECTION COL2ROW
 #define MATRIX_ROWS 24                          // Rows are doubled-up in a split kb
 #define MATRIX_COLS 6
@@ -73,6 +68,7 @@
     #define RIGHT_PMW_CPI 700       // your mouse cpi (DPI) setting (how fast the ball tracks)
     #define LEFT_PMW_CPI 100    // dragscroll cpi - interestingly, can't be set below 100?
 
+    // is this still needed?
     // #define POINTING_DEVICE_INVERT_X
     // #define ROTATIONAL_TRANSFORM_ANGLE 100        // Software adjustment for how not-squarely you packaged the sensor
     // #define POINTING_DEVICE_ROTATION_90_RIGHT

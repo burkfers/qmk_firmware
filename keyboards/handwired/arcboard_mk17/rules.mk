@@ -6,13 +6,8 @@ BOOTLOADER 				= rp2040	# Bootloader selection
 BOARD 					= GENERIC_RP_RP2040
 
 # Functionality options
-# BOOTMAGIC_ENABLE		= yes
-# CONSOLE_ENABLE			= yes        # Enables the use of qmk console; debug messages need this
 POINTING_DEBUG_ENABLE	= no
 QP_DEBUG_ENABLE			= no		# degrades performance massively
-# MOUSEKEY_ENABLE 		= yes       # Mouse keys
-# EXTRAKEY_ENABLE 		= yes       # Audio control and System control
-# NKRO_ENABLE 			= yes 		# Enable N-Key Rollover
 TAP_DANCE_ENABLE        = yes
 
 # LED settings
@@ -39,5 +34,5 @@ ENCODER_ENABLE = yes
 ENCODER_MAP_ENABLE = yes
 
 # Enable the TFT screens
-# currently disabled cuz transport woes, probably related to SPI config
+# currently disabled cuz wiring woes
 QUANTUM_PAINTER_ENABLE 	= no
