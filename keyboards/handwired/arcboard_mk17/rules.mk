@@ -40,4 +40,4 @@ ENCODER_MAP_ENABLE = yes
 
 # Enable the TFT screens
 # currently disabled cuz transport woes, probably related to SPI config
-QUANTUM_PAINTER_ENABLE 	= yes
+QUANTUM_PAINTER_ENABLE 	= no

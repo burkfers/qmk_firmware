@@ -12,6 +12,7 @@
 #define MATRIX_ROWS 24                          // Rows are doubled-up in a split kb
 #define MATRIX_COLS 6
 #define USB_POLLING_INTERVAL_MS 1 /* Set Polling rate to 1000Hz */
+#define DEBUG_MATRIX_SCAN_RATE // we call it on the TFTs
 
 // setting the SPI pins for the PMW // why isn't this inside pointing_device_enable?
 #define SPI_DRIVER SPID1
@@ -36,9 +37,9 @@
         230400 = 640 (default)
         460800 = 780 (labeled as 'experimental')
         700000 = 840
-        800000 = 860 (35% improvement!)
+        800000 = 860 (35% improvement! very consistent numbers)
         850000 = 'Failed to execute encoder/pointer' errors
-        900000 = 875, but inconsistent, ranges from 855-875
+        900000 = 875, but inconsistent numbers, ranging from 855-875
         921600 = 'Failed to execute encoder' errors
     */
     #define SERIAL_USART_SPEED 800000
@@ -116,7 +117,6 @@
     #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0
     #define QUANTUM_PAINTER_SUPPORTS_256_PALETTE TRUE
     #define QP_MATRIX_SCAN_INTERVAL 1000
-    #define DEBUG_MATRIX_SCAN_RATE // we call it on the TFTs
     #if defined(BACKLIGHT_ENABLE)
         #define BACKLIGHT_PWM_DRIVER PWMD0
         #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A // waveshare rp2040-plus has 16 pwm channels
