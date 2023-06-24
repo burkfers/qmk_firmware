@@ -101,15 +101,17 @@ tap_dance_action_t tap_dance_actions[] = {
 // clang-format on
 
 // this might be handy...
-// KC_MCTL
+// KC_MCTL (pops mission control - the thing used to re-order 'spaces')
+
+// KC_F on thumb and 5way rows == falcon button
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
     KC_TILD,LT(0,KC_1),LT(0,KC_2),LT(0,KC_3),LT(0,KC_4),LT(0,KC_5),     LT(0,KC_6),LT(0,KC_7),LT(0,KC_8),LT(0,KC_9),KC_0,KC_EQUAL,
     KC_TAB , KC_Q,LT(0,KC_W),HOME_E, LT(0,KC_R),LT(0,KC_T),             KC_Y,   KC_U,LT(0,KC_I), KC_O,   KC_P,   KC_MINUS,
     KC_LSFT, LT(0,KC_A),  HOME_S,  HOME_D,  HOME_F , KC_G,              KC_H,  HOME_J, HOME_K, HOME_L, KC_QUOT,KC_SCLN,
     ZOOM_VID,LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),LT(0,KC_B),    LT(0,KC_N), HOME_M, KC_COMM,KC_DOT, KC_SLASH, ZOOM_MUTE,
-    KC_BSPC, KC_DEL, KC_MULTILNE, KC_TAB, OSM(MOD_LSFT), KC_F,        KC_MULTILNE, OSM(MOD_LSFT), MO(_SYMBOLS), KC_ENTER, KC_SPACE, MAGIPLAY,
-    MO(_NAV), KC_ESC, KC_DEL, OSM(MOD_LSFT), KC_TAB, GDOCZMIN,            KC_NO, KC_UP, KC_LEFT, KC_DOWN, KC_RIGHT, KC_F,
+    KC_BSPC, KC_DEL, MO(_NAV), KC_ESC, OSM(MOD_LSFT), KC_F,             KC_MULTILNE, OSM(MOD_LSFT), MO(_SYMBOLS), KC_ENTER, KC_SPACE, KC_F,
+    KC_NO, KC_TAB_R, KC_SPCLEFT, KC_TAB_L, KC_SPCRGHT, KC_F,            KC_NO, KC_UP, KC_LEFT, KC_DOWN, KC_RIGHT, KC_F,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
