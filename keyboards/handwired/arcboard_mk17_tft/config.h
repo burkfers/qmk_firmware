@@ -12,12 +12,12 @@
 #define CRC8_USE_TABLE
 #define CRC8_OPTIMIZE_SPEED
 
-// SPI setup
+// SPI setup (PMW33xx is normally in use)
 #define SPI_DRIVER SPID1  // Waveshare documentation says these pins are SPI1
 #define SPI_SCK_PIN GP10  // clock is shared
 #define SPI_MOSI_PIN GP11 // mosi is shared
 #define SPI_MISO_PIN GP12 // this is dedicated for pmw according to wiring doc
-#define SPI_MATRIX_DIVISOR 8
+#define SPI_MATRIX_DIVISOR 8 // pmw33xx
 #define DISPLAY_SPI_DIVISOR 4
 #define DISPLAY_DC_PIN GP8
 #define DISPLAY_CS_PIN GP9
@@ -26,4 +26,4 @@
 
 // QP config
 #define QUANTUM_PAINTER_TASK_THROTTLE 50 // trying to reduce the scan rate impact
-
+#define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0 // this is super important - you get a white screen after 30s otherwise

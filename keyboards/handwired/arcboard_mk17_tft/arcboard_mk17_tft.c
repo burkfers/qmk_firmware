@@ -12,11 +12,10 @@ void keyboard_post_init_kb(void) {
     // could not get the backlight feature working, sorry elpekenin!
     setPinOutput(DISPLAY_LED_PIN);
     writePinHigh(DISPLAY_LED_PIN);
-    wait_ms(50); // freznel had this, not sure if necessary, but probably not a big deal either;
-    // don't think this matters to my situation, but here it is...
-    qp_power(display, true);
 }
 
 void housekeeping_task_kb(void) {
-        qp_rect(display, 0, 0, 240, 320, HSV_BLUE, true);
+    // commenting the qp_rect out brings matrix scan rate from 25 to 12000
+    qp_rect(display, 0, 0, 240, 320, HSV_BLUE, true);
+    qp_flush(display);
 }
