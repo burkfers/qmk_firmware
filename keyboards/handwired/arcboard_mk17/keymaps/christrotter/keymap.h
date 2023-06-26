@@ -62,6 +62,9 @@
 #define ZOOM_MUTE LSFT(LGUI(KC_COMM))
 #define ZOOM_VID LSFT(LGUI(KC_DOT))
 
+// single button to reset layer
+#define KC_LAYER_RESET TO(_QWERTY)
+
 enum custom_keycodes {
     KC_YAY = SAFE_RANGE,
 };
@@ -109,3 +112,25 @@ enum custom_keycodes {
     #define HRM_GUI PURPLE
     #define HRM_SFT GREEN
 #endif
+
+// encoder button mapping
+    // left, flat
+    #define FAL1_L0_BT KC_NO
+    #define FAL1_L1_BT KC_NO
+    #define FAL1_L2_BT KC_NO
+    #define FAL1_L3_BT KC_NO
+    // left, angled
+    #define FAL2_L0_BT KC_NO
+    #define FAL2_L1_BT KC_NO
+    #define FAL2_L2_BT KC_NO
+    #define FAL2_L3_BT KC_NO
+    // right, angled - full-time layer selector
+    #define FAL3_L0_BT KC_LAYER_RESET
+    #define FAL3_L1_BT KC_LAYER_RESET
+    #define FAL3_L2_BT KC_LAYER_RESET
+    #define FAL3_L3_BT KC_LAYER_RESET
+    // right, flat
+    #define FAL4_L0_BT KC_MACSHOT
+    #define FAL4_L1_BT KC_MUTE
+    #define FAL4_L2_BT KC_NO
+    #define FAL4_L3_BT MAGIPLY

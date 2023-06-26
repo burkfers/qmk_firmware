@@ -27,24 +27,24 @@
     #include "pointing.c"
 #endif
 
-// #ifdef QUANTUM_PAINTER_ENABLE
-//     #include "qp_st7789.h"
-//     #include <qp.h>
-//     extern painter_device_t display;
-//     const char *current_layer_name(void) {
-//         switch (get_highest_layer(layer_state)) {
-//             case _QWERTY:
-//                 return "qwerty";
-//             case _NAV:
-//                 return "nav";
-//             case _SYMBOLS:
-//                 return "symbols";
-//             case _MOUSE:
-//                 return "mouse";
-//         }
-//         return "unknown";
-//     }
-// #endif // QUANTUM_PAINTER_ENABLE
+#ifdef QUANTUM_PAINTER_ENABLE
+    #include "qp_st7789.h"
+    #include <qp.h>
+    extern painter_device_t display;
+    const char *current_layer_name(void) {
+        switch (get_highest_layer(layer_state)) {
+            case _QWERTY:
+                return "qwerty";
+            case _NAV:
+                return "nav";
+            case _SYMBOLS:
+                return "symbols";
+            case _MOUSE:
+                return "mouse";
+        }
+        return "unknown";
+    }
+#endif // QUANTUM_PAINTER_ENABLE
 
 #if defined(RGB_MATRIX_LEDMAPS_ENABLED)
     #include "rgb_ledmaps.h"
@@ -57,9 +57,9 @@
 void keyboard_post_init_user(void) {
     #if defined(CONSOLE_ENABLE)
         // Customise these values to desired behaviour
-        debug_enable=true;
+        // debug_enable=true;
         // debug_matrix=true;
-        debug_keyboard=true;
+        // debug_keyboard=true;
         // debug_mouse=true;
     #endif
 }
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT, LT(0,KC_A),  HOME_S,  HOME_D,  HOME_F , KC_G,              KC_H,  HOME_J, HOME_K, HOME_L, KC_QUOT,KC_SCLN,
     ZOOM_VID,LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),LT(0,KC_B),    LT(0,KC_N), HOME_M, KC_COMM,KC_DOT, KC_SLASH, ZOOM_MUTE,
     KC_BSPC, KC_DEL, MO(_NAV), KC_ESC, OSM(MOD_LSFT), KC_F,             KC_MULTILNE, OSM(MOD_LSFT), MO(_SYMBOLS), KC_ENTER, KC_SPACE, KC_F,
-    KC_NO, KC_TAB_R, KC_SPCLEFT, KC_TAB_L, KC_SPCRGHT, KC_F,            KC_NO, KC_UP, KC_LEFT, KC_DOWN, KC_RIGHT, KC_F,
+    KC_N, KC_TAB_R, KC_SPCLEFT, KC_TAB_L, KC_SPCRGHT, KC_F,             KC_N, KC_UP, KC_LEFT, KC_DOWN, KC_RIGHT, KC_F,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,

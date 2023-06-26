@@ -107,10 +107,9 @@
     #define DISPLAY_SPI_DIVISOR 4
     #define DISPLAY_DC_PIN GP8
     #define DISPLAY_CS_PIN GP9
-    #define DISPLAY_RST_PIN NO_PIN
-    #define ST7789_NUM_DEVICES 2
-    #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0
-    #define QUANTUM_PAINTER_SUPPORTS_256_PALETTE TRUE
+    #define DISPLAY_RST_PIN GP0 // NO_PIN // not needed for 7789
+    #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0 // never turn off the display; i'm troubleshooting why QP is not working, this is not really necessary
+    #define QUANTUM_PAINTER_TASK_THROTTLE 10 // trying to reduce the scan rate hit
     #define QP_MATRIX_SCAN_INTERVAL 1000
     #if defined(BACKLIGHT_ENABLE)
         #define BACKLIGHT_PWM_DRIVER PWMD0

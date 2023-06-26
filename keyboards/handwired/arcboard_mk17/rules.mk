@@ -6,8 +6,6 @@ BOOTLOADER 				= rp2040	# Bootloader selection
 BOARD 					= GENERIC_RP_RP2040
 
 # Functionality options
-POINTING_DEBUG_ENABLE	= no
-QP_DEBUG_ENABLE			= no		# degrades performance massively
 TAP_DANCE_ENABLE        = yes
 
 # LED settings
@@ -30,9 +28,8 @@ PICO_INTRINSICS_ENABLED = no # ATM Unsupported by ChibiOS.
 SERIAL_DRIVER = vendor
 
 # Encoder
-ENCODER_ENABLE = yes
 ENCODER_MAP_ENABLE = yes
 
 # Enable the TFT screens
 # currently disabled cuz wiring woes
-QUANTUM_PAINTER_ENABLE 	= no
+QUANTUM_PAINTER_ENABLE 	= yes

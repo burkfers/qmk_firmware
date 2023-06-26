@@ -26,11 +26,13 @@
 //#define DEBOUNCE 5                // trying this down from 45, apparently can contribute to input lag
 #define ONESHOT_TAP_TOGGLE 2        /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 2000        /* Time (in ms) before the one shot key is released */
-
 #define CUSTOM_KEYCODES
 
 #if defined(CONSOLE_ENABLE)
     // #define DEBUG_MATRIX_SCAN_RATE
+    // #if defined(QP_DEBUG_ENABLE)
+    //     #define QUANTUM_PAINTER_DEBUG // massively degrades performance!!!
+    // #endif
 #endif
 
 #if defined(POINTING_DEVICE_ENABLE)
