@@ -25,8 +25,4 @@
 #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0 // never turn off the display; i'm troubleshooting why QP is not working, this is not really necessary
 #define QUANTUM_PAINTER_TASK_THROTTLE 10 // trying to reduce the scan rate hit
 #define QP_MATRIX_SCAN_INTERVAL 1000
-#define BACKLIGHT_PWM_DRIVER PWMD0
-#define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A // waveshare rp2040-plus has 16 pwm channels
 #define BACKLIGHT_PIN GP22
-#define BACKLIGHT_LIMIT_VAL	128 // limiting this cuz...don't want to crash the board?...is that founded?
-#define BACKLIGHT_LEVELS 1

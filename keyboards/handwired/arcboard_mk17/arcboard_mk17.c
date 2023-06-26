@@ -8,7 +8,9 @@
     #include "qp_st7789.h"
     // #include <qp_lvgl.h>
     #include <qp.h>
+    #include "graphics/awesome.qgf.h"
     painter_device_t display;
+    static painter_image_handle_t awesome;
     bool lcd_power = false;
     __attribute__((weak)) void draw_ui_user(void) {} //_user should not be in the keyboard.c
     __attribute__((weak)) void ui_init(void) {}
@@ -153,10 +155,14 @@ void housekeeping_task_kb(void) {
         }
 
         if (lcd_power) {
-            qp_rect(display, 0, 0, 240, 320, HSV_BLACK, true);
+            // qp_rect(display, 0, 0, 240, 320, HSV_BLACK, true);
             // qp_rect(display, 0, 0, 240, 106, HSV_RED, true);
             // qp_rect(display, 0, 106, 240, 212, HSV_GREEN, true);
             // qp_rect(display, 0, 212, 240, 320, HSV_BLUE, true);
+            awesome = qp_load_image_mem(awesome);
+            if (awesome != NULL) {
+                qp_drawimage(display, (239 - awesome->width), (319 - awesome->height), awesome);
+            }
             qp_flush(display);
         }
     #endif // QUANTUM_PAINTER_ENABLE

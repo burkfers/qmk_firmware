@@ -1,2 +1,4 @@
 #pragma once
-#define SCREEN_TIMEOUT 180000 // this is 180s
+#define DEBUG_MATRIX_SCAN_RATE
+
+// #define QUANTUM_PAINTER_DEBUG
