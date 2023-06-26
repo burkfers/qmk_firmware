@@ -44,6 +44,6 @@
     #define DRAGSCROLL_BUFFER_SIZE 6
 #endif
 
-#ifdef BACKLIGHT_ENABLE
+#if defined(BACKLIGHT_ENABLE)
     #define SCREEN_TIMEOUT 180000 // this is 180s
 #endif // BACKLIGHT_ENABLE

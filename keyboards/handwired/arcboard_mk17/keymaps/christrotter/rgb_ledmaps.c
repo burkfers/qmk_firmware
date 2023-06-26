@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "rgb_ledmaps.h"
+#include "arcboard_mk17.h"
 
 #if defined(POINTING_DEVICE_ENABLE) && defined(DRAGSCROLL_ENABLE)
     #include "keymap.h"

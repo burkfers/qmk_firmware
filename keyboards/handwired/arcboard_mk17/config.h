@@ -23,7 +23,7 @@
 #define CRC8_OPTIMIZE_SPEED
 
 // Split settings
-#ifdef SPLIT_KEYBOARD
+#if defined(SPLIT_KEYBOARD)
     #define EE_HANDS                            // cuz we are using hand-targeted flashing, which sets eeprom handednesss
     #define SERIAL_USART_TX_PIN GP1             // I could never get full-duplex working; this is the only config needed for half-duplex
     #define SERIAL_PIO_USE_PIO1                 // using PIO0 i get a lot of dropped packets; none using PIO1
@@ -52,8 +52,8 @@
     #define SPLIT_MODS_ENABLE                   // docs say it is for telling the other half about modifier (e.g. oneshot) state // this removed 35 from scanrate
 #endif
 
-#ifdef POINTING_DEVICE_ENABLE
-    #ifdef POINTING_DEBUG_ENABLE
+#if defined(POINTING_DEVICE_ENABLE)
+    #if defined(POINTING_DEBUG_ENABLE)
         #define POINTING_DEVICE_DEBUG // enables some handy debug output; pair with 'debug_mouse=true' in your keyboard_post_init_user // also, should wrap debug up in something maybe
     #endif
     #define MOUSE_EXTENDED_REPORT // do we need this?
@@ -109,7 +109,7 @@
     #define DISPLAY_CS_PIN GP9
     #define DISPLAY_RST_PIN GP0 // NO_PIN // not needed for 7789
     #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0 // never turn off the display; i'm troubleshooting why QP is not working, this is not really necessary
-    #define QUANTUM_PAINTER_TASK_THROTTLE 10 // trying to reduce the scan rate hit
+    #define QUANTUM_PAINTER_TASK_THROTTLE 30 // trying to reduce the scan rate hit
     #define QP_MATRIX_SCAN_INTERVAL 1000
     #if defined(BACKLIGHT_ENABLE)
         #define BACKLIGHT_PWM_DRIVER PWMD0

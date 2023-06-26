@@ -27,23 +27,23 @@
     #include "pointing.c"
 #endif
 
-#ifdef QUANTUM_PAINTER_ENABLE
+#if defined(QUANTUM_PAINTER_ENABLE)
     #include "qp_st7789.h"
     #include <qp.h>
-    extern painter_device_t display;
-    const char *current_layer_name(void) {
-        switch (get_highest_layer(layer_state)) {
-            case _QWERTY:
-                return "qwerty";
-            case _NAV:
-                return "nav";
-            case _SYMBOLS:
-                return "symbols";
-            case _MOUSE:
-                return "mouse";
-        }
-        return "unknown";
-    }
+    // extern painter_device_t display;
+    // const char *current_layer_name(void) {
+    //     switch (get_highest_layer(layer_state)) {
+    //         case _QWERTY:
+    //             return "qwerty";
+    //         case _NAV:
+    //             return "nav";
+    //         case _SYMBOLS:
+    //             return "symbols";
+    //         case _MOUSE:
+    //             return "mouse";
+    //     }
+    //     return "unknown";
+    // }
 #endif // QUANTUM_PAINTER_ENABLE
 
 #if defined(RGB_MATRIX_LEDMAPS_ENABLED)

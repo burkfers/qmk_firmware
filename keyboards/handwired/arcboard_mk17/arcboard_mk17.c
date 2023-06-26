@@ -4,9 +4,9 @@
 #include "arcboard_mk17.h"
 
 ////  QUANTUM PAINTER SECTION  ////
-#ifdef QUANTUM_PAINTER_ENABLE
+#if defined(QUANTUM_PAINTER_ENABLE)
     #include "qp_st7789.h"
-    #include <qp_lvgl.h>
+    // #include <qp_lvgl.h>
     #include <qp.h>
     painter_device_t display;
     bool lcd_power = false;
@@ -125,20 +125,22 @@ led_config_t g_led_config = {
 #endif
 
 void keyboard_post_init_kb(void) {
-    #ifdef QUANTUM_PAINTER_ENABLE
+    #if defined(QUANTUM_PAINTER_ENABLE)
         display = qp_st7789_make_spi_device(240, 320, DISPLAY_CS_PIN, DISPLAY_DC_PIN, DISPLAY_RST_PIN, DISPLAY_SPI_DIVISOR, 3);
         qp_init(display, QP_ROTATION_0);
-        qp_rect(display, 0, 0, 240, 320, HSV_BLACK, true);
+        // qp_rect(display, 0, 0, 240, 320, HSV_BLACK, true);
         // print here
         wait_ms(50);
     #endif
-    pointing_device_set_cpi_on_side(true, LEFT_PMW_CPI);
-    pointing_device_set_cpi_on_side(false, RIGHT_PMW_CPI);
+    #if defined(POINTING_DEVICE_ENABLE)
+        pointing_device_set_cpi_on_side(true, LEFT_PMW_CPI);
+        pointing_device_set_cpi_on_side(false, RIGHT_PMW_CPI);
+    #endif
     keyboard_post_init_user(); //_user should not be in the keyboard.c
 }
 
 void housekeeping_task_kb(void) {
-    #ifdef QUANTUM_PAINTER_ENABLE
+    #if defined(QUANTUM_PAINTER_ENABLE)
         // set the lcd_power state bool based on matrix activity vs. SCREEN_TIMEOUT value
         lcd_power = (last_input_activity_elapsed() < SCREEN_TIMEOUT) ? 1 : 0;
         setPinOutput(BACKLIGHT_PIN);
@@ -150,14 +152,13 @@ void housekeeping_task_kb(void) {
             qp_power(display, false);
         }
 
-        // if (lcd_power) {
-        //     qp_rect(display, 0, 0, 240, 106, HSV_RED, true);
-        //     qp_rect(display, 0, 106, 240, 212, HSV_GREEN, true);
-        //     qp_rect(display, 0, 212, 240, 320, HSV_BLUE, true);
-        //     qp_flush(display);
-        // }
-        // if (qp_lvgl_attach(display)) {
-        // }
+        if (lcd_power) {
+            qp_rect(display, 0, 0, 240, 320, HSV_BLACK, true);
+            // qp_rect(display, 0, 0, 240, 106, HSV_RED, true);
+            // qp_rect(display, 0, 106, 240, 212, HSV_GREEN, true);
+            // qp_rect(display, 0, 212, 240, 320, HSV_BLUE, true);
+            qp_flush(display);
+        }
     #endif // QUANTUM_PAINTER_ENABLE
 }
 
