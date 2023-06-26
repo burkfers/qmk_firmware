@@ -90,7 +90,7 @@ const tft_panel_dc_reset_painter_driver_vtable_t st7789_driver_vtable = {
             .flush           = qp_tft_panel_flush,
             .pixdata         = qp_tft_panel_pixdata,
             .viewport        = qp_tft_panel_viewport,
-            .palette_convert = qp_tft_panel_palette_convert_rgb565_swapped,
+            .palette_convert = qp_tft_panel_palette_convert_rgb888,
             .append_pixels   = qp_tft_panel_append_pixels_rgb565,
             .append_pixdata  = qp_tft_panel_append_pixdata,
         },
