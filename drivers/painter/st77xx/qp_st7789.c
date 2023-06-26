@@ -55,7 +55,7 @@ __attribute__((weak)) bool qp_st7789_init(painter_device_t device, painter_rotat
         ST77XX_CMD_RESET,            120,  0,
         ST77XX_CMD_SLEEP_OFF,          5,  0,
         ST77XX_SET_PIX_FMT,            0,  1, 0x55,
-        ST77XX_CMD_INVERT_ON,          0,  0,
+        ST77XX_CMD_INVERT_OFF,         0,  0,
         ST77XX_CMD_NORMAL_ON,          0,  0,
         ST77XX_CMD_DISPLAY_ON,        20,  0
     };
@@ -90,7 +90,7 @@ const tft_panel_dc_reset_painter_driver_vtable_t st7789_driver_vtable = {
             .flush           = qp_tft_panel_flush,
             .pixdata         = qp_tft_panel_pixdata,
             .viewport        = qp_tft_panel_viewport,
-            .palette_convert = qp_tft_panel_palette_convert_rgb888,
+            .palette_convert = qp_tft_panel_palette_convert_rgb565_swapped,
             .append_pixels   = qp_tft_panel_append_pixels_rgb565,
             .append_pixdata  = qp_tft_panel_append_pixdata,
         },
