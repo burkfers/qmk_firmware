@@ -1,27 +1,16 @@
 # handwired/arcboard_mk17_tft
 
-![handwired/arcboard_mk17_tft](imgur.com image replace me!)
+A test keyboard for validating my quantum painter woes.
 
-*A short description of the keyboard/project*
+- 7789 TFT
+- RP2040
+- QP enabled
 
-* Keyboard Maintainer: [christrotter](https://github.com/christrotter)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+# Problem description
+The code is attempting to draw a blue box on the screen.
 
-Make example for this keyboard (after setting up your build environment):
+Scan rate is atrociously bad (25) when executing `qp_rect` inside `housekeeping_task_kb`.
+Uncommenting `qp_rect` immediately resolves the scan rate issues.
 
-    make handwired/arcboard_mk17_tft:default
+The issue presents when the SPI bus is shared with a PMW33xx device as well as when it is not.
 
-Flashing example for this keyboard:
-
-    make handwired/arcboard_mk17_tft:default:flash
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
-
-## Bootloader
-
-Enter the bootloader in 3 ways:
-
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
