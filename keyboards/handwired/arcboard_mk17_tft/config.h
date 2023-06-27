@@ -26,3 +26,18 @@
 // QP config
 #define QUANTUM_PAINTER_TASK_THROTTLE 50 // trying to reduce the scan rate impact
 #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0 // this is super important - you get a white screen after 30s otherwise
+
+// RGB matrix config
+// WS2812 RGB LED strip input and number of LEDs
+#if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
+    #define WS2812_DI_PIN GP4 // evidently this is new
+    #define RGBLED_NUM 1                       // Total number of LEDs, total of both halves
+    // #define RGB_MATRIX_SPLIT { 64, 64 }  //  (4x6) + 5 + 12 + 12 + 11 = 64
+    #define RGB_MATRIX_LED_COUNT RGBLED_NUM
+    // this brightness is only for 'default' rgb settings; userspace rgb is set in the keymap config.h
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50 // this has no effect unless you eeprom reset  // setting this too high will cause the trackball to reset every min or so, and at highest just brownout entirely
+    #define RGB_MATRIX_DEFAULT_HUE 5
+    #define RGB_MATRIX_DEFAULT_SAT 5
+    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #define NOP_FUDGE 0.4                       // not sure what this does - some math about rgb brightness or something? - but it won't compile without this set
+#endif

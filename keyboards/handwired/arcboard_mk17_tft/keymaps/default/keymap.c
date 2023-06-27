@@ -7,7 +7,7 @@
 #include "print.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    LAYOUT_ortho_1x1(KC_A)
+    LAYOUT_ortho_1x1(MO(_MOUSE))
 };
 
 void keyboard_post_init_user(void) {
@@ -25,6 +25,8 @@ void keyboard_post_init_user(void) {
         switch (get_highest_layer(layer_state)) {
             case _QWERTY:
                 return "qwerty";
+            case _MOUSE:
+                return "mouse";
         }
         return "unknown";
     }
@@ -58,12 +60,18 @@ void keyboard_post_init_user(void) {
             extern const char *current_layer_name(void);
             const char        *layer_name = current_layer_name();
             const char        *qwerty = "qwerty";
+            const char        *mouse = "mouse";
             int ypos = 150;
             snprintf(buf, sizeof(buf), "%s", layer_name);
             int qwerty_layer = strcmp(layer_name, qwerty);
+            int mouse_layer = strcmp(layer_name, mouse);
             if (qwerty_layer==0) {
                 qp_rect(display, 0, 106, 240, 212, HSV_WHITE, true);
                 qp_drawtext_recolor(display, 35, ypos, font, "QWERTY", HSV_BLACK, HSV_WHITE);
+            }
+            if (mouse_layer==0) {
+                qp_rect(display, 0, 106, 240, 212, HSV_BLUE, true);
+                qp_drawtext_recolor(display, 45, ypos, font, "MOUSE", HSV_WHITE, HSV_BLUE);
             }
         }
         qp_flush(display);

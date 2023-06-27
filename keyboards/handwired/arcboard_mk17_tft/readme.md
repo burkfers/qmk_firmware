@@ -14,3 +14,6 @@ Uncommenting `qp_rect` immediately resolves the scan rate issues.
 
 The issue presents when the SPI bus is shared with a PMW33xx device as well as when it is not.
 
+# Hardware setup
+Only the pins necessary for making the TFT work are used. 5v is supplied from VSYS to a power rail.  Ground rail from GND.
+RST on GP0. 
