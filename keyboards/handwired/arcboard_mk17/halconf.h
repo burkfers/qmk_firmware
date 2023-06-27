@@ -20,9 +20,4 @@
 #define SPI_USE_WAIT TRUE
 #define SPI_SELECT_MODE SPI_SELECT_MODE_PAD // none, pad, port, line, lld
 
-#define HAL_USE_I2C TRUE
-
-// for the TFT screen
-#define HAL_USE_PWM TRUE
-
 #include_next <halconf.h>

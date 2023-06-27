@@ -6,12 +6,8 @@
 ////  QUANTUM PAINTER SECTION  ////
 #if defined(QUANTUM_PAINTER_ENABLE)
     #include "qp_st7789.h"
-    // #include <qp_lvgl.h>
     #include <qp.h>
-    #include "graphics/awesome.qgf.h"
     painter_device_t display;
-    static painter_image_handle_t awesome;
-    bool lcd_power = false;
     __attribute__((weak)) void draw_ui_user(void) {} //_user should not be in the keyboard.c
     __attribute__((weak)) void ui_init(void) {}
 #endif
@@ -130,9 +126,8 @@ void keyboard_post_init_kb(void) {
     #if defined(QUANTUM_PAINTER_ENABLE)
         display = qp_st7789_make_spi_device(240, 320, DISPLAY_CS_PIN, DISPLAY_DC_PIN, DISPLAY_RST_PIN, DISPLAY_SPI_DIVISOR, 3);
         qp_init(display, QP_ROTATION_0);
-        // qp_rect(display, 0, 0, 240, 320, HSV_BLACK, true);
-        // print here
-        wait_ms(50);
+        setPinOutput(DISPLAY_LED_PIN);
+        writePinHigh(DISPLAY_LED_PIN);
     #endif
     #if defined(POINTING_DEVICE_ENABLE)
         pointing_device_set_cpi_on_side(true, LEFT_PMW_CPI);
@@ -143,32 +138,7 @@ void keyboard_post_init_kb(void) {
 
 void housekeeping_task_kb(void) {
     #if defined(QUANTUM_PAINTER_ENABLE)
-        // set the lcd_power state bool based on matrix activity vs. SCREEN_TIMEOUT value
-        lcd_power = (last_input_activity_elapsed() < SCREEN_TIMEOUT) ? 1 : 0;
-        setPinOutput(BACKLIGHT_PIN);
-        if (lcd_power) {
-            writePinHigh(BACKLIGHT_PIN);
-            qp_power(display, true);
-        } else {
-            writePinLow(BACKLIGHT_PIN);
-            qp_power(display, false);
-        }
-
-        if (lcd_power) {
-            // qp_rect(display, 0, 0, 240, 320, HSV_BLACK, true);
-            // qp_rect(display, 0, 0, 240, 106, HSV_RED, true);
-            // qp_rect(display, 0, 106, 240, 212, HSV_GREEN, true);
-            // qp_rect(display, 0, 212, 240, 320, HSV_BLUE, true);
-            awesome = qp_load_image_mem(awesome);
-            if (awesome != NULL) {
-                qp_drawimage(display, (239 - awesome->width), (319 - awesome->height), awesome);
-            }
-            qp_flush(display);
-        }
+        qp_rect(display, 0, 0, 240, 320, HSV_BLUE, true);
+        qp_flush(display);
     #endif // QUANTUM_PAINTER_ENABLE
 }
-
-// Forward declare RP2040 SDK declaration.
-void gpio_init(uint gpio);
-
-void matrix_slave_scan_keymap(void);

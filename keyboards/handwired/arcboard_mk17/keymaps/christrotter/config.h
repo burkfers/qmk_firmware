@@ -29,7 +29,7 @@
 #define CUSTOM_KEYCODES
 
 #if defined(CONSOLE_ENABLE)
-    // #define DEBUG_MATRIX_SCAN_RATE
+    #define DEBUG_MATRIX_SCAN_RATE // we call it on the TFTs
     // #if defined(QP_DEBUG_ENABLE)
     //     #define QUANTUM_PAINTER_DEBUG // massively degrades performance!!!
     // #endif

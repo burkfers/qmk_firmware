@@ -22,10 +22,3 @@
 #undef RP_SPI_USE_SPI1
 #define RP_SPI_USE_SPI1 TRUE
 
-#undef RP_I2C_USE_I2C0
-#define RP_I2C_USE_I2C0 TRUE
-
-#if defined(BACKLIGHT_ENABLE)
-    #undef RP_PWM_USE_PWM0
-    #define RP_PWM_USE_PWM0 TRUE
-#endif

@@ -7,7 +7,6 @@
 #define MATRIX_ROWS 24                          // Rows are doubled-up in a split kb
 #define MATRIX_COLS 6
 #define USB_POLLING_INTERVAL_MS 1 /* Set Polling rate to 1000Hz */
-#define DEBUG_MATRIX_SCAN_RATE // we call it on the TFTs
 
 // setting the SPI pins for the PMW // why isn't this inside pointing_device_enable?
 #define SPI_DRIVER SPID1
@@ -107,15 +106,8 @@
     #define DISPLAY_SPI_DIVISOR 4
     #define DISPLAY_DC_PIN GP8
     #define DISPLAY_CS_PIN GP9
-    #define DISPLAY_RST_PIN GP0 // NO_PIN // not needed for 7789
+    #define DISPLAY_RST_PIN GP0 // without this, white screen
+    #define DISPLAY_LED_PIN GP22
     #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0 // never turn off the display; i'm troubleshooting why QP is not working, this is not really necessary
-    #define QUANTUM_PAINTER_TASK_THROTTLE 30 // trying to reduce the scan rate hit
-    #define QP_MATRIX_SCAN_INTERVAL 1000
-    #if defined(BACKLIGHT_ENABLE)
-        #define BACKLIGHT_PWM_DRIVER PWMD0
-        #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A // waveshare rp2040-plus has 16 pwm channels
-        #define BACKLIGHT_PIN GP22
-        #define BACKLIGHT_LIMIT_VAL	128 // limiting this cuz...don't want to crash the board?...is that founded?
-        #define BACKLIGHT_LEVELS 1
-    #endif // BACKLIGHT_ENABLE
+    #define QUANTUM_PAINTER_TASK_THROTTLE 50 // trying to reduce the scan rate hit
 #endif
