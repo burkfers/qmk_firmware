@@ -17,7 +17,7 @@
 #define SPI_SCK_PIN GP10  // clock is shared
 #define SPI_MOSI_PIN GP11 // mosi is shared
 #define SPI_MISO_PIN GP12 // this is dedicated for pmw according to wiring doc
-#define DISPLAY_SPI_DIVISOR 4
+#define DISPLAY_SPI_DIVISOR 0
 #define DISPLAY_DC_PIN GP8
 #define DISPLAY_CS_PIN GP9
 #define DISPLAY_RST_PIN GP0 // setting this to NO_PIN causes the display to stop showing data

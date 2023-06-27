@@ -7,9 +7,9 @@
 #if defined(QUANTUM_PAINTER_ENABLE)
     #include "qp_st7789.h"
     #include <qp.h>
-    painter_device_t display;
-    __attribute__((weak)) void draw_ui_user(void) {} //_user should not be in the keyboard.c
-    __attribute__((weak)) void ui_init(void) {}
+    __attribute__((weak)) void draw_ui_user(void) {}
+    __attribute__((weak)) void init_ui(void) {}
+    extern painter_device_t display;
 #endif
 
 // clang-format off
@@ -124,21 +124,11 @@ led_config_t g_led_config = {
 
 void keyboard_post_init_kb(void) {
     #if defined(QUANTUM_PAINTER_ENABLE)
-        display = qp_st7789_make_spi_device(240, 320, DISPLAY_CS_PIN, DISPLAY_DC_PIN, DISPLAY_RST_PIN, DISPLAY_SPI_DIVISOR, 3);
-        qp_init(display, QP_ROTATION_0);
-        setPinOutput(DISPLAY_LED_PIN);
-        writePinHigh(DISPLAY_LED_PIN);
+        init_ui();
     #endif
     #if defined(POINTING_DEVICE_ENABLE)
         pointing_device_set_cpi_on_side(true, LEFT_PMW_CPI);
         pointing_device_set_cpi_on_side(false, RIGHT_PMW_CPI);
     #endif
     keyboard_post_init_user(); //_user should not be in the keyboard.c
-}
-
-void housekeeping_task_kb(void) {
-    #if defined(QUANTUM_PAINTER_ENABLE)
-        // qp_rect(display, 0, 0, 240, 320, HSV_BLUE, true);
-        // qp_flush(display);
-    #endif // QUANTUM_PAINTER_ENABLE
 }

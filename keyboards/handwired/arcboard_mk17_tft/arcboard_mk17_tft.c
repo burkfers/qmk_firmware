@@ -4,19 +4,18 @@
 #include <color.h>
 #include "print.h"
 
-painter_device_t display;
+////  QUANTUM PAINTER SECTION  ////
+#if defined(QUANTUM_PAINTER_ENABLE)
+    #include "qp_st7789.h"
+    #include <qp.h>
+    __attribute__((weak)) void draw_ui_user(void) {}
+    __attribute__((weak)) void init_ui(void) {}
+    extern painter_device_t display;
+#endif
 
 void keyboard_post_init_kb(void) {
-    display = qp_st7789_make_spi_device(240, 320, DISPLAY_CS_PIN, DISPLAY_DC_PIN, DISPLAY_RST_PIN, DISPLAY_SPI_DIVISOR, 3);
-    qp_init(display, QP_ROTATION_0);
-    // could not get the backlight feature working, sorry elpekenin!
-    setPinOutput(DISPLAY_LED_PIN);
-    writePinHigh(DISPLAY_LED_PIN);
-    qp_rect(display, 0, 0, 240, 320, HSV_BLUE, true);
-    qp_flush(display);
-}
-
-void housekeeping_task_kb(void) {
-    // commenting the qp_rect out brings matrix scan rate from 25 to 12000
-
+    #if defined(QUANTUM_PAINTER_ENABLE)
+        init_ui();
+    #endif
+    keyboard_post_init_user(); //_user should not be in the keyboard.c
 }

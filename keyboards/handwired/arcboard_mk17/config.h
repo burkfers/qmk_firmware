@@ -12,7 +12,7 @@
 #define SPI_DRIVER SPID1
 #define SPI_SCK_PIN GP10  // clock is shared
 #define SPI_MOSI_PIN GP11 // mosi is shared....?
-#define SPI_MISO_PIN GP12 // this is dedicated for pmw according to wiring doc
+#define SPI_MISO_PIN GP12 // pmw needs this; tft does not
 
 // RP2040 reset functionality
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET      // Activates the double-tap behavior
@@ -61,7 +61,7 @@
     #define SPLIT_POINTING_ENABLE               // required for telling the master side about slave trackball state, i.e. if usb left, and tb right
     #define POINTING_DEVICE_COMBINED
     #define PMW33XX_CS_PIN GP13                 // where the SS (CS) pin on the PMW module connects to the mcu
-    #define PMW33XX_SPI_DIVISOR 64              // this is the default, but given the use of SPI, handy to have here for reference; drivers/sensors/pmw33xx_common.h
+    // #define PMW33XX_SPI_DIVISOR 64              // this is the default, but given the use of SPI, handy to have here for reference; drivers/sensors/pmw33xx_common.h
     #define PMW33XX_LIFTOFF_DISTANCE 0x07       // LIFTOFF_DISTANCE specifies how far from the sensor the trackball is
 #endif
 
@@ -88,8 +88,7 @@
 
 // For the tft display
 #if defined(QUANTUM_PAINTER_ENABLE)
-    #define SPI_MATRIX_DIVISOR 8
-    #define DISPLAY_SPI_DIVISOR 4
+    #define DISPLAY_SPI_DIVISOR 0
     #define DISPLAY_DC_PIN GP8
     #define DISPLAY_CS_PIN GP9
     #define DISPLAY_RST_PIN GP0 // without this, white screen

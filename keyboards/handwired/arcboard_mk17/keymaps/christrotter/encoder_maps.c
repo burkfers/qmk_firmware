@@ -61,20 +61,28 @@
 #if defined(ENCODER_MAP_ENABLE)
     const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
         [_QWERTY]   =  {
-            ENCODER_CCW_CW(KC_SPCLEFT, KC_SPCRGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN),
-            ENCODER_CCW_CW(TO(_MOUSE), KC_NO), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)
+            ENCODER_CCW_CW(KC_SPCLEFT, KC_SPCRGHT),     // Left,  angled
+            ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), // Left,  flat
+            ENCODER_CCW_CW(TO(_MOUSE), KC_NO),          // Right, angled
+            ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  // Right, flat
         },
         [_MOUSE]    =  {
-            ENCODER_CCW_CW(KC_MNXT, KC_MPRV), ENCODER_CCW_CW(KC_NO, KC_NO),
-            ENCODER_CCW_CW(TO(_SYMBOLS), TO(_QWERTY)), ENCODER_CCW_CW(KC_VOLU, KC_VOLD)
+            ENCODER_CCW_CW(KC_MNXT, KC_MPRV),           // Left,  angled
+            ENCODER_CCW_CW(KC_NO, KC_NO),               // Left,  flat
+            ENCODER_CCW_CW(TO(_SYMBOLS), TO(_QWERTY)),  // Right, angled
+            ENCODER_CCW_CW(KC_VOLU, KC_VOLD)            // Right, flat
         },
         [_SYMBOLS]  =  {
-            ENCODER_CCW_CW(GDOCZMIN, GDOCZMOU), ENCODER_CCW_CW(KC_NO, KC_NO),
-            ENCODER_CCW_CW(TO(_NAV), TO(_MOUSE)), ENCODER_CCW_CW(KC_NO, KC_NO)
+            ENCODER_CCW_CW(GDOCZMIN, GDOCZMOU),         // Left,  angled
+            ENCODER_CCW_CW(KC_NO, KC_NO),               // Left,  flat
+            ENCODER_CCW_CW(TO(_NAV), TO(_MOUSE)),       // Right, angled
+            ENCODER_CCW_CW(KC_NO, KC_NO)                // Right, flat
         },
         [_NAV]      =  {
-            ENCODER_CCW_CW(KC_NO, KC_NO), ENCODER_CCW_CW(KC_NO, KC_NO),
-            ENCODER_CCW_CW(KC_NO, TO(_SYMBOLS)), ENCODER_CCW_CW(KC_NO, KC_NO)
+            ENCODER_CCW_CW(KC_NO, KC_NO),               // Left,  angled
+            ENCODER_CCW_CW(KC_NO, KC_NO),               // Left,  flat
+            ENCODER_CCW_CW(KC_NO, TO(_SYMBOLS)),        // Right, angled
+            ENCODER_CCW_CW(KC_NO, KC_NO)                // Right, flat
         },
     };
 #endif

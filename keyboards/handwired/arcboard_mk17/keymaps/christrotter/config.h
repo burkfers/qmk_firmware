@@ -53,7 +53,3 @@
     #define RIGHT_PMW_CPI 500       // your mouse cpi (DPI) setting (how fast the ball tracks)
     #define LEFT_PMW_CPI 100    // dragscroll cpi - interestingly, can't be set below 100?
 #endif
-
-#if defined(QUANTUM_PAINTER_ENABLE)
-    #define SCREEN_TIMEOUT 180000 // this is 180s
-#endif
