@@ -80,5 +80,36 @@ void keyboard_post_init_user(void) {
 void housekeeping_task_user(void) {
     draw_ui_user();
 }
-
 #endif // QUANTUM_PAINTER_ENABLE
+
+#if defined(RGB_MATRIX_LEDMAPS_ENABLED)
+    __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
+    #include "rgb_ledmaps.h"
+#endif
+__attribute__((weak)) void post_process_record_keymap(uint16_t keycode, keyrecord_t *record) {}
+void                       post_process_record_user(uint16_t keycode, keyrecord_t *record) { post_process_record_keymap(keycode, record); }
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!(process_record_keymap(keycode, record)
+        #if defined(RGB_MATRIX_LEDMAPS_ENABLED)
+            && process_record_user_rgb_matrix(keycode, record)
+        #endif
+          && true)) {
+        return false;
+    }
+    return true;
+}
+
+#if defined(RGB_MATRIX_LEDMAPS_ENABLED)
+// the indicator LEDs are mapped using the flags and for loop.
+
+// Right thumb: KC_MULTILNE, OSM(MOD_LSFT), MO(_SYMBOLS), KC_ENTER, KC_SPACE, MAGIPLAY,
+const ledmap ledmaps[] = {
+    [_QWERTY]   = LEDMAP(
+      CYAN
+   ),
+   [_MOUSE]     = LEDMAP(
+      RED
+   ),
+};
+#endif // RGB_MATRIX_LEDMAPS_ENABLED
+
