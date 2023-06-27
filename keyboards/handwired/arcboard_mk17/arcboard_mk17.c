@@ -138,7 +138,7 @@ void keyboard_post_init_kb(void) {
 
 void housekeeping_task_kb(void) {
     #if defined(QUANTUM_PAINTER_ENABLE)
-        qp_rect(display, 0, 0, 240, 320, HSV_BLUE, true);
-        qp_flush(display);
+        // qp_rect(display, 0, 0, 240, 320, HSV_BLUE, true);
+        // qp_flush(display);
     #endif // QUANTUM_PAINTER_ENABLE
 }
