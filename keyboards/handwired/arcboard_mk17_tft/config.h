@@ -17,7 +17,6 @@
 #define SPI_SCK_PIN GP10  // clock is shared
 #define SPI_MOSI_PIN GP11 // mosi is shared
 #define SPI_MISO_PIN GP12 // this is dedicated for pmw according to wiring doc
-#define SPI_MATRIX_DIVISOR 8 // pmw33xx
 #define DISPLAY_SPI_DIVISOR 4
 #define DISPLAY_DC_PIN GP8
 #define DISPLAY_CS_PIN GP9
