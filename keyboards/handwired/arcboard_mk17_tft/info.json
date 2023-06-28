@@ -23,11 +23,11 @@
         "pid": "0x0000",
         "vid": "0xFEED"
     },
-    "community_layouts": ["ortho_1x1"],
     "layouts": {
-        "LAYOUT_ortho_1x1": {
+        "LAYOUT": {
             "layout": [
-                {"x": 0, "y": 0, "matrix": [0, 0]}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [1, 0], "x": 1, "y": 0}
             ]
         }
     }

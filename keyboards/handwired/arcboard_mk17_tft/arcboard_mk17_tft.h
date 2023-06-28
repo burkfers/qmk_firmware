@@ -4,6 +4,8 @@
 #include "color.h"
 #include QMK_KEYBOARD_H
 
+#define _MACROS _MOUSE // do we need this?
+
 #define HSV_MOONLANDER 5, 5, 255
 // Just a handy defines to make our ledmaps look better
 // braces work here because
@@ -55,12 +57,22 @@
 enum userspace_layers {
     _QWERTY             = 0,
     FIRST_DEFAULT_LAYER = 0,
-    _MOUSE              = 1
+    _MOUSE              = 1,
 };
 
 #if defined(RGB_MATRIX_LEDMAPS_ENABLED)
     #include "rgb_ledmaps.h"
 #endif
+
+#if defined(POINTING_DEVICE_ENABLE)
+    enum board_keycodes {
+        DRAG_SCROLL,
+        BOARD_SAFE_RANGE,
+    };
+    #define DRGSCRL DRAG_SCROLL
+
+    bool board_get_pointer_dragscroll_enabled(void);
+#endif // POINTING_DEVICE_ENABLE
 
 void keyboard_post_init_transport_sync(void);
 void housekeeping_task_transport_sync(void);

@@ -7,12 +7,21 @@
 #include "print.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    LAYOUT_ortho_1x1(MO(_MOUSE))
+[_QWERTY] = LAYOUT(
+    MO(_MOUSE), MO(_MOUSE)
+),
+[_MOUSE] = LAYOUT(
+    KC_TRNS, KC_TRNS
+)
 };
 
 void keyboard_post_init_user(void) {
   debug_enable=true;
 }
+
+#if defined(POINTING_DEVICE_ENABLE)
+    #include "pointing.c"
+#endif
 
 #if defined(QUANTUM_PAINTER_ENABLE)
     #include "qp_st7789.h"
@@ -93,9 +102,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #if defined(RGB_MATRIX_LEDMAPS_ENABLED)
             && process_record_user_rgb_matrix(keycode, record)
         #endif
+        #if defined(CUSTOM_POINTING_DEVICE)
+            && process_record_pointing(keycode, record)
+        #endif
           && true)) {
         return false;
     }
+    #if defined(DRAGSCROLL_ENABLE)
+        if (keycode == DRAG_SCROLL && record->event.pressed) {
+            set_scrolling = !set_scrolling;
+            uprintf("Scrolling bool: %s \n", set_scrolling ? "true" : "false");
+        }
+    #endif
     return true;
 }
 
@@ -105,10 +123,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Right thumb: KC_MULTILNE, OSM(MOD_LSFT), MO(_SYMBOLS), KC_ENTER, KC_SPACE, MAGIPLAY,
 const ledmap ledmaps[] = {
     [_QWERTY]   = LEDMAP(
-      CYAN
+      CYAN, BLUE
    ),
    [_MOUSE]     = LEDMAP(
-      RED
+      RED, PURPLE
    ),
 };
 #endif // RGB_MATRIX_LEDMAPS_ENABLED

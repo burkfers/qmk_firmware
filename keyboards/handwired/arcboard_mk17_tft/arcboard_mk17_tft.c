@@ -17,6 +17,10 @@ void keyboard_post_init_kb(void) {
     #if defined(QUANTUM_PAINTER_ENABLE)
         init_ui();
     #endif
+    #if defined(POINTING_DEVICE_ENABLE)
+        pointing_device_set_cpi_on_side(true, LEFT_PMW_CPI);
+        pointing_device_set_cpi_on_side(false, RIGHT_PMW_CPI);
+    #endif
     keyboard_post_init_user(); //_user should not be in the keyboard.c
 }
 
@@ -25,20 +29,21 @@ led_config_t g_led_config = {
     // Key Matrix to LED Index
     {
         { 0 },
+        { 1 }
     },
     // LED Index to Physical Position
     // only used for animations, but necessary for qmk to compile
     // include every LED here
     // needs to match entire led chain, not just keys
     {
-        { 0,   0 }
+        { 0,   0 }, { 0,   0 },
     },
     // LED type bit mask - 4 is per-key
     // include every LED here
     // ordered by keys+thumbL, keys+thumbR, falconL, falconR, indicatorL, indicatorR
     // remember the 5-way/dpad has no LEDs, and occupies a row
     {
-            4,
+            4, 4
     }
 };
 #endif

@@ -17,7 +17,7 @@
 
 #include "quantum.h"
 
-#define LEDMAP( LM_11 ) { LM_11 }
+#define LEDMAP( LM_11, RM_11 ) { LM_11, RM_11 }
 typedef uint8_t ledmap[RGB_MATRIX_LED_COUNT][3];
 extern const ledmap ledmaps[];
 void set_rgb_range(uint8_t led_start, uint8_t led_last, int val, int layer);
