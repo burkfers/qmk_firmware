@@ -1,0 +1,13 @@
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+	OPT_DEFS += -DRGB_MATRIX_ENABLE
+endif
+ifeq ($(strip $(DRAGSCROLL_ENABLE)), yes)
+	OPT_DEFS += -DDRAGSCROLL_ENABLE
+endif
+
+QUANTUM_PAINTER_ENABLE ?= yes
+ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
+	QUANTUM_PAINTER_DRIVERS = st7789_spi
+	QUANTUM_PAINTER_LVGL_INTEGRATION = no
+endif

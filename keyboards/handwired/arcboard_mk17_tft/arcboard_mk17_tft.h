@@ -57,7 +57,9 @@
 enum userspace_layers {
     _QWERTY             = 0,
     FIRST_DEFAULT_LAYER = 0,
-    _MOUSE              = 1,
+    _MOUSE,
+    _SYMBOLS,
+    _NAV,
 };
 
 #if defined(RGB_MATRIX_LEDMAPS_ENABLED)

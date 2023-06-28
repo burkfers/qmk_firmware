@@ -12,12 +12,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_MOUSE] = LAYOUT(
     KC_TRNS, KC_TRNS
+),
+[_SYMBOLS] = LAYOUT(
+    KC_TRNS, KC_TRNS
+),
+[_NAV] = LAYOUT(
+    KC_TRNS, KC_TRNS
 )
 };
 
 void keyboard_post_init_user(void) {
   debug_enable=true;
 }
+
+#if defined(ENCODER_MAP_ENABLE)
+    #include "encoder_maps.c"
+#endif
 
 #if defined(POINTING_DEVICE_ENABLE)
     #include "pointing.c"
@@ -128,6 +138,12 @@ const ledmap ledmaps[] = {
    [_MOUSE]     = LEDMAP(
       RED, PURPLE
    ),
+    [_SYMBOLS]   = LEDMAP(
+      CYAN, BLUE
+   ),
+   [_NAV]     = LEDMAP(
+      RED, PURPLE
+   )
 };
 #endif // RGB_MATRIX_LEDMAPS_ENABLED
 

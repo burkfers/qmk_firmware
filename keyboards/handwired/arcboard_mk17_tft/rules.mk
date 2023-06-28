@@ -1,7 +1,5 @@
 
 QUANTUM_PAINTER_ENABLE 	= yes
-QUANTUM_PAINTER_DRIVERS = st7789_spi
-QUANTUM_PAINTER_LVGL_INTEGRATION = no
 
 RGB_MATRIX_ENABLE 		= yes 		# matrix enable turns on the white background lighting
 RGB_MATRIX_LEDMAPS_ENABLED = yes 	# turn on per-key colours
@@ -17,12 +15,11 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
 	DRAGSCROLL_ENABLE		= yes
 endif
 
-ifeq ($(strip $(DRAGSCROLL_ENABLE)), yes)
-	OPT_DEFS += -DDRAGSCROLL_ENABLE
-endif
-
 # Split settings
 SPLIT_KEYBOARD 			= yes
 # RP2040-specific split options
 PICO_INTRINSICS_ENABLED = no # ATM Unsupported by ChibiOS.
 SERIAL_DRIVER = vendor
+
+# Encoder
+ENCODER_MAP_ENABLE = yes
