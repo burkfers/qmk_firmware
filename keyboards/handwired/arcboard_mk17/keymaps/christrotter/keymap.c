@@ -127,6 +127,10 @@ void keyboard_post_init_user(void) {
         // debug_keyboard=true;
         // debug_mouse=true;
     #endif
+    #if defined(POINTING_DEVICE_ENABLE)
+        pointing_device_set_cpi_on_side(true, LEFT_PMW_CPI); //Set cpi on left side to a low value for slower scrolling.
+        pointing_device_set_cpi_on_side(false, RIGHT_PMW_CPI); //Set cpi on right side to a reasonable value for mousing.
+    #endif
 }
 
 #if defined(TAP_DANCE_ENABLE)
@@ -175,8 +179,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB , KC_Q,LT(0,KC_W),HOME_E, LT(0,KC_R),LT(0,KC_T),             KC_Y,   KC_U,LT(0,KC_I), KC_O,   KC_P,   KC_MINUS,
     KC_LSFT, LT(0,KC_A),  HOME_S,  HOME_D,  HOME_F , KC_G,              KC_H,  HOME_J, HOME_K, HOME_L, KC_QUOT,KC_SCLN,
     ZOOM_VID,LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),LT(0,KC_B),    LT(0,KC_N), HOME_M, KC_COMM,KC_DOT, KC_SLASH, ZOOM_MUTE,
-    KC_BSPC, KC_DEL, MO(_NAV), KC_ESC, OSM(MOD_LSFT), KC_F,             KC_MULTILNE, OSM(MOD_LSFT), MO(_SYMBOLS), KC_ENTER, KC_SPACE, KC_F,
-    KC_N, KC_TAB_R, KC_SPCLEFT, KC_TAB_L, KC_SPCRGHT, KC_F,             KC_N, KC_UP, KC_LEFT, KC_DOWN, KC_RIGHT, KC_F,
+    KC_BSPC, MO(_NAV), KC_DEL, KC_ESC, OSM(MOD_LSFT), KC_1,             KC_MULTILNE, OSM(MOD_LSFT), MO(_SYMBOLS), KC_ENTER, KC_SPACE, KC_LAYRST,
+    KC_UP, KC_RIGHT, KC_DOWN, KC_LEFT, KC_B, KC_2,                      KC_N, KC_UP, KC_LEFT, KC_DOWN, KC_RIGHT, KC_MACSHOT,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
@@ -189,8 +193,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______,               KC_CHRMBACK, KC_CHRMFWD, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,               KC_CHRMBACK, KC_MS_BTN1,KC_MS_BTN3,KC_MS_BTN2, _______, _______,
     _______, _______, _______, _______, _______, _______,               KC_CHRMFWD, KC_MS_BTN1,KC_MS_BTN3,KC_MS_BTN2, _______, _______,
-    _______, _______, _______, _______, _______, _______,               _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,               _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, KC_NO,                 _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, KC_MACLOCK,                 _______, _______, _______, _______, _______, KC_MUTE,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
@@ -203,8 +207,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_EXLM, KC_AT,   KC_LPRN, KC_RPRN, KC_AMPR,               KC_PPLS, KC_1,    KC_2,    KC_3,    KC_PMNS, KC_EQUAL,
     _______, KC_HASH, KC_DLR,  KC_LCBR, KC_RCBR, KC_GRV,                KC_PAST, KC_4,    KC_5,    KC_6,    KC_0,    KC_COMM,
     _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_PIPE,               KC_DOT,  KC_7,    KC_8,    KC_9,    KC_BSLS, _______,
-    _______, _______, _______, _______, _______, _______,               _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,               _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, KC_NO,                 _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, KC_NO,                 _______, _______, _______, _______, _______, KC_NO,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
@@ -216,9 +220,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______,               _______, _______, KC_SFTARROW_U, _______, _______, KC_F12,
     _______, _______, _______, LGUI(KC_TILD), _______, LT(0,KC_YAY),    KC_HOME, KC_ITRMSPCE_L, KC_UP, KC_ITRMSPCE_R, KC_END, _______,
     _______, KC_TAB_L, KC_TAB_R, KC_SPCLEFT, KC_SPCRGHT, _______,       KC_ALTARROW_L, KC_LEFT, KC_DOWN, KC_RIGHT, KC_ALTARROW_R, _______,
-    _______, _______, _______, _______, _______, _______,              KC_SFTGUIARROW_L, KC_SFTALTARROW_L, KC_SFTARROW_D, KC_SFTALTARROW_R, KC_SFTGUIARROW_R, _______,
+    _______, _______, _______, _______, _______, _______,               KC_SFTGUIARROW_L, KC_SFTALTARROW_L, KC_SFTARROW_D, KC_SFTALTARROW_R, KC_SFTGUIARROW_R, _______,
     _______, _______, _______ , _______, _______,KC_MACLOCK,            KC_TAB_R, KC_SPCRGHT, KC_TAB_L, KC_B, KC_SPCLEFT, KC_F,
-    _______, _______, _______ , _______, _______, _______,              _______, _______, _______, _______, _______, _______,
+    _______, _______, _______ , _______, _______, KC_NO,                _______, _______, _______, _______, _______, MAGIPLAY,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
     __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
@@ -442,7 +446,7 @@ const ledmap ledmaps[] = {
       GOLD, ___n___, ___n___, HRM_CTL, ___n___, ___n___,           ___n___, ___n___, ___n___, ___n___, ___n___,    CYAN,
      GREEN, ___n___, HRM_ALT, HRM_GUI, HRM_SFT, ___n___,           ___n___, HRM_SFT, HRM_GUI, HRM_ALT, ___n___, ___n___,
       RED, ___n___, ___n___, ___n___, ___n___, ___n___,           ___n___, HRM_CTL, ___n___, ___n___, ___n___,     RED,
-    TOG_NAV,    ESC,     DEL,   SHIFT,    GOLD,                   GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE,
+     DEL,     TOG_NAV, DEL,     ESC,     SHIFT,                   GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE,
      FAL1_L0, FAL1_L0, FAL1_L0, FAL1_L0, FAL1_L0, FAL1_L0,        FAL3_L0, FAL3_L0, FAL3_L0, FAL3_L0, FAL3_L0, FAL3_L0,
      FAL1_L0, FAL1_L0, FAL1_L0, FAL1_L0, FAL1_L0, FAL1_L0,        FAL3_L0, FAL3_L0, FAL3_L0, FAL3_L0, FAL3_L0, FAL3_L0,
      FAL2_L0, FAL2_L0, FAL2_L0, FAL2_L0, FAL2_L0, FAL2_L0,        FAL4_L0, FAL4_L0, FAL4_L0, FAL4_L0, FAL4_L0, FAL4_L0,
@@ -455,7 +459,7 @@ const ledmap ledmaps[] = {
       GOLD, ___n___, ___n___, ___n___, ___n___, ___n___,               RED,   GREEN, ___n___, ___n___, ___n___, ___n___,
      GREEN, ___n___, ___n___, ___n___, ___n___, ___n___,               RED,    CYAN,    PINK,    CYAN, ___n___, ___n___,
        RED, ___n___, ___n___, ___n___, ___n___, ___n___,             GREEN,    CYAN,    PINK,    CYAN, ___n___,     RED,
-    TOG_NAV,    ESC,     DEL,   SHIFT,    GOLD,                   GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE,
+     DEL,     TOG_NAV, DEL,     ESC,     SHIFT,                   GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE,
      FAL1_L1, FAL1_L1, FAL1_L1, FAL1_L1, FAL1_L1, FAL1_L1,        FAL3_L1, FAL3_L1, FAL3_L1, FAL3_L1, FAL3_L1, FAL3_L1,
      FAL1_L1, FAL1_L1, FAL1_L1, FAL1_L1, FAL1_L1, FAL1_L1,        FAL3_L1, FAL3_L1, FAL3_L1, FAL3_L1, FAL3_L1, FAL3_L1,
      FAL2_L1, FAL2_L1, FAL2_L1, FAL2_L1, FAL2_L1, FAL2_L1,        FAL4_L1, FAL4_L1, FAL4_L1, FAL4_L1, FAL4_L1, FAL4_L1,
@@ -468,7 +472,7 @@ const ledmap ledmaps[] = {
       GOLD,    GOLD,   GREEN,  PURPLE,  PURPLE,   GREEN,           GREEN,    CYAN,    CYAN,    CYAN, ___n___, ___n___,
      GREEN,    CYAN,  YELLOW,  MAGENT,  MAGENT,    BLUE,           GREEN,    CYAN,    CYAN,    CYAN,    CYAN, ___n___,
        RED,    GOLD,   GREEN,   PINK,     PINK,    CYAN,             RED,    CYAN,    CYAN,    CYAN,    GOLD,     RED,
-    TOG_NAV,    ESC,     DEL,   SHIFT,    GOLD,                   GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE,
+     DEL,     TOG_NAV, DEL,     ESC,     SHIFT,                   GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE,
      FAL1_L2, FAL1_L2, FAL1_L2, FAL1_L2, FAL1_L2, FAL1_L2,        FAL3_L2, FAL3_L2, FAL3_L2, FAL3_L2, FAL3_L2, FAL3_L2,
      FAL1_L2, FAL1_L2, FAL1_L2, FAL1_L2, FAL1_L2, FAL1_L2,        FAL3_L2, FAL3_L2, FAL3_L2, FAL3_L2, FAL3_L2, FAL3_L2,
      FAL2_L2, FAL2_L2, FAL2_L2, FAL2_L2, FAL2_L2, FAL2_L2,        FAL4_L2, FAL4_L2, FAL4_L2, FAL4_L2, FAL4_L2, FAL4_L2,
@@ -481,7 +485,7 @@ const ledmap ledmaps[] = {
       GOLD, ___n___, ___n___,    CYAN, ___n___,  PURPLE,             GREEN,    CYAN,   GREEN,    CYAN,     RED, ___n___,
      GREEN,    BLUE,  SPRING,    PINK,    CYAN,   GREEN,            YELLOW,   GREEN,   GREEN,   GREEN,  YELLOW, ___n___,
        RED, ___n___, ___n___, ___n___, ___n___,     RED,            PURPLE,  ORANGE,  ORANGE,  ORANGE,  PURPLE,     RED,
-    TOG_NAV,    ESC,     DEL,   SHIFT,    GOLD,                   GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE,
+     DEL,     TOG_NAV, DEL,     ESC,     SHIFT,                   GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE,
      FAL1_L3, FAL1_L3, FAL1_L3, FAL1_L3, FAL1_L3, FAL1_L3,        FAL3_L3, FAL3_L3, FAL3_L3, FAL3_L3, FAL3_L3, FAL3_L3,
      FAL1_L3, FAL1_L3, FAL1_L3, FAL1_L3, FAL1_L3, FAL1_L3,        FAL3_L3, FAL3_L3, FAL3_L3, FAL3_L3, FAL3_L3, FAL3_L3,
      FAL2_L3, FAL2_L3, FAL2_L3, FAL2_L3, FAL2_L3, FAL2_L3,        FAL4_L3, FAL4_L3, FAL4_L3, FAL4_L3, FAL4_L3, FAL4_L3,

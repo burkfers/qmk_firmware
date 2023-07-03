@@ -18,7 +18,7 @@
 #include "quantum.h"
 #include "arcboard_mk17.h"
 #include "keymap.h"
-
+#include "print.h"
 
 #if defined(POINTING_DEVICE_ENABLE)
     void pointing_device_init_user(void) {
@@ -30,6 +30,7 @@
     }
 
     report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
+        // uprintf("cpi is: %d \n", pointing_device_get_cpi());
         left_report.h = left_report.x;
         left_report.v = left_report.y;
         left_report.x = 0;

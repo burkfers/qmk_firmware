@@ -49,7 +49,7 @@
     // #define POINTING_DEVICE_INVERT_X            // Inverted movement for X (not sure why this is set tbh...maybe due to the kb half it's installed on?)
     // #define POINTING_DEVICE_INVERT_Y
     // #define DRAGSCROLL_REVERSE_X                // i must have installed the sensor flipped around
-    // CPI not being set correctly...hmm...
-    #define RIGHT_PMW_CPI 500       // your mouse cpi (DPI) setting (how fast the ball tracks)
-    #define LEFT_PMW_CPI 100    // dragscroll cpi - interestingly, can't be set below 100?
+    // CPI not being set correctly...hmm... (can't be set in user?)
+    // #define RIGHT_PMW_CPI 500       // your mouse cpi (DPI) setting (how fast the ball tracks)
+    // #define LEFT_PMW_CPI 100    // dragscroll cpi - interestingly, can't be set below 100?
 #endif

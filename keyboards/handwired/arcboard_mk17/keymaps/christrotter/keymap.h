@@ -63,7 +63,7 @@
 #define ZOOM_VID LSFT(LGUI(KC_DOT))
 
 // single button to reset layer
-#define KC_LAYER_RESET TO(_QWERTY)
+#define KC_LAYRST TO(_QWERTY)
 
 enum custom_keycodes {
     KC_YAY = SAFE_RANGE,
