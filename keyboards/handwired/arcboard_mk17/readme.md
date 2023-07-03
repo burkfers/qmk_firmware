@@ -6,16 +6,16 @@
 
 **Features**
 * Split keyboard, connectivity via TRRS
-* Dual 34mm thumb trackballs
+* Dual 34mm thumb trackballs (_unfortunately some software issue preventing one from being used_)
 * Dual 5-way dpads
 * Quad encoders w. LED backlighting
 * Diffused LED indicator panel
-* 4x6 keywells with 5-key thumb clusters
+* 4x6 keywells with 5-key thumb clusters; 6x6 effective key matrix to program
 * Designed for Moonlander keycaps (_DSA?_) and Moonlander piano keys
-* TFT screens on both halves for doing fun things with quantum painter (_currently suffering wiring woes_)
+* TFT screens on both halves for doing fun things with quantum painter (_currently suffering code woes_)
 * Dovetail-attached large sloped palm rests (_designed for Grifiti 4"-wide palm rests; dovetail for easy replacement with whatever works best_)
 * Modular design with M3 hot-melt inserts and M3x8 countersunk machine screws (_just print a new thumb cluster, for example - or, print a new trackball holder...or keywell...or..._)
-* LEDmap per-key code c/o Mikael Manukyan <arm.localhost@gmail.com>
+* LEDmap per-key code (_which I have since been informed is not a great method, and is indeed blowing up my TFTs...so don't copy this._)
 
 ## More views
 <table>
