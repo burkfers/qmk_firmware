@@ -253,10 +253,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch (keycode) {
                 case LT(0,KC_YAY):
                 if (record->event.pressed) {
-                    // when keycode YAY is pressed
                     SEND_STRING("\\o/");
-                } else {
-                    // when keycode YAY is released
+                    return false;
                 }
                 return true;
                 case LT(0,KC_TILD):

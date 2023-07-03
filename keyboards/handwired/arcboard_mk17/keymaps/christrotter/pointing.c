@@ -25,12 +25,11 @@
     void pointing_device_init_user(void) {
         set_auto_mouse_enable(true);
     }
-    // TODO do we need this?
     void pointing_device_init_kb(void) {
         pointing_device_init_user(); // set auto mouse layer
     }
     report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
-        if (timer_elapsed32(last_draw) > 2000) {
+        if (timer_elapsed32(last_draw) > 10000) { // every 10s write our cpi out to console
             last_draw = timer_read32();
             if (is_keyboard_left()) {
                 uprintf("left cpi is: %d \n", pointing_device_get_cpi());
