@@ -87,19 +87,19 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         }
     }
     // leaving this out cuz we have a dedicated scroll-ball.  for now.
-    // if (set_scrolling) {
-    //     for (uint8_t i = led_min; i < led_max; i++) {
-    //         if (HAS_FLAGS(g_led_config.flags[i], 0x01)) {
-    //             set_rgb_led(i, HSV_ORANGE);
-    //         }
-    //     }
-    // } else {
-    //     for (uint8_t i = led_min; i < led_max; i++) {
-    //         if (HAS_FLAGS(g_led_config.flags[i], 0x01)) {
-    //             set_rgb_led(i, INDICATOR_BG);
-    //         }
-    //     }
-    // }
+    if (set_scrolling) {
+        for (uint8_t i = led_min; i < led_max; i++) {
+            if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
+                set_rgb_led(i, HSV_ORANGE);
+            }
+        }
+    } else {
+        for (uint8_t i = led_min; i < led_max; i++) {
+            if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
+                set_rgb_led(i, INDICATOR_BG);
+            }
+        }
+    }
 
     return rgb_matrix_indicators_advanced_keymap(led_min, led_max);
 }

@@ -20,8 +20,10 @@
 #include "keymap.h"
 
 #if defined(POINTING_DEVICE_ENABLE)
-    #include "print.h"
-    static uint32_t last_draw = 0;
+    #if defined(CONSOLE_ENABLE)
+        #include "print.h"
+        static uint32_t last_draw = 0;
+    #endif
     extern bool set_scrolling;
 
     void pointing_device_init_user(void) {
@@ -32,6 +34,7 @@
     }
 
     report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
+        #if defined(CONSOLE_ENABLE)
         if (timer_elapsed32(last_draw) > 10000) { // every 10s write our cpi out to console
             last_draw = timer_read32();
             if (is_keyboard_left()) {
@@ -41,6 +44,7 @@
                 uprintf("right cpi is: %d \n", pointing_device_get_cpi());
             }
         }
+        #endif
         if (set_scrolling) {
             pointing_device_set_cpi(DRAGSCROLL_CPI);
             right_report.h = right_report.x;
