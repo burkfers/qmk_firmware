@@ -127,10 +127,6 @@ void keyboard_post_init_user(void) {
         // debug_keyboard=true;
         // debug_mouse=true;
     #endif
-    #if defined(POINTING_DEVICE_ENABLE)
-        pointing_device_set_cpi_on_side(true, LEFT_PMW_CPI); //Set cpi on left side to a low value for slower scrolling.
-        pointing_device_set_cpi_on_side(false, RIGHT_PMW_CPI); //Set cpi on right side to a reasonable value for mousing.
-    #endif
 }
 
 #if defined(TAP_DANCE_ENABLE)

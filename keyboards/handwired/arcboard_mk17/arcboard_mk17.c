@@ -127,8 +127,13 @@ void keyboard_post_init_kb(void) {
         init_ui();
     #endif
     #if defined(POINTING_DEVICE_ENABLE)
-        pointing_device_set_cpi_on_side(true, LEFT_PMW_CPI);
-        pointing_device_set_cpi_on_side(false, RIGHT_PMW_CPI);
+        if (is_keyboard_left()) {
+            pointing_device_set_cpi(100);
+        }
+        else {
+            pointing_device_set_cpi(700);
+        }
+
     #endif
     keyboard_post_init_user(); //_user should not be in the keyboard.c
 }

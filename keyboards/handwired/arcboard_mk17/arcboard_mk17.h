@@ -144,8 +144,6 @@ enum userspace_layers {
         BOARD_SAFE_RANGE,
     };
     #define DRGSCRL DRAG_SCROLL
-
-    bool board_get_pointer_dragscroll_enabled(void);
 #endif // POINTING_DEVICE_ENABLE
 
 void keyboard_post_init_transport_sync(void);

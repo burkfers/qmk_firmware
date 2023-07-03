@@ -18,9 +18,10 @@
 #include "quantum.h"
 #include "arcboard_mk17.h"
 #include "keymap.h"
-#include "print.h"
 
 #if defined(POINTING_DEVICE_ENABLE)
+    #include "print.h"
+    static uint32_t last_draw = 0;
     void pointing_device_init_user(void) {
         set_auto_mouse_enable(true);
     }
@@ -28,9 +29,16 @@
     void pointing_device_init_kb(void) {
         pointing_device_init_user(); // set auto mouse layer
     }
-
     report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
-        // uprintf("cpi is: %d \n", pointing_device_get_cpi());
+        if (timer_elapsed32(last_draw) > 2000) {
+            last_draw = timer_read32();
+            if (is_keyboard_left()) {
+                uprintf("left cpi is: %d \n", pointing_device_get_cpi());
+            }
+            else {
+                uprintf("right cpi is: %d \n", pointing_device_get_cpi());
+            }
+        }
         left_report.h = left_report.x;
         left_report.v = left_report.y;
         left_report.x = 0;
