@@ -62,7 +62,7 @@
     const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
         [_QWERTY]   =  {
             ENCODER_CCW_CW(KC_SPCLEFT, KC_SPCRGHT),     // Left,  angled
-            ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), // Left,  flat
+            ENCODER_CCW_CW(KC_MS_WH_DOWN, KC_MS_WH_UP), // Left,  flat
             ENCODER_CCW_CW(TO(_MOUSE), KC_NO),          // Right, angled
             ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  // Right, flat
         },

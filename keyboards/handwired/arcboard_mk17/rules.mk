@@ -21,6 +21,7 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
 	CUSTOM_POINTING_DEVICE  = yes		# Auto-mouse layer and such
 	POINTING_DEVICE_DRIVER 	= pmw3389
 	DRAGSCROLL_ENABLE		= yes
+	CUSTOM_DRAGSCROLL 		= yes
 endif
 
 # Split settings
