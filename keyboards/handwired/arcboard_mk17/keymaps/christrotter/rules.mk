@@ -5,4 +5,3 @@ ifeq ($(strip $(RGB_MATRIX_LEDMAPS_ENABLED)), yes)
 endif
 
 # QP_DEBUG_ENABLE = no		# degrades performance massively
-# POINTING_DEBUG_ENABLE	= no
