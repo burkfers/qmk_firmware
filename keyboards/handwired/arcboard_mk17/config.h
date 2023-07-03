@@ -59,6 +59,7 @@
     #define POINTING_DEVICE_COMBINED
     #define PMW33XX_CS_PIN GP13                 // where the SS (CS) pin on the PMW module connects to the mcu
     #define PMW33XX_LIFTOFF_DISTANCE 0x07       // LIFTOFF_DISTANCE specifies how far from the sensor the trackball is
+    #define DRAGSCROLL_REVERSE_X
     #define RIGHT_PMW_CPI 700       // your mouse cpi (DPI) setting (how fast the ball tracks)
     #define LEFT_PMW_CPI 100    // dragscroll cpi - interestingly, can't be set below 100?
 #endif

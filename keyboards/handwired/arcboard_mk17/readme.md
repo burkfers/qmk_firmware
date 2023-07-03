@@ -1,8 +1,6 @@
 # handwired/arcboard_mk17
 
-TODO: update imgur links
-
-![handwired/arcboard_mk17](https://i.imgur.com/HgmPPui.jpg)
+![handwired/arcboard_mk17](https://i.imgur.com/0dzEVQO.jpg)
 
 "The last one" in a line of "the last one"s.  
 
@@ -23,31 +21,39 @@ TODO: update imgur links
 <table>
 <tr>
 <td>
-<a href="https://i.imgur.com/LpN2FXA.jpg"><img src="https://i.imgur.com/LpN2FXA.jpg" title="Right half" width=400/></a>
+<a href="https://i.imgur.com/wIT4whE.jpg"><img src="https://i.imgur.com/wIT4whE.jpg" title="Close up right half" width=400/></a>
 </td>
 <td>
-<a href="https://i.imgur.com/LyZdaVg.jpg"><img src="https://i.imgur.com/LyZdaVg.jpg" title="Left half" width=400"/></a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://i.imgur.com/dyRULB3.jpg"><img src="https://i.imgur.com/dyRULB3.jpg" title="Tactile reset" width=400 /></a>
-</td>
-<td>
-<a href="https://i.imgur.com/ccpSt0w.jpg"><img src="https://i.imgur.com/ccpSt0w.jpg" title="MCU holder" width=400 /></a>
+<a href="https://i.imgur.com/UoVaWhp.jpg"><img src="https://i.imgur.com/UoVaWhp.jpg" title="Trackball feat. dino damage" width=400"/></a>
 </td>
 </tr>
 <tr>
 <td>
-<a href="https://i.imgur.com/0mQXqwx.jpg"><img src="https://i.imgur.com/0mQXqwx.jpg" title="TFT displays" width=400 /></a>
+<a href="https://i.imgur.com/p6ENQgu.jpg"><img src="https://i.imgur.com/p6ENQgu.jpg" title="Wiring jungle" width=400 /></a>
 </td>
 <td>
-<a href="https://i.imgur.com/LKRukfG.jpg"><img src="https://i.imgur.com/LKRukfG.jpg" title="Side profiles" width=400 /></a>
+<a href="https://i.imgur.com/YtL4W1R.jpg"><img src="https://i.imgur.com/YtL4W1R.jpg" title="Yay" width=400 /></a>
 </td>
 </tr>
 <tr>
 <td>
-<a href="https://i.imgur.com/yIK02Zp.jpg"><img src="https://i.imgur.com/yIK02Zp.jpg" title="Design to life" width=400 /></a>
+<a href="https://i.imgur.com/xGZekwB.jpg"><img src="https://i.imgur.com/xGZekwB.jpg" title="Fusion360 forms at work" width=400 /></a>
+</td>
+<td>
+<a href="https://i.imgur.com/BKyNX6P.jpg"><img src="https://i.imgur.com/BKyNX6P.jpg" title="Cable pluggies" width=400 /></a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://i.imgur.com/MTUOLPI.jpg"><img src="https://i.imgur.com/MTUOLPI.jpg" title="Indicators in action" width=400 /></a>
+</td>
+<td>
+<a href="https://i.imgur.com/PlIPHms.jpg"><img src="https://i.imgur.com/PlIPHms.jpg" title="Palm rest tray" width=400 /></a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://i.imgur.com/QoRdXTg.jpg"><img src="https://i.imgur.com/QoRdXTg.jpg" title="Design to life" width=400 /></a>
 </td>
 </tr>
 </table>

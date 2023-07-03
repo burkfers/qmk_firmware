@@ -47,7 +47,7 @@
         #endif
         if (set_scrolling) {
             pointing_device_set_cpi(DRAGSCROLL_CPI);
-            right_report.h = right_report.x;
+            right_report.h -= right_report.x; // -= to invert x-axis
             right_report.v = right_report.y;
             right_report.x = 0;
             right_report.y = 0;
