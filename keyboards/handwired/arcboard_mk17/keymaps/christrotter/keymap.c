@@ -27,6 +27,28 @@
     #include "pointing.c"
 #endif
 
+#if defined(RGB_MATRIX_LEDMAPS_ENABLED)
+    #include "rgb_ledmaps.h"
+#endif
+
+#if defined(CONSOLE_ENABLE)
+    #include "print.h"
+#endif
+
+__attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
+__attribute__((weak)) void post_process_record_keymap(uint16_t keycode, keyrecord_t *record) {}
+void                       post_process_record_user(uint16_t keycode, keyrecord_t *record) { post_process_record_keymap(keycode, record); }
+
+void keyboard_post_init_user(void) {
+    #if defined(CONSOLE_ENABLE)
+        // Customise these values to desired behaviour
+        // debug_enable=true;
+        // debug_matrix=true;
+        // debug_keyboard=true;
+        // debug_mouse=true;
+    #endif
+}
+
 #if defined(QUANTUM_PAINTER_ENABLE)
     #include "qp_st7789.h"
     #include <qp.h>
@@ -65,7 +87,9 @@
         uint16_t width;
         uint16_t height;
         qp_get_geometry(display, &width, &height, NULL, NULL, NULL);
-        char buf[32] = {0};
+        #if defined(CONSOLE_ENABLE)
+            char buf[32] = {0};
+        #endif
         bool layer_state_redraw = false;
         static uint32_t last_layer_state   = 0;
         if (last_layer_state  != layer_state) {
@@ -80,7 +104,9 @@
             const char        *nav = "nav";
             const char        *symbols = "symbols";
             int ypos = 150;
-            snprintf(buf, sizeof(buf), "%s", layer_name);
+            #if defined(CONSOLE_ENABLE)
+                snprintf(buf, sizeof(buf), "%s", layer_name);
+            #endif
             int mouse_layer = strcmp(layer_name, mouse);
             int qwerty_layer = strcmp(layer_name, qwerty);
             int nav_layer = strcmp(layer_name, nav);
@@ -110,24 +136,6 @@ void housekeeping_task_user(void) {
 }
 
 #endif // QUANTUM_PAINTER_ENABLE
-
-#if defined(RGB_MATRIX_LEDMAPS_ENABLED)
-    #include "rgb_ledmaps.h"
-#endif
-
-#if defined(CONSOLE_ENABLE)
-    #include "print.h"
-#endif
-
-void keyboard_post_init_user(void) {
-    #if defined(CONSOLE_ENABLE)
-        // Customise these values to desired behaviour
-        // debug_enable=true;
-        // debug_matrix=true;
-        // debug_keyboard=true;
-        // debug_mouse=true;
-    #endif
-}
 
 #if defined(TAP_DANCE_ENABLE)
 // Tap Dance definitions
@@ -227,9 +235,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     __LED__, __LED__, __LED__, __LED__, __LED__,                        __LED__, __LED__, __LED__, __LED__, __LED__
 )
 };
-
-// TODO do we need this?
-__attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!(process_record_keymap(keycode, record)
@@ -418,21 +423,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #endif // end CUSTOM_KEYCODES (for troubleshooting)
     return true;
 }
-// what does this do...
-// the bool process_record_keymap is first called, then pulled in by process_record_user, then...
-// i.e. 'do we have a record to process: true/false'
-// post_process_record_keymap is a drashna thing: takes in the keyrecord itself
-// post_process_record_user is a qmk thing: it recurses into post_process_record_kb, which recurses into post_process_record_quantum,
-// which calls get_record_keycode which returns get_event_keycode
-
-// still kinda fuzzy on the order of operations/hierarchy here...
-// TODO pull this out
-__attribute__((weak)) void post_process_record_keymap(uint16_t keycode, keyrecord_t *record) {}
-void                       post_process_record_user(uint16_t keycode, keyrecord_t *record) { post_process_record_keymap(keycode, record); }
 
 #if defined(RGB_MATRIX_LEDMAPS_ENABLED)
 // the indicator LEDs are mapped using the flags and for loop.
-
 // Right thumb: KC_MULTILNE, OSM(MOD_LSFT), MO(_SYMBOLS), KC_ENTER, KC_SPACE, MAGIPLAY,
 const ledmap ledmaps[] = {
     [_QWERTY]   = LEDMAP(
