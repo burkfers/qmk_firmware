@@ -180,32 +180,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Right thumb: KC_MULTILNE, OSM(MOD_LSFT), MO(_SYMBOLS), KC_ENTER, KC_SPACE, MAGIPLAY,
 const ledmap ledmaps[] = {
     [_QWERTY]   = LEDMAP(
-      CYAN, ___n___, ___n___, ___n___, ___n___, ___n___,              CYAN, ___n___, ___n___, ___n___, ___n___,    CYAN,
-      GOLD, ___n___, ___n___, HRM_CTL, ___n___, ___n___,           ___n___, ___n___, ___n___, ___n___, ___n___,    CYAN,
-     GREEN, ___n___, HRM_ALT, HRM_GUI, HRM_SFT, ___n___,           ___n___, HRM_SFT, HRM_GUI, HRM_ALT, ___n___, ___n___,
-      RED, ___n___, ___n___, ___n___, ___n___, ___n___,           ___n___, HRM_CTL, ___n___, ___n___, ___n___,     RED,
-    TOG_NAV,    ESC,     DEL,   SHIFT,    GOLD,                   GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE
+       CYAN, ___n___, ___n___, ___n___, ___n___, ___n___,             CYAN, ___n___, ___n___, ___n___, ___n___,    CYAN,
+       GOLD, ___n___, ___n___, HRM_CTL, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___,    CYAN,
+      GREEN, ___n___, HRM_ALT, HRM_GUI, HRM_SFT, ___n___,          ___n___, HRM_SFT, HRM_GUI, HRM_ALT, ___n___, ___n___,
+        RED, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, HRM_CTL, ___n___, ___n___, ___n___,     RED,
+    TOG_NAV,     ESC,     DEL,   SHIFT,    GOLD, ___n___,            GREEN,   SHIFT, TOG_SYM,   ENTER,   SPACE, ___n___,
+    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
    ),
    [_MOUSE]     = LEDMAP(
-      RED,   YELLOW, ___n___, ___n___, ___n___, ___n___,           ___n___, ___n___, ___n___, ___n___,  YELLOW,     RED,
-      GOLD, ___n___, ___n___, ___n___, ___n___, ___n___,               RED,   GREEN, ___n___, ___n___, ___n___, ___n___,
-     GREEN, ___n___, ___n___, ___n___, ___n___, ___n___,               RED,    CYAN,    PINK,    CYAN, ___n___, ___n___,
-       RED, ___n___, ___n___, ___n___, ___n___, ___n___,             GREEN,    CYAN,    PINK,    CYAN, ___n___,     RED,
-    TOG_NAV,    ESC,     DEL,   SHIFT,    GOLD,                   GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE
+        RED,  YELLOW, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___,  YELLOW,     RED,
+       GOLD, ___n___, ___n___, ___n___, ___n___, ___n___,              RED,   GREEN, ___n___, ___n___, ___n___, ___n___,
+      GREEN, ___n___, ___n___, ___n___, ___n___, ___n___,              RED,    CYAN,    PINK,    CYAN, ___n___, ___n___,
+        RED, ___n___, ___n___, ___n___, ___n___, ___n___,            GREEN,    CYAN,    PINK,    CYAN, ___n___,     RED,
+    TOG_NAV,     ESC,     DEL,   SHIFT,    GOLD, ___n___,            GREEN,   SHIFT, TOG_SYM,   ENTER,   SPACE, ___n___,
+    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
    ),
    [_SYMBOLS]   = LEDMAP(
-      CYAN, ___n___, ___n___, ___n___, ___n___, ___n___,          ORANGE, MAGIPLY, ___n___, ___n___, ___n___, ___n___,
-      GOLD,    GOLD,   GREEN,  PURPLE,  PURPLE,   GREEN,           GREEN,    CYAN,    CYAN,    CYAN, ___n___, ___n___,
-     GREEN,    CYAN,  YELLOW,  MAGENT,  MAGENT,    BLUE,           GREEN,    CYAN,    CYAN,    CYAN,    CYAN, ___n___,
-       RED,    GOLD,   GREEN,   PINK,     PINK,    CYAN,             RED,    CYAN,    CYAN,    CYAN,    GOLD,     RED,
-    TOG_NAV,    ESC,     DEL,   SHIFT,    GOLD,                   GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE
+       CYAN, ___n___, ___n___, ___n___, ___n___, ___n___,           ORANGE, MAGIPLY, ___n___, ___n___, ___n___, ___n___,
+       GOLD,    GOLD,   GREEN,  PURPLE,  PURPLE,   GREEN,            GREEN,    CYAN,    CYAN,    CYAN, ___n___, ___n___,
+      GREEN,    CYAN,  YELLOW,  MAGENT,  MAGENT,    BLUE,            GREEN,    CYAN,    CYAN,    CYAN,    CYAN, ___n___,
+        RED,    GOLD,   GREEN,    PINK,    PINK,    CYAN,              RED,    CYAN,    CYAN,    CYAN,    GOLD,     RED,
+    TOG_NAV,     ESC,     DEL,   SHIFT,    GOLD, ___n___,            GREEN,   SHIFT, TOG_SYM,   ENTER,   SPACE, ___n___,
+    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
    ),
    [_NAV]       = LEDMAP(
-      CYAN, ___n___, ___n___, ___n___, ___n___, ___n___,           ___n___, ___n___,  ORANGE, ___n___, ___n___,  YELLOW,
-      GOLD, ___n___, ___n___,    CYAN, ___n___,  PURPLE,             GREEN,    CYAN,   GREEN,    CYAN,     RED, ___n___,
-     GREEN,    BLUE,  SPRING,    PINK,    CYAN,   GREEN,            YELLOW,   GREEN,   GREEN,   GREEN,  YELLOW, ___n___,
-       RED, ___n___, ___n___, ___n___, ___n___,     RED,            PURPLE,  ORANGE,  ORANGE,  ORANGE,  PURPLE,     RED,
-    TOG_NAV,    ESC,     DEL,   SHIFT,    GOLD,                   GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE
+       CYAN, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___,  ORANGE, ___n___, ___n___,  YELLOW,
+       GOLD, ___n___, ___n___,    CYAN, ___n___,  PURPLE,            GREEN,    CYAN,   GREEN,    CYAN,     RED, ___n___,
+      GREEN,    BLUE,  SPRING,    PINK,    CYAN,   GREEN,           YELLOW,   GREEN,   GREEN,   GREEN,  YELLOW, ___n___,
+        RED, ___n___, ___n___, ___n___, ___n___,     RED,           PURPLE,  ORANGE,  ORANGE,  ORANGE,  PURPLE,     RED,
+    TOG_NAV,     ESC,     DEL,   SHIFT,    GOLD, ___n___,            GREEN,   SHIFT, TOG_SYM,   ENTER,   SPACE, ___n___,
+    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
    ),
 };
 #endif // RGB_MATRIX_LEDMAPS_ENABLED

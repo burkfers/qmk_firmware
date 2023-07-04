@@ -26,7 +26,7 @@ void keyboard_post_init_kb(void) {
     #endif
     keyboard_post_init_user(); //_user should not be in the keyboard.c
 }
-
+/*
 #if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
 led_config_t g_ledmap_config = {
     // Key Matrix to LED Index - this is used to provide the 'default' white colour
@@ -104,6 +104,7 @@ led_config_t g_ledmap_config = {
     }
 };
 #endif
+*/
 
 // trying to shrink to match matrix
 #if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
@@ -111,12 +112,13 @@ led_config_t g_led_config = {
     // Key Matrix to LED Index - this is used to provide the 'default' white colour
     // This is just the keys leds, not falcon or indicators.
     //  24 + 5 + 12 + 12 + 11 = 64
+    // Key matrix === led matrix!!!
     {
         { 0,  1,  2,  3,  4,  5  },         // Left, main
         { 6,  7,  8,  9,  10, 11 },         // Left, main
         { 12, 13, 14, 15, 16, 17 },         // Left, main
         { 18, 19, 20, 21, 22, 23 },         // Left, main
-        { 24, 25, 26, 27, 28, NO_LED },             // Left, thumb, NO_LED for falcon1 button
+        { 24, 25, 26, 27, 28, NO_LED },     // Left, thumb, NO_LED for falcon1 button
         { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }, // Left, NO_LED for dpad, falcon2 button
         { 29, 30, 31, 32, 33, 34 },         // Right, main
         { 35, 36, 37, 38, 39, 40 },         // Right, main
