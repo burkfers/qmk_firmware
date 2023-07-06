@@ -24,12 +24,12 @@
         "rows": ["GP2", "GP19"]
     },
     "rgblight": {
-        "led_count": 12
+        "led_count": 14
     },
     "rgb_matrix": {
         "driver": "WS2812",
         "max_brightness": 50,
-        "split_count": [6,6]
+        "split_count": [7,7]
     },
     "ws2812": {
         "pin": "GP4",

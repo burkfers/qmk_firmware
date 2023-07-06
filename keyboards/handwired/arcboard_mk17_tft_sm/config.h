@@ -33,15 +33,12 @@
 // WS2812 RGB LED strip input and number of LEDs
 #if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
     #define RGB_MATRIX_LED_COUNT RGBLED_NUM
-    #define RGB_MIN_KEYS_L 0
-    #define RGB_MAX_KEYS_L 3
-    #define RGB_MIN_IND_L 4
-    #define RGB_MAX_IND_L 5
-    #define RGB_TOT_IND_L 2
-    #define RGB_MIN_KEYS_R 6
-    #define RGB_MAX_KEYS_R 9
-    #define RGB_MIN_IND_R 10
-    #define RGB_MAX_IND_R 11
+    #define RGB_TOT_IND_L 3
+    // flags were super buggy, have to do this to prevent overwriting colours.
+    #define RGB_KEYS_L_MIN 0
+    #define RGB_KEYS_L_MAX 3
+    #define RGB_KEYS_R_MIN 7
+    #define RGB_KEYS_R_MAX 10
     // this brightness is only for 'default' rgb settings; userspace rgb is set in the keymap config.h
     // #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50 // this has no effect unless you eeprom reset  // setting this too high will cause the trackball to reset every min or so, and at highest just brownout entirely
     #define RGB_MATRIX_DEFAULT_HUE 5

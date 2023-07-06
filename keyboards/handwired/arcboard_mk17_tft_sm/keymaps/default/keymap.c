@@ -16,8 +16,6 @@ void                       post_process_record_user(uint16_t keycode, keyrecord_
     void keyboard_post_init_user(void) {
       debug_enable=true;
       // debug_matrix=true;
-      uprintf("RGB_MAX_KEYS_R: %d\n",RGB_MAX_KEYS_R);
-      uprintf("RGB_MATRIX_LED_COUNT: %d\n",RGB_MATRIX_LED_COUNT);
     }
 #endif
 
