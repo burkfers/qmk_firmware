@@ -29,12 +29,11 @@ __attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min
 void set_rgb_range(uint8_t led_range_min, uint8_t led_range_max, int val, int layer) {
     const ledmap *l = &(ledmaps[layer]);
     for (int i = led_range_min; i <= led_range_max; i++) {
+        // RGB_TOT_IND_L is 'how many right indicator leds between left and right key ranges, in the context of the led-flag section of g_led_config'
+        // cuz, ledmaps doesn't think there are any indicator leds, it believes you only have l.key-range + r.key-range = total addressable leds
         if (!(is_keyboard_left())) {
             i = i - RGB_TOT_IND_L;
         }
-        // where RGB_TOT_IND_L is 'how many right indicator leds between left and right key ranges, in the context of the led-flag section of g_led_config'
-        // cuz, ledmaps doesn't think there are any indicator leds, it believes you only have l.key-range + r.key-range = total addressable leds
-
         HSV hsv = {
             .h = (*l)[i][0],
             .s = (*l)[i][1],
@@ -49,20 +48,6 @@ void set_rgb_range(uint8_t led_range_min, uint8_t led_range_max, int val, int la
         }
     }
 }
-
-// bool BREATHING(effect_params_t* params) {
-//     RGB_MATRIX_USE_LIMITS(led_min, led_max);
-//
-//     HSV      hsv  = rgb_matrix_config.hsv;
-//     uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
-//     hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
-//     RGB rgb       = rgb_matrix_hsv_to_rgb(hsv);
-//     for (uint8_t i = led_min; i < led_max; i++) {
-//         RGB_MATRIX_TEST_LED_FLAGS();
-//         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-//     }
-//     return rgb_matrix_check_finished_leds(led_max);
-// }
 
 void set_rgb_led(int index, int hue, int sat, int val) {
     HSV hsv = {
@@ -82,14 +67,34 @@ bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
 
 bool rgb_matrix_indicators_user(void) { return rgb_matrix_indicators_keymap(); }
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    // honestly, the flags are kinda useless with this approach.  maybe?  maybe will help w. falcons...yeah, oh yeah for sure...
-    // each falcon gets a different flag, indicators get different flags.  yup.
     if (is_keyboard_left()) {
         for (uint8_t i = RGB_MIN_KEYS_L; i <= RGB_MAX_KEYS_L; i++) {
             if (HAS_FLAGS(g_led_config.flags[i], 0x04)) {
                 set_rgb_range(RGB_MIN_KEYS_L, RGB_MAX_KEYS_L, rgb_matrix_get_val(), get_highest_layer(layer_state | default_layer_state));
             }
         }
+        // for (uint8_t i = led_min; i <= led_max; i++) {
+        //     switch(get_highest_layer(layer_state|default_layer_state)) {
+        //         case 0:
+        //             if (HAS_FLAGS(g_led_config.flags[i], 0x11)) {
+        //                 set_rgb_led(i, HSV_GREEN);
+        //             }
+        //             if (HAS_FLAGS(g_led_config.flags[i], 0x12)) {
+        //                 set_rgb_led(i, HSV_BLUE);
+        //             }
+        //             break;
+        //         case 1:
+        //             if (HAS_FLAGS(g_led_config.flags[i], 0x11)) {
+        //                 set_rgb_led(i, HSV_ORANGE);
+        //             }
+        //             if (HAS_FLAGS(g_led_config.flags[i], 0x12)) {
+        //                 set_rgb_led(i, HSV_RED);
+        //             }
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        // }
     } else {
         for (uint8_t i = RGB_MIN_KEYS_R; i <= RGB_MAX_KEYS_R; i++) {
             if (HAS_FLAGS(g_led_config.flags[i], 0x04)) {
@@ -97,33 +102,44 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
         }
     }
+    // end layer-affected leds section
     bool is_shifted = (get_mods() | get_weak_mods()) & MOD_MASK_SHIFT;
-    if (is_keyboard_left()) {
-        if (is_shifted) {
-            for (uint8_t i = RGB_MIN_IND_L; i <= RGB_MAX_IND_L; i++) {
-                if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
-                    set_rgb_led(i, INDICATOR_SHIFT);
-                }
+    if (is_shifted) {
+        for (uint8_t i = led_min; i <= led_max; i++) {
+            if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
+                set_rgb_led(i, INDICATOR_SHIFT);
             }
-        } else {
-            for (uint8_t i = RGB_MIN_IND_L; i <= RGB_MAX_IND_L; i++) {
-                if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
-                    set_rgb_led(i, INDICATOR_BG);
-                }
+            if (HAS_FLAGS(g_led_config.flags[i], 0x09)) {
+                set_rgb_led(i, HSV_ORANGE);
             }
         }
     } else {
-        if (is_shifted) {
-            for (uint8_t i = RGB_MIN_IND_R; i <= RGB_MAX_IND_R; i++) {
-                if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
-                    set_rgb_led(i, HSV_PURPLE);
-                }
+        for (uint8_t i = led_min; i <= led_max; i++) {
+            if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
+                set_rgb_led(i, INDICATOR_BG);
             }
-        } else {
-            for (uint8_t i = RGB_MIN_IND_R; i <= RGB_MAX_IND_R; i++) {
-                if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
-                    set_rgb_led(i, HSV_YELLOW);
-                }
+            if (HAS_FLAGS(g_led_config.flags[i], 0x09)) {
+                set_rgb_led(i, INDICATOR_BG);
+            }
+        }
+    }
+    // left indicators
+    if (is_shifted) {
+        for (uint8_t i = led_min; i <= led_max; i++) {
+            if (HAS_FLAGS(g_led_config.flags[i], 0x10)) {
+                set_rgb_led(i, HSV_PURPLE);
+            }
+            if (HAS_FLAGS(g_led_config.flags[i], 0x11)) {
+                set_rgb_led(i, HSV_RED);
+            }
+        }
+    } else {
+        for (uint8_t i = led_min; i <= led_max; i++) {
+            if (HAS_FLAGS(g_led_config.flags[i], 0x10)) {
+                set_rgb_led(i, HSV_BLUE);
+            }
+            if (HAS_FLAGS(g_led_config.flags[i], 0x11)) {
+                set_rgb_led(i, HSV_RED);
             }
         }
     }

@@ -33,7 +33,6 @@
 // WS2812 RGB LED strip input and number of LEDs
 #if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
     #define RGB_MATRIX_LED_COUNT RGBLED_NUM
-    #define RGB_MATRIX_SPLIT { 6, 6 }
     #define RGB_MIN_KEYS_L 0
     #define RGB_MAX_KEYS_L 3
     #define RGB_MIN_IND_L 4

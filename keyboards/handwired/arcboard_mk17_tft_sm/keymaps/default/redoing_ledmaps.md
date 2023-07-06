@@ -112,5 +112,9 @@ the key thing seems to be 'minus the gap out'.
 -2 works on the multi-row config cuz there are 2 indicator leds on the left side.
 -4 and -6 do not work cuz there are only 2 indicator leds on the left side.
 
+ok, so next step is ensuring that there is logic that doesn't blow up for falcons/indicator handling.
+also, can we just make up our own flags?
+yes, yes you can.
+
 
 

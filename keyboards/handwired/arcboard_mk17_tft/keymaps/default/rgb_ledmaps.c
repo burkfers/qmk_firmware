@@ -1,4 +1,5 @@
 /* Copyright 2021 Mikael Manukyan <arm.localhost@gmail.com>
+ * Copyright 2023 Chris Trotter <ctrotter@gmail.com> (@christrotter)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +16,6 @@
  */
 #include "rgb_ledmaps.h"
 #include "arcboard_mk17_tft.h"
-#include "lib/lib8tion/lib8tion.h"
 
 #if defined(POINTING_DEVICE_ENABLE) && defined(DRAGSCROLL_ENABLE)
     #include "keymap.h"
@@ -32,27 +32,12 @@ void set_rgb_range(uint8_t led_min, uint8_t led_max, int val, int layer) {
             .s = (*l)[i][1],
             .v = val,
         };
-        // uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
-        // hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
         if (hsv.h || hsv.s) {
             RGB rgb = hsv_to_rgb(hsv);
             rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         }
     }
 }
-// bool BREATHING(effect_params_t* params) {
-//     RGB_MATRIX_USE_LIMITS(led_min, led_max);
-//
-//     HSV      hsv  = rgb_matrix_config.hsv;
-//     uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
-//     hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
-//     RGB rgb       = rgb_matrix_hsv_to_rgb(hsv);
-//     for (uint8_t i = led_min; i < led_max; i++) {
-//         RGB_MATRIX_TEST_LED_FLAGS();
-//         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-//     }
-//     return rgb_matrix_check_finished_leds(led_max);
-// }
 
 void set_rgb_led(int index, int hue, int sat, int val) {
     HSV hsv = {
@@ -60,8 +45,6 @@ void set_rgb_led(int index, int hue, int sat, int val) {
         .s = sat,
         .v = 150,
     };
-    // uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
-    // hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
     if (hsv.h || hsv.s) {
         RGB rgb = hsv_to_rgb(hsv);
         rgb_matrix_set_color(index, rgb.r, rgb.g, rgb.b);
