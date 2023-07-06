@@ -16,7 +16,7 @@
  */
 
 #include "quantum.h"
-#include "arcboard_mk17_tft.h"
+#include "arcboard_mk17_tft_sm.h"
 #include "keymap.h"
 
 #if defined(POINTING_DEVICE_ENABLE)

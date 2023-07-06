@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "arcboard_mk17_tft.h"
-#include "qp_st7789.h"
-#include <qp.h>
 #include <color.h>
 #include "print.h"
 
@@ -109,10 +107,6 @@ led_config_t g_ledmap_config = {
 // trying to shrink to match matrix
 #if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
 led_config_t g_led_config = {
-    // Key Matrix to LED Index - this is used to provide the 'default' white colour
-    // This is just the keys leds, not falcon or indicators.
-    //  24 + 5 + 12 + 12 + 11 = 64
-    // Key matrix === led matrix!!!
     {
         { 0,  1,  2,  3,  4,  5  },         // Left, main
         { 6,  7,  8,  9,  10, 11 },         // Left, main
@@ -127,37 +121,41 @@ led_config_t g_led_config = {
         { 53, 54, 55, 56, 57, NO_LED },     // Right, thumb, NO_LED for falcon1 button
         { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }, // Right, dpad, falcon2 button
     },
-    // LED Index to Physical Position
-    // only used for animations, but necessary for qmk to compile
-    // include every LED here
-    // needs to match entire led chain, not just keys
     {
         { 102,   0 }, {  81,   0 }, {  61,   0 }, {  41,   0 }, {  20,   0 }, {   0,   0 },
         { 102,  16 }, {  81,  16 }, {  61,  16 }, {  41,  16 }, {  20,  16 }, {   0,  16 },
         { 102,  32 }, {  81,  32 }, {  61,  32 }, {  41,  32 }, {  20,  32 }, {   0,  32 },
         { 102,  48 }, {  81,  48 }, {  61,  48 }, {  41,  48 }, {  20,  48 }, {   0,  48 },
         { 224,   0 }, { 204,   0 }, { 183,   0 }, { 163,   0 }, { 143,   0 },
+        { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 }, { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 }, { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 },
+        { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 }, { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 }, { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 },
+        { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 }, { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 }, { 204,  64 }, { 183,  64 }, { 163,  64 },
         { 224,  16 }, { 204,  16 }, { 183,  16 }, { 163,  16 }, { 143,  16 }, { 122,  16 },
         { 224,  32 }, { 204,  32 }, { 183,  32 }, { 163,  32 }, { 143,  32 }, { 122,  32 },
         { 224,  48 }, { 204,  48 }, { 183,  48 }, { 163,  48 }, { 143,  48 }, { 122,  48 },
         { 224,  64 }, { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 }, { 122,  64 },
         { 224,  64 }, { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 },
+        { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 }, { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 }, { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 },
+        { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 }, { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 }, { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 },
+        { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 }, { 204,  64 }, { 183,  64 }, { 163,  64 }, { 143,  64 }, { 204,  64 }, { 183,  64 }, { 163,  64 }
     },
-    // LED type bit mask - 4 is per-key
-    // include every LED here
-    // ordered by keys+thumbL, keys+thumbR, falconL, falconR, indicatorL, indicatorR
-    // remember the 5-way/dpad has no LEDs, and occupies a row
     {
             4, 4, 4, 4, 4, 4,
             4, 4, 4, 4, 4, 4,
             4, 4, 4, 4, 4, 4,
             4, 4, 4, 4, 4, 4,
             4, 4, 4, 4, 4,
+            8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+            9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+            10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
             4, 4, 4, 4, 4, 4,
             4, 4, 4, 4, 4, 4,
             4, 4, 4, 4, 4, 4,
             4, 4, 4, 4, 4, 4,
             4, 4, 4, 4, 4,
+            8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+            9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+            10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
     }
 };
 #endif

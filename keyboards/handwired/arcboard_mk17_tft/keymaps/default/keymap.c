@@ -11,6 +11,13 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
 __attribute__((weak)) void post_process_record_keymap(uint16_t keycode, keyrecord_t *record) {}
 void                       post_process_record_user(uint16_t keycode, keyrecord_t *record) { post_process_record_keymap(keycode, record); }
 
+#if defined(CONSOLE_ENABLE)
+    void keyboard_post_init_user(void) {
+      debug_enable=true;
+      // debug_matrix=true;
+    }
+#endif
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
     MO(_MOUSE), KC_1, KC_2, KC_3, KC_4, KC_5,                           MO(_MOUSE),KC_7,KC_8,KC_9,KC_0,KC_EQUAL,
@@ -19,12 +26,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Z, KC_Z, KC_X, KC_C, KC_V, KC_B,                                 KC_N, KC_M, KC_COMM,KC_DOT, KC_SLASH, KC_Z,
     KC_BSPC, KC_DEL, MO(_NAV), KC_ESC, KC_LSFT, KC_F,                   KC_M, KC_LSFT, MO(_SYMBOLS), KC_ENTER, KC_SPACE, KC_F,
     KC_N, KC_T, KC_S, KC_T, KC_S, KC_F,                                 KC_N, KC_UP, KC_LEFT, KC_DOWN, KC_RIGHT, KC_F
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__,                        __LED__, __LED__, __LED__, __LED__, __LED__
 ),
 [_MOUSE] = LAYOUT(
     MO(_MOUSE), KC_1, KC_2, KC_3, KC_4, KC_5,                           KC_6,KC_7,KC_8,KC_9,KC_0,KC_EQUAL,
@@ -33,12 +34,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Z, KC_Z, KC_X, KC_C, KC_V, KC_B,                                 KC_N, KC_M, KC_COMM,KC_DOT, KC_SLASH, KC_Z,
     KC_BSPC, KC_DEL, MO(_NAV), KC_ESC, KC_LSFT, KC_F,                   KC_M, KC_LSFT, MO(_SYMBOLS), KC_ENTER, KC_SPACE, KC_F,
     KC_N, KC_T, KC_S, KC_T, KC_S, KC_F,                                 KC_N, KC_UP, KC_LEFT, KC_DOWN, KC_RIGHT, KC_F
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__,                        __LED__, __LED__, __LED__, __LED__, __LED__
 ),
 [_SYMBOLS] = LAYOUT(
     MO(_MOUSE), KC_1, KC_2, KC_3, KC_4, KC_5,                           KC_6,KC_7,KC_8,KC_9,KC_0,KC_EQUAL,
@@ -47,12 +42,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Z, KC_Z, KC_X, KC_C, KC_V, KC_B,                                 KC_N, KC_M, KC_COMM,KC_DOT, KC_SLASH, KC_Z,
     KC_BSPC, KC_DEL, MO(_NAV), KC_ESC, KC_LSFT, KC_F,                   KC_M, KC_LSFT, MO(_SYMBOLS), KC_ENTER, KC_SPACE, KC_F,
     KC_N, KC_T, KC_S, KC_T, KC_S, KC_F,                                 KC_N, KC_UP, KC_LEFT, KC_DOWN, KC_RIGHT, KC_F
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__,                        __LED__, __LED__, __LED__, __LED__, __LED__
 ),
 [_NAV] = LAYOUT(
     MO(_MOUSE), KC_1, KC_2, KC_3, KC_4, KC_5,                           KC_6,KC_7,KC_8,KC_9,KC_0,KC_EQUAL,
@@ -61,18 +50,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Z, KC_Z, KC_X, KC_C, KC_V, KC_B,                                 KC_N, KC_M, KC_COMM,KC_DOT, KC_SLASH, KC_Z,
     KC_BSPC, KC_DEL, MO(_NAV), KC_ESC, KC_LSFT, KC_F,                   KC_M, KC_LSFT, MO(_SYMBOLS), KC_ENTER, KC_SPACE, KC_F,
     KC_N, KC_T, KC_S, KC_T, KC_S, KC_F,                                 KC_N, KC_UP, KC_LEFT, KC_DOWN, KC_RIGHT, KC_F
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-//    __LED__, __LED__, __LED__, __LED__, __LED__,                        __LED__, __LED__, __LED__, __LED__, __LED__
 )
 };
-
-void keyboard_post_init_user(void) {
-  debug_enable=true;
-}
 
 #if defined(ENCODER_MAP_ENABLE)
     #include "encoder_maps.c"
