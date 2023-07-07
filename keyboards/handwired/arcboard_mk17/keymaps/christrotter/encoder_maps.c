@@ -19,35 +19,6 @@
 #include "arcboard_mk17.h"
 #include "keymap.h"
 
-#if defined(RGB_MATRIX_LEDMAPS_ENABLED)
-    // where...the _L# = layer numbers
-    // and...
-    // FAL1 = left2 (flat)
-    // FAL2 = left1 (angled)
-    // FAL3 = right1(angled)
-    // FAL4 = right2(flat)
-
-    // left, angled
-    #define FAL1_L0 PURPLE
-    #define FAL1_L1 PINK
-    #define FAL1_L2 BLUE
-    #define FAL1_L3 WHITE
-    // left, flat
-    #define FAL2_L0 CYAN
-    #define FAL2_L1 WHITE
-    #define FAL2_L2 WHITE
-    #define FAL2_L3 WHITE
-    // right, angled - full-time layer selector
-    #define FAL3_L0 WHITE
-    #define FAL3_L1 RED
-    #define FAL3_L2 PINK
-    #define FAL3_L3 CHART
-    // right, flat
-    #define FAL4_L0 CYAN
-    #define FAL4_L1 GREEN
-    #define FAL4_L2 WHITE
-    #define FAL4_L3 WHITE
-#endif
 // so here, [_LAYERNAME] = { ENCODER_CCW_CW(ccw-action,cw-action), ENCODER_CCW_CW(ccw-action,cw-action), ENCODER_CCW_CW(ccw-action,cw-action), ENCODER_CCW_CW(ccw-action,cw-action) }
 // where you have FalconL1, FalconL2, FalconR1, FalconR2 as the index
 // as is right now, this means each side has identical encoder mapping

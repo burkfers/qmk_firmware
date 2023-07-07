@@ -117,6 +117,36 @@ enum custom_keycodes {
     #define HRM_SFT GREEN
 #endif
 
+#if defined(RGB_MATRIX_LEDMAPS_ENABLED)
+    // where...the _L# = layer numbers
+    // and...
+    // FAL1 = left2 (flat)
+    // FAL2 = left1 (angled)
+    // FAL3 = right1(angled)
+    // FAL4 = right2(flat)
+
+    // left, angled
+    #define FAL1_L0 HSV_PURPLE
+    #define FAL1_L1 HSV_PINK
+    #define FAL1_L2 HSV_BLUE
+    #define FAL1_L3 HSV_MOONLANDER
+    // left, flat
+    #define FAL2_L0 HSV_CYAN
+    #define FAL2_L1 HSV_MOONLANDER
+    #define FAL2_L2 HSV_MOONLANDER
+    #define FAL2_L3 HSV_MOONLANDER
+    // right, angled - full-time layer selector
+    #define FAL3_L0 HSV_MOONLANDER
+    #define FAL3_L1 HSV_RED
+    #define FAL3_L2 HSV_PINK
+    #define FAL3_L3 HSV_CHARTREUSE
+    // right, flat
+    #define FAL4_L0 HSV_CYAN
+    #define FAL4_L1 HSV_GREEN
+    #define FAL4_L2 HSV_MOONLANDER
+    #define FAL4_L3 HSV_MOONLANDER
+#endif
+
 // encoder button mapping
     // left, flat
     #define FAL1_L0_BT KC_NO

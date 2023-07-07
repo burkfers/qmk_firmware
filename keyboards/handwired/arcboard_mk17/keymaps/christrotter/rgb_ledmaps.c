@@ -60,64 +60,95 @@ void set_rgb_led(int index, int hue, int sat, int val) {
 }
 
 // todo; needs a lot of work to map to falcon layers
+/*
+    Flag usage:
+    0x04 = per-key leds
+    0x01 = Falcon-angled, FAL1, FAL3
+    0x02 = Falcon-flat, FAL2, FAL4
+    0x08 = indicator panel
+*/
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     for (uint8_t i = led_min; i <= led_max; i++) {
         if (is_keyboard_left()) {
+            // set LEFT per-key leds by ledmap
             if (HAS_FLAGS(g_led_config.flags[i], 0x04)) {
                 set_rgb_range(RGB_KEYS_L_MIN, RGB_KEYS_L_MAX, rgb_matrix_get_val(), get_highest_layer(layer_state | default_layer_state));
             }
+            // set LEFT falcon colour by layer
             switch(get_highest_layer(layer_state|default_layer_state)) {
                 case 0:
                     if (HAS_FLAGS(g_led_config.flags[i], 0x01)) {
-                        set_rgb_led(i, HSV_CYAN);
+                        set_rgb_led(i, FAL1_L0);
                     }
                     if (HAS_FLAGS(g_led_config.flags[i], 0x02)) {
-                        set_rgb_led(i, HSV_RED);
-                    }
-                    if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
-                        set_rgb_led(i, HSV_PURPLE);
+                        set_rgb_led(i, FAL2_L0);
                     }
                     break;
                 case 1:
                     if (HAS_FLAGS(g_led_config.flags[i], 0x01)) {
-                        set_rgb_led(i, HSV_BLUE);
+                        set_rgb_led(i, FAL1_L1);
                     }
                     if (HAS_FLAGS(g_led_config.flags[i], 0x02)) {
-                        set_rgb_led(i, HSV_PURPLE);
+                        set_rgb_led(i, FAL2_L1);
                     }
-                    if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
-                        set_rgb_led(i, HSV_PINK);
+                    break;
+                case 2:
+                    if (HAS_FLAGS(g_led_config.flags[i], 0x01)) {
+                        set_rgb_led(i, FAL1_L2);
+                    }
+                    if (HAS_FLAGS(g_led_config.flags[i], 0x02)) {
+                        set_rgb_led(i, FAL2_L2);
+                    }
+                    break;
+                case 3:
+                    if (HAS_FLAGS(g_led_config.flags[i], 0x01)) {
+                        set_rgb_led(i, FAL1_L3);
+                    }
+                    if (HAS_FLAGS(g_led_config.flags[i], 0x02)) {
+                        set_rgb_led(i, FAL2_L3);
                     }
                     break;
                 default:
                     break;
             }
         } else {
+            // set RIGHT per-key leds by ledmap
             if (HAS_FLAGS(g_led_config.flags[i], 0x04)) {
                 set_rgb_range(RGB_KEYS_R_MIN, RGB_KEYS_R_MAX, rgb_matrix_get_val(), get_highest_layer(layer_state | default_layer_state));
             }
+            // set RIGHT falcon colour by layer
             switch(get_highest_layer(layer_state|default_layer_state)) {
                 case 0:
                     if (HAS_FLAGS(g_led_config.flags[i], 0x01)) {
-                        set_rgb_led(i, HSV_GREEN);
+                        set_rgb_led(i, FAL3_L0);
                     }
                     if (HAS_FLAGS(g_led_config.flags[i], 0x02)) {
-                        set_rgb_led(i, HSV_GOLD);
-                    }
-                    if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
-                        set_rgb_led(i, HSV_CYAN);
+                        set_rgb_led(i, FAL4_L0);
                     }
                     break;
                 case 1:
                     if (HAS_FLAGS(g_led_config.flags[i], 0x01)) {
-                        set_rgb_led(i, HSV_CHARTREUSE);
+                        set_rgb_led(i, FAL3_L1);
                     }
                     if (HAS_FLAGS(g_led_config.flags[i], 0x02)) {
-                        set_rgb_led(i, HSV_ORANGE);
+                        set_rgb_led(i, FAL4_L1);
                     }
-                    if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
-                        set_rgb_led(i, HSV_RED);
+                    break;
+                case 2:
+                    if (HAS_FLAGS(g_led_config.flags[i], 0x01)) {
+                        set_rgb_led(i, FAL3_L2);
+                    }
+                    if (HAS_FLAGS(g_led_config.flags[i], 0x02)) {
+                        set_rgb_led(i, FAL4_L2);
+                    }
+                    break;
+                case 3:
+                    if (HAS_FLAGS(g_led_config.flags[i], 0x01)) {
+                        set_rgb_led(i, FAL3_L3);
+                    }
+                    if (HAS_FLAGS(g_led_config.flags[i], 0x02)) {
+                        set_rgb_led(i, FAL4_L3);
                     }
                     break;
                 default:
