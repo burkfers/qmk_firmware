@@ -80,7 +80,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                     if (HAS_FLAGS(g_led_config.flags[i], 0x02)) {
                         set_rgb_led(i, HSV_RED);
                     }
-                    if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
+                    if (HAS_FLAGS(g_led_config.flags[i], 0x03)) {
                         set_rgb_led(i, HSV_PURPLE);
                     }
                     break;
@@ -91,7 +91,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                     if (HAS_FLAGS(g_led_config.flags[i], 0x02)) {
                         set_rgb_led(i, HSV_PURPLE);
                     }
-                    if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
+                    if (HAS_FLAGS(g_led_config.flags[i], 0x03)) {
                         set_rgb_led(i, HSV_PINK);
                     }
                     break;
@@ -110,7 +110,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                     if (HAS_FLAGS(g_led_config.flags[i], 0x02)) {
                         set_rgb_led(i, HSV_GOLD);
                     }
-                    if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
+                    if (HAS_FLAGS(g_led_config.flags[i], 0x03)) {
                         set_rgb_led(i, HSV_CYAN);
                     }
                     break;
@@ -121,7 +121,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                     if (HAS_FLAGS(g_led_config.flags[i], 0x02)) {
                         set_rgb_led(i, HSV_ORANGE);
                     }
-                    if (HAS_FLAGS(g_led_config.flags[i], 0x08)) {
+                    if (HAS_FLAGS(g_led_config.flags[i], 0x03)) {
                         set_rgb_led(i, HSV_RED);
                     }
                     break;
