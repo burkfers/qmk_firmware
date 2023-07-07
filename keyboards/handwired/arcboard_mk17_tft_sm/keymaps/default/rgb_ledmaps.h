@@ -29,7 +29,8 @@
 
 typedef uint8_t ledmap[RGB_MATRIX_LED_COUNT][3]; // ledmap is 'count of total leds' by 'hsv macro, i.e. 3 numbers'
 extern const ledmap ledmaps[];
-void set_rgb_range(uint8_t led_start, uint8_t led_last, int val, int layer);
+void set_rgb_range(uint8_t first_led, uint8_t last_led, int val, int layer);
+void set_rgb_led(int index, int hue, int sat, int val);
 
 void rgb_matrix_layers_enable(void);
 void rgb_matrix_layers_disable(void);

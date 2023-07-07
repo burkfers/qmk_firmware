@@ -26,9 +26,9 @@
 __attribute__((weak)) bool rgb_matrix_indicators_keymap(void) { return true; }
 __attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) { return true; }
 
-void set_rgb_range(uint8_t led_min, uint8_t led_max, int val, int layer) {
+void set_rgb_range(uint8_t first_led, uint8_t last_led, int val, int layer) {
     const ledmap *l = &(ledmaps[layer]);
-    for (int i = led_min; i <= led_max; i++) {
+    for (int i = first_led; i <= last_led; i++) {
         // RGB_TOT_IND_L is 'how many right indicator leds between left and right key ranges, in the context of the led-flag section of g_led_config'
         // cuz, ledmaps doesn't think there are any indicator leds, it believes you only have l.key-range + r.key-range = total addressable leds
         if (!(is_keyboard_left())) {
@@ -66,6 +66,7 @@ bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool rgb_matrix_indicators_user(void) { return rgb_matrix_indicators_keymap(); }
+
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     for (uint8_t i = led_min; i <= led_max; i++) {
         if (is_keyboard_left()) {

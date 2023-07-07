@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_N, KC_T, KC_S, KC_T, KC_S, KC_F,                                 KC_N, KC_UP, KC_LEFT, KC_DOWN, KC_RIGHT, KC_F
 ),
 [_MOUSE] = LAYOUT(
-    MO(_MOUSE), KC_1, KC_2, KC_3, KC_4, KC_5,                           KC_6,KC_7,KC_8,KC_9,KC_0,KC_EQUAL,
+    MO(_MOUSE), EE_CLR, KC_2, KC_3, KC_4, KC_5,                           KC_6,EE_CLR,KC_8,KC_9,KC_0,KC_EQUAL,
     KC_TAB , KC_Q,KC_W,KC_E, KC_R,KC_T,                                 KC_Y, KC_U,KC_I, KC_O,   KC_P,   KC_MINUS,
     KC_LSFT, KC_A,  KC_S,  KC_D,  KC_F , KC_G,                          KC_H,  KC_J, KC_K, KC_L, KC_QUOT,KC_SCLN,
     KC_Z, KC_Z, KC_X, KC_C, KC_V, KC_B,                                 KC_N, KC_M, KC_COMM,KC_DOT, KC_SLASH, KC_Z,
@@ -156,23 +156,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #if defined(RGB_MATRIX_LEDMAPS_ENABLED)
 // the indicator LEDs are mapped using the flags and for loop.
 
-// Right thumb: KC_MULTILNE, OSM(MOD_LSFT), MO(_SYMBOLS), KC_ENTER, KC_SPACE, MAGIPLAY,
+// this needs to match the key matrix exactly
 const ledmap ledmaps[] = {
     [_QWERTY]   = LEDMAP(
-       CYAN, ___n___, ___n___, ___n___, ___n___, ___n___,             CYAN, ___n___, ___n___, ___n___, ___n___,    CYAN,
-       GOLD, ___n___, ___n___, HRM_CTL, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___,    CYAN,
-      GREEN, ___n___, HRM_ALT, HRM_GUI, HRM_SFT, ___n___,          ___n___, HRM_SFT, HRM_GUI, HRM_ALT, ___n___, ___n___,
-        RED, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, HRM_CTL, ___n___, ___n___, ___n___,     RED,
-    TOG_NAV,     ESC,     DEL,   SHIFT,    GOLD, ___n___,            GREEN,   SHIFT, TOG_SYM,   ENTER,   SPACE, ___n___,
-    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
+        PURPLE, BLUE, GREEN, YELLOW, ORANGE, RED, RED, CHART, YELLOW, GREEN, BLUE, PURPLE,
+        PURPLE, BLUE, GREEN, YELLOW, ORANGE, RED, RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE,
+        PURPLE, BLUE, GREEN, YELLOW, ORANGE, RED, RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE,
+        PURPLE, BLUE, GREEN, YELLOW, ORANGE, RED, RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE,
+        PURPLE, BLUE, GREEN, YELLOW, ORANGE, RED, RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE,
+        PURPLE, BLUE, GREEN, YELLOW, ORANGE, RED, RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE
+    //    CYAN, ___n___, ___n___, ___n___, ___n___, ___n___,           ORANGE, ___n___, ___n___, ___n___, ___n___,    CYAN,
+    //    GOLD, ___n___, ___n___, HRM_CTL, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___,    CYAN,
+    //   GREEN, ___n___, HRM_ALT, HRM_GUI, HRM_SFT, ___n___,          ___n___, HRM_SFT, HRM_GUI, HRM_ALT, ___n___, ___n___,
+    //     RED, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, HRM_CTL, ___n___, ___n___, ___n___,     RED,
+    // TOG_NAV,     ESC,     DEL,   SHIFT,    GOLD, ___n___,            GREEN,   SHIFT, TOG_SYM,   ENTER,   SPACE, ___n___,
+    // ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
    ),
    [_MOUSE]     = LEDMAP(
-        RED,  YELLOW, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___,  YELLOW,     RED,
-       GOLD, ___n___, ___n___, ___n___, ___n___, ___n___,              RED,   GREEN, ___n___, ___n___, ___n___, ___n___,
-      GREEN, ___n___, ___n___, ___n___, ___n___, ___n___,              RED,    CYAN,    PINK,    CYAN, ___n___, ___n___,
-        RED, ___n___, ___n___, ___n___, ___n___, ___n___,            GREEN,    CYAN,    PINK,    CYAN, ___n___,     RED,
-    TOG_NAV,     ESC,     DEL,   SHIFT,    GOLD, ___n___,            GREEN,   SHIFT, TOG_SYM,   ENTER,   SPACE, ___n___,
-    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
+        RED, RED, RED, RED, RED, RED, CYAN, ORANGE, CYAN, CYAN, CYAN, CYAN,
+        RED, RED, RED, RED, RED, RED, CYAN, CYAN, CYAN, CYAN, CYAN, CYAN,
+        RED, RED, RED, RED, RED, RED, CYAN, CYAN, CYAN, CYAN, CYAN, CYAN,
+        RED, RED, RED, RED, RED, RED, CYAN, CYAN, CYAN, CYAN, CYAN, CYAN,
+        RED, RED, RED, RED, RED, RED, CYAN, CYAN, CYAN, CYAN, CYAN, CYAN,
+        RED, RED, RED, RED, RED, RED, CYAN, CYAN, CYAN, CYAN, CYAN, CYAN
+    //     RED,  YELLOW, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___,  YELLOW,     RED,
+    //    GOLD, ___n___, ___n___, ___n___, ___n___, ___n___,              RED,   GREEN, ___n___, ___n___, ___n___, ___n___,
+    //   GREEN, ___n___, ___n___, ___n___, ___n___, ___n___,              RED,    CYAN,    PINK,    CYAN, ___n___, ___n___,
+    //     RED, ___n___, ___n___, ___n___, ___n___, ___n___,            GREEN,    CYAN,    PINK,    CYAN, ___n___,     RED,
+    // TOG_NAV,     ESC,     DEL,   SHIFT,    GOLD, ___n___,            GREEN,   SHIFT, TOG_SYM,   ENTER,   SPACE, ___n___,
+    // ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
    ),
    [_SYMBOLS]   = LEDMAP(
        CYAN, ___n___, ___n___, ___n___, ___n___, ___n___,           ORANGE, MAGIPLY, ___n___, ___n___, ___n___, ___n___,

@@ -3,6 +3,8 @@
 
 #pragma once
 
+#define DEBUG_MATRIX_SCAN_RATE
+
 // RP2040 reset functionality
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET              // Activates the double-tap behavior
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // Timeout window in ms in which the double tap can occur.
@@ -30,12 +32,14 @@
 // RGB matrix config
 // WS2812 RGB LED strip input and number of LEDs
 #if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
-    // #define WS2812_DI_PIN GP4 // evidently this is new
-    // #define RGBLED_NUM 128                       // Total number of LEDs, total of both halves
-    // #define RGB_MATRIX_SPLIT { 64, 64 }  //  (4x6) + 5 + 12 + 12 + 11 = 64
-    #define RGB_MATRIX_LED_COUNT RGBLED_NUM
+    #define RGB_MATRIX_LED_COUNT RGBLED_NUM // won't compile without this
+    #define RGB_TOT_IND_L 28 // 2x falcon + 11 = 35
+    // flags were super buggy, have to do this to prevent overwriting colours.
+    #define RGB_KEYS_L_MIN 0 // 4x6 +5 = 29 (actual keys, 4x6 + 5 + 1f + 5dpad + 1f = 36)
+    #define RGB_KEYS_L_MAX 28
+    #define RGB_KEYS_R_MIN 63 // 35+29 = 64; 63+29=92
+    #define RGB_KEYS_R_MAX 92 // 92+35 = 128....but should be 127...
     // this brightness is only for 'default' rgb settings; userspace rgb is set in the keymap config.h
-    // #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50 // this has no effect unless you eeprom reset  // setting this too high will cause the trackball to reset every min or so, and at highest just brownout entirely
     #define RGB_MATRIX_DEFAULT_HUE 5
     #define RGB_MATRIX_DEFAULT_SAT 5
     #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
@@ -48,11 +52,9 @@
     #endif
     #define MOUSE_EXTENDED_REPORT // do we need this?
     #define POINTING_DEVICE_TASK_THROTTLE_MS 10 // this ensures that the trackball sensor polling happens only every 10ms
-    // note that PMW33XX_SPI_DIVISOR is pre-defined to 64
     #define SPLIT_POINTING_ENABLE               // required for telling the master side about slave trackball state, i.e. if usb left, and tb right
     #define POINTING_DEVICE_COMBINED
     #define PMW33XX_CS_PIN GP13                 // where the SS (CS) pin on the PMW module connects to the mcu
-    // #define PMW33XX_SPI_DIVISOR 64              // this is the default, but given the use of SPI, handy to have here for reference; drivers/sensors/pmw33xx_common.h
     #define PMW33XX_LIFTOFF_DISTANCE 0x07       // LIFTOFF_DISTANCE specifies how far from the sensor the trackball is
 #endif
 
@@ -76,7 +78,7 @@
     #define BOOTMAGIC_LITE_ROW 0
     #define BOOTMAGIC_LITE_COLUMN 0
     // this uses row/col numbering that starts on 0
-    #define BOOTMAGIC_LITE_ROW_RIGHT 13
+    #define BOOTMAGIC_LITE_ROW_RIGHT 11
     #define BOOTMAGIC_LITE_COLUMN_RIGHT 0
     // generic split config
     #define SPLIT_WATCHDOG_ENABLE // this took 30 off the scanrate

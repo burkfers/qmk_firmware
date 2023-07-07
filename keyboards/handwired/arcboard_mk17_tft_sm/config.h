@@ -53,11 +53,9 @@
     #endif
     #define MOUSE_EXTENDED_REPORT // do we need this?
     #define POINTING_DEVICE_TASK_THROTTLE_MS 10 // this ensures that the trackball sensor polling happens only every 10ms
-    // note that PMW33XX_SPI_DIVISOR is pre-defined to 64
     #define SPLIT_POINTING_ENABLE               // required for telling the master side about slave trackball state, i.e. if usb left, and tb right
     #define POINTING_DEVICE_COMBINED
     #define PMW33XX_CS_PIN GP13                 // where the SS (CS) pin on the PMW module connects to the mcu
-    // #define PMW33XX_SPI_DIVISOR 64              // this is the default, but given the use of SPI, handy to have here for reference; drivers/sensors/pmw33xx_common.h
     #define PMW33XX_LIFTOFF_DISTANCE 0x07       // LIFTOFF_DISTANCE specifies how far from the sensor the trackball is
 #endif
 
