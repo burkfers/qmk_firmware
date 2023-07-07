@@ -33,21 +33,30 @@
 
 #if defined(CONSOLE_ENABLE)
     #include "print.h"
+    void keyboard_post_init_user(void) {
+        // Customise these values to desired behaviour
+        debug_enable=true;
+        // debug_matrix=true;
+        // debug_keyboard=true;
+        // debug_mouse=true;
+    }
+#endif
+
+#if defined(TAP_DANCE_ENABLE)
+// Tap Dance definitions
+enum {
+    TD_SHIFT
+};
+tap_dance_action_t tap_dance_actions[] = {
+    // we want to tap for oneshot, double tap to hold on, double tap to hold off
+    // so tap= oneshot shift, doubletap= toggle shift on
+    [TD_SHIFT] = ACTION_TAP_DANCE_DOUBLE(OSM(MOD_LSFT), KC_CAPS),
+};
 #endif
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 __attribute__((weak)) void post_process_record_keymap(uint16_t keycode, keyrecord_t *record) {}
 void                       post_process_record_user(uint16_t keycode, keyrecord_t *record) { post_process_record_keymap(keycode, record); }
-
-void keyboard_post_init_user(void) {
-    #if defined(CONSOLE_ENABLE)
-        // Customise these values to desired behaviour
-        // debug_enable=true;
-        // debug_matrix=true;
-        // debug_keyboard=true;
-        // debug_mouse=true;
-    #endif
-}
 
 #if defined(QUANTUM_PAINTER_ENABLE)
     #include "qp_st7789.h"
@@ -137,42 +146,6 @@ void housekeeping_task_user(void) {
 
 #endif // QUANTUM_PAINTER_ENABLE
 
-#if defined(TAP_DANCE_ENABLE)
-// Tap Dance definitions
-enum {
-    TD_SHIFT
-};
-tap_dance_action_t tap_dance_actions[] = {
-    // we want to tap for oneshot, double tap to hold on, double tap to hold off
-    // so tap= oneshot shift, doubletap= toggle shift on
-    [TD_SHIFT] = ACTION_TAP_DANCE_DOUBLE(OSM(MOD_LSFT), KC_CAPS),
-};
-#endif
-
-// clang-format off
-    /* row,col
-     * .------+------+------+------+------+------.                                                       .------+------+------+------+------+------.
-     * |  1,1 |  1,2 |  1,3 |  1,4 |  1,5 |  1,6 |                                                       |  1,1 |  1,2 |  1,3 |  1,4 |  1,5 |  1,6 |
-     * |------+------+------+------+------+------|                                                       |------+------+------+------+------+------|
-     * |  2,1 |  2,2 |  2,3 |  2,4 |  2,5 |  2,6 |                                                       |  2,1 |  2,2 |  2,3 |  2,4 |  2,5 |  2,6 |
-     * |------+------+------+------+------+------|                                                       |------+------+------+------+------+------|
-     * |  3,1 |  3,2 |  3,3 |  3,4 |  3,5 |  3,6 |                                                       |  3,1 |  3,2 |  3,3 |  3,4 |  3,5 |  3,6 |
-     * |------+------+------+------+------+------|                                                       |------+------+------+------+------+------|
-     * |  4,1 |  4,2 |  4,3 |  4,4 |  4,5 |  4,6 |                                                       |  4,1 |  4,2 |  4,3 |  4,4 |  4,5 |  4,6 |
-     * '------+------+------+------+------+------+------+------+------.             .------+------+------+------+------+------+------+------+------'
-     *        |  trackball  |  5,1 |  5,2 |------|  6,1 |  6,2 |  6,3 |             |  6,1 |  6,2 |  6,3 |------|  5,1 |  5,2 |  trackball  |
-     *        '-------------+------+------+------+------+------+------'             +------+------+------+------+------+------+-------------'
-     *                      |  5,3 |  5,4 |  5,5 |  6,3 |  6,4 |                    |  6,3 |  6,4 |             |  5,3 |  5,4 |  5,5 |
-     *                      '------+------+------+------+------' .------.  .------. '------+------'             +------+------+------'
-     *                             |  5,6 |          |  6,5 |    |  6,6 |  |  6,6 |     |  6,5 |                       |  5,6 |
-     *                             '------'          '------'    '------'  '------'     '------'                       '------'
-     * 5,1-5,6  = thumb keys
-     * 6,1-6,4  = 5-way/dpad up/down/left/right
-     * 6,5      = 5-way/dpad button
-     * 6,6      = falcon button
-     */
-// clang-format on
-
 // this might be handy...
 // KC_MCTL (pops mission control - the thing used to re-order 'spaces')
 
@@ -184,13 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT, LT(0,KC_A),  HOME_S,  HOME_D,  HOME_F , KC_G,              KC_H,  HOME_J, HOME_K, HOME_L, KC_QUOT, KC_SCLN,
     DRAG_TOG,LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),LT(0,KC_B),    LT(0,KC_N), HOME_M, KC_COMM, KC_DOT, KC_SLASH, ZOOM_MUTE,
     KC_BSPC, MO(_NAV), KC_DEL, KC_ESC, OSM(MOD_LSFT), KC_1,             KC_MULTILNE, OSM(MOD_LSFT), MO(_SYMBOLS), KC_ENTER, KC_SPACE, KC_LAYRST,
-    KC_UP, KC_MULTILNE, OSM(MOD_LSFT), OSM(MOD_LSFT), KC_B, KC_2,       KC_N, KC_UP, KC_LEFT, KC_DOWN, KC_RIGHT, KC_MACSHOT,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__,                        __LED__, __LED__, __LED__, __LED__, __LED__
+    KC_UP, KC_MULTILNE, OSM(MOD_LSFT), OSM(MOD_LSFT), KC_B, KC_2,       KC_N, KC_UP, KC_LEFT, KC_DOWN, KC_RIGHT, KC_MACSHOT
 ),
 [_MOUSE] = LAYOUT(
     QK_BOOT, EE_CLR, _______, _______, _______, _______,               _______, _______, _______, _______, EE_CLR, QK_BOOT,
@@ -198,13 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______,               KC_CHRMBACK, KC_MS_BTN1,KC_MS_BTN3,KC_MS_BTN2, _______, _______,
     _______, _______, _______, _______, _______, _______,               KC_CHRMFWD, KC_MS_BTN1,KC_MS_BTN3,KC_MS_BTN2, _______, ZOOM_VID,
     _______, _______, _______, _______, _______, KC_NO,                 _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, KC_MACLOCK,                 _______, _______, _______, _______, _______, KC_MUTE,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__,                        __LED__, __LED__, __LED__, __LED__, __LED__
+    _______, _______, _______, _______, _______, KC_MACLOCK,                 _______, _______, _______, _______, _______, KC_MUTE
 ),
 [_SYMBOLS] = LAYOUT(
     _______, _______, _______, _______, _______, _______,               KC_MACSHOT, MAGIPLAY, _______, _______, _______, _______,
@@ -212,13 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_HASH, KC_DLR,  KC_LCBR, KC_RCBR, KC_GRV,                KC_PAST, KC_4,    KC_5,    KC_6,    KC_0,    KC_COMM,
     _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_PIPE,               KC_DOT,  KC_7,    KC_8,    KC_9,    KC_BSLS, _______,
     _______, _______, _______, _______, _______, KC_NO,                 _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, KC_NO,                 _______, _______, _______, _______, _______, KC_NO,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__,                        __LED__, __LED__, __LED__, __LED__, __LED__
+    _______, _______, _______, _______, _______, KC_NO,                 _______, _______, _______, _______, _______, KC_NO
 ),
 [_NAV] = LAYOUT(
     _______, _______, _______, _______, _______, _______,               _______, _______, KC_SFTARROW_U, _______, _______, KC_F12,
@@ -226,13 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_TAB_L, KC_TAB_R, KC_SPCLEFT, KC_SPCRGHT, _______,       KC_ALTARROW_L, KC_LEFT, KC_DOWN, KC_RIGHT, KC_ALTARROW_R, _______,
     _______, _______, _______, _______, _______, _______,               KC_SFTGUIARROW_L, KC_SFTALTARROW_L, KC_SFTARROW_D, KC_SFTALTARROW_R, KC_SFTGUIARROW_R, _______,
     _______, _______, _______ , _______, _______,KC_MACLOCK,            KC_TAB_R, KC_SPCRGHT, KC_TAB_L, KC_B, KC_SPCLEFT, KC_F,
-    _______, _______, _______ , _______, _______, KC_NO,                _______, _______, _______, _______, _______, MAGIPLAY,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,               __LED__, __LED__, __LED__, __LED__, __LED__, __LED__,
-    __LED__, __LED__, __LED__, __LED__, __LED__,                        __LED__, __LED__, __LED__, __LED__, __LED__
+    _______, _______, _______ , _______, _______, KC_NO,                _______, _______, _______, _______, _______, MAGIPLAY
 )
 };
 
@@ -433,52 +382,32 @@ const ledmap ledmaps[] = {
       GOLD, ___n___, ___n___, HRM_CTL, ___n___, ___n___,           ___n___, ___n___, ___n___, ___n___, ___n___,    CYAN,
      GREEN, ___n___, HRM_ALT, HRM_GUI, HRM_SFT, ___n___,           ___n___, HRM_SFT, HRM_GUI, HRM_ALT, ___n___, ___n___,
      ORANGE, ___n___, ___n___, ___n___, ___n___, ___n___,           ___n___, HRM_CTL, ___n___, ___n___, ___n___,     RED,
-     DEL,     TOG_NAV, DEL,     ESC,     SHIFT,                   GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE,
-     FAL1_L0, FAL1_L0, FAL1_L0, FAL1_L0, FAL1_L0, FAL1_L0,        FAL3_L0, FAL3_L0, FAL3_L0, FAL3_L0, FAL3_L0, FAL3_L0,
-     FAL1_L0, FAL1_L0, FAL1_L0, FAL1_L0, FAL1_L0, FAL1_L0,        FAL3_L0, FAL3_L0, FAL3_L0, FAL3_L0, FAL3_L0, FAL3_L0,
-     FAL2_L0, FAL2_L0, FAL2_L0, FAL2_L0, FAL2_L0, FAL2_L0,        FAL4_L0, FAL4_L0, FAL4_L0, FAL4_L0, FAL4_L0, FAL4_L0,
-     FAL2_L0, FAL2_L0, FAL2_L0, FAL2_L0, FAL2_L0, FAL2_L0,        FAL4_L0, FAL4_L0, FAL4_L0, FAL4_L0, FAL4_L0, FAL4_L0,
-     ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,         ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,
-     ___n___, ___n___, ___n___, ___n___, ___n___,                  ___n___, ___n___, ___n___, ___n___, ___n___
+     DEL,     TOG_NAV, DEL,     ESC,     SHIFT, ___n___,            GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE, ___n___,
+    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
    ),
    [_MOUSE]     = LEDMAP(
       RED,   YELLOW, ___n___, ___n___, ___n___, ___n___,           ___n___, ___n___, ___n___, ___n___,  YELLOW,     RED,
       GOLD, ___n___, ___n___, ___n___, ___n___, ___n___,               RED,   GREEN, ___n___, ___n___, ___n___, ___n___,
      GREEN, ___n___, ___n___, ___n___, ___n___, ___n___,               RED,    CYAN,    PINK,    CYAN, ___n___, ___n___,
      ORANGE, ___n___, ___n___, ___n___, ___n___, ___n___,         GREEN,    CYAN,    PINK,    CYAN, ___n___,     RED,
-     DEL,     TOG_NAV, DEL,     ESC,     SHIFT,                   GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE,
-     FAL1_L1, FAL1_L1, FAL1_L1, FAL1_L1, FAL1_L1, FAL1_L1,        FAL3_L1, FAL3_L1, FAL3_L1, FAL3_L1, FAL3_L1, FAL3_L1,
-     FAL1_L1, FAL1_L1, FAL1_L1, FAL1_L1, FAL1_L1, FAL1_L1,        FAL3_L1, FAL3_L1, FAL3_L1, FAL3_L1, FAL3_L1, FAL3_L1,
-     FAL2_L1, FAL2_L1, FAL2_L1, FAL2_L1, FAL2_L1, FAL2_L1,        FAL4_L1, FAL4_L1, FAL4_L1, FAL4_L1, FAL4_L1, FAL4_L1,
-     FAL2_L1, FAL2_L1, FAL2_L1, FAL2_L1, FAL2_L1, FAL2_L1,        FAL4_L1, FAL4_L1, FAL4_L1, FAL4_L1, FAL4_L1, FAL4_L1,
-     ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,         ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,
-     ___n___, ___n___, ___n___, ___n___, ___n___,                  ___n___, ___n___, ___n___, ___n___, ___n___
+     DEL,     TOG_NAV, DEL,     ESC,     SHIFT, ___n___,           GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE, ___n___,
+    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
    ),
    [_SYMBOLS]   = LEDMAP(
       CYAN, ___n___, ___n___, ___n___, ___n___, ___n___,          ORANGE, MAGIPLY, ___n___, ___n___, ___n___, ___n___,
       GOLD,    GOLD,   GREEN,  PURPLE,  PURPLE,   GREEN,           GREEN,    CYAN,    CYAN,    CYAN, ___n___, ___n___,
      GREEN,    CYAN,  YELLOW,  MAGENT,  MAGENT,    BLUE,           GREEN,    CYAN,    CYAN,    CYAN,    CYAN, ___n___,
     ORANGE,    GOLD,   GREEN,   PINK,     PINK,    CYAN,             RED,    CYAN,    CYAN,    CYAN,    GOLD,     RED,
-     DEL,     TOG_NAV, DEL,     ESC,     SHIFT,                   GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE,
-     FAL1_L2, FAL1_L2, FAL1_L2, FAL1_L2, FAL1_L2, FAL1_L2,        FAL3_L2, FAL3_L2, FAL3_L2, FAL3_L2, FAL3_L2, FAL3_L2,
-     FAL1_L2, FAL1_L2, FAL1_L2, FAL1_L2, FAL1_L2, FAL1_L2,        FAL3_L2, FAL3_L2, FAL3_L2, FAL3_L2, FAL3_L2, FAL3_L2,
-     FAL2_L2, FAL2_L2, FAL2_L2, FAL2_L2, FAL2_L2, FAL2_L2,        FAL4_L2, FAL4_L2, FAL4_L2, FAL4_L2, FAL4_L2, FAL4_L2,
-     FAL2_L2, FAL2_L2, FAL2_L2, FAL2_L2, FAL2_L2, FAL2_L2,        FAL4_L2, FAL4_L2, FAL4_L2, FAL4_L2, FAL4_L2, FAL4_L2,
-     ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,         ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,
-     ___n___, ___n___, ___n___, ___n___, ___n___,                  ___n___, ___n___, ___n___, ___n___, ___n___
+     DEL,     TOG_NAV, DEL,     ESC,     SHIFT, ___n___,           GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE, ___n___,
+    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
    ),
    [_NAV]       = LEDMAP(
       CYAN, ___n___, ___n___, ___n___, ___n___, ___n___,           ___n___, ___n___,  ORANGE, ___n___, ___n___,  YELLOW,
       GOLD, ___n___, ___n___,    CYAN, ___n___,  PURPLE,             GREEN,    CYAN,   GREEN,    CYAN,     RED, ___n___,
      GREEN,    BLUE,  SPRING,    PINK,    CYAN,   GREEN,            YELLOW,   GREEN,   GREEN,   GREEN,  YELLOW, ___n___,
      ORANGE, ___n___, ___n___, ___n___, ___n___,     RED,            PURPLE,  ORANGE,  ORANGE,  ORANGE,  PURPLE,  RED,
-     DEL,     TOG_NAV, DEL,     ESC,     SHIFT,                   GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE,
-     FAL1_L3, FAL1_L3, FAL1_L3, FAL1_L3, FAL1_L3, FAL1_L3,        FAL3_L3, FAL3_L3, FAL3_L3, FAL3_L3, FAL3_L3, FAL3_L3,
-     FAL1_L3, FAL1_L3, FAL1_L3, FAL1_L3, FAL1_L3, FAL1_L3,        FAL3_L3, FAL3_L3, FAL3_L3, FAL3_L3, FAL3_L3, FAL3_L3,
-     FAL2_L3, FAL2_L3, FAL2_L3, FAL2_L3, FAL2_L3, FAL2_L3,        FAL4_L3, FAL4_L3, FAL4_L3, FAL4_L3, FAL4_L3, FAL4_L3,
-     FAL2_L3, FAL2_L3, FAL2_L3, FAL2_L3, FAL2_L3, FAL2_L3,        FAL4_L3, FAL4_L3, FAL4_L3, FAL4_L3, FAL4_L3, FAL4_L3,
-     ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,         ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,
-     ___n___, ___n___, ___n___, ___n___, ___n___,                  ___n___, ___n___, ___n___, ___n___, ___n___
+     DEL,     TOG_NAV, DEL,     ESC,     SHIFT, ___n___,            GREEN,   SHIFT,   TOG_SYM, ENTER,   SPACE, ___n___,
+    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
    ),
 };
 #endif // RGB_MATRIX_LEDMAPS_ENABLED

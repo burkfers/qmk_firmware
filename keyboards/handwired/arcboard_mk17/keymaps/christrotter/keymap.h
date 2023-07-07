@@ -19,6 +19,10 @@
 
 #include "quantum.h"
 
+#if defined(CONSOLE_ENABLE)
+    #define DEBUG_MATRIX_SCAN_RATE
+#endif
+
 #if defined(POINTING_DEVICE_ENABLE) && defined(DRAGSCROLL_ENABLE)
     #define DRAG_TOG DRAG_SCROLL
     bool set_scrolling;

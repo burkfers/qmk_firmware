@@ -3,23 +3,61 @@
 
 #pragma once
 
-// #define DIODE_DIRECTION COL2ROW
-#define MATRIX_ROWS 24                          // Rows are doubled-up in a split kb
-#define MATRIX_COLS 6
-#define USB_POLLING_INTERVAL_MS 1 /* Set Polling rate to 1000Hz */
-
-// setting the SPI pins for the PMW // why isn't this inside pointing_device_enable?
-#define SPI_DRIVER SPID1
-#define SPI_SCK_PIN GP10  // clock is shared
-#define SPI_MOSI_PIN GP11 // mosi is shared....?
-#define SPI_MISO_PIN GP12 // pmw needs this; tft does not
-
 // RP2040 reset functionality
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET      // Activates the double-tap behavior
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET              // Activates the double-tap behavior
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // Timeout window in ms in which the double tap can occur.
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED_MASK 0U // Specify a optional status led which blinks when entering the bootloader
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED_MASK 0U  // Specify a optional status led which blinks when entering the bootloader
+
+// RP2040 performance improvements
 #define CRC8_USE_TABLE
 #define CRC8_OPTIMIZE_SPEED
+
+#if defined(POINTING_DEVICE_ENABLE) || defined(QUANTUM_PAINTER_ENABLE)
+    // SPI setup (PMW33xx is normally in use)
+    #define SPI_DRIVER SPID1  // Waveshare documentation says these pins are SPI1
+    #define SPI_SCK_PIN GP10  // clock is shared
+    #define SPI_MOSI_PIN GP11 // mosi is shared
+    #define SPI_MISO_PIN GP12 // this is dedicated for pmw according to wiring doc
+#endif
+
+#if defined(QUANTUM_PAINTER_ENABLE)
+    // QP config
+    #define QUANTUM_PAINTER_TASK_THROTTLE 50 // trying to reduce the scan rate impact
+    #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0 // this is super important - you get a white screen after 30s otherwise
+    #define DISPLAY_SPI_DIVISOR 0
+    #define DISPLAY_DC_PIN GP8
+    #define DISPLAY_CS_PIN GP9
+    #define DISPLAY_RST_PIN GP0 // setting this to NO_PIN causes the display to stop showing data
+    #define DISPLAY_LED_PIN GP22
+#endif
+
+// WS2812 RGB LED strip input and number of LEDs
+#if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
+    #define RGB_MATRIX_LED_COUNT RGBLED_NUM
+    #define RGB_TOT_IND_L 28 // 2x falcon + 11 = 35
+    // flags are a bitfield that i don't understand, so doing this...
+    #define RGB_KEYS_L_MIN 0 // 4x6 +5 = 29 (actual keys, 4x6 + 5 + 1f + 5dpad + 1f = 36)
+    #define RGB_KEYS_L_MAX 28
+    #define RGB_KEYS_R_MIN 63 // 35+29 = 64; 63+29=92
+    #define RGB_KEYS_R_MAX 92 // 92+35 = 128....but should be 127...
+    // this brightness is only for 'default' rgb settings; userspace rgb is set in the keymap config.h
+    #define RGB_MATRIX_DEFAULT_HUE 5
+    #define RGB_MATRIX_DEFAULT_SAT 5
+    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #define NOP_FUDGE 0.4                       // not sure what this does - some math about rgb brightness or something? - but it won't compile without this set
+#endif
+
+#if defined(POINTING_DEVICE_ENABLE)
+    #if defined(POINTING_DEBUG_ENABLE)
+        #define POINTING_DEVICE_DEBUG // enables some handy debug output; pair with 'debug_mouse=true' in your keyboard_post_init_user // also, should wrap debug up in something maybe
+    #endif
+    #define MOUSE_EXTENDED_REPORT // do we need this?
+    #define POINTING_DEVICE_TASK_THROTTLE_MS 10 // this ensures that the trackball sensor polling happens only every 10ms
+    #define SPLIT_POINTING_ENABLE               // required for telling the master side about slave trackball state, i.e. if usb left, and tb right
+    #define POINTING_DEVICE_COMBINED
+    #define PMW33XX_CS_PIN GP13                 // where the SS (CS) pin on the PMW module connects to the mcu
+    #define PMW33XX_LIFTOFF_DISTANCE 0x07       // LIFTOFF_DISTANCE specifies how far from the sensor the trackball is
+#endif
 
 // Split settings
 #if defined(SPLIT_KEYBOARD)
@@ -41,7 +79,7 @@
     #define BOOTMAGIC_LITE_ROW 0
     #define BOOTMAGIC_LITE_COLUMN 0
     // this uses row/col numbering that starts on 0
-    #define BOOTMAGIC_LITE_ROW_RIGHT 13
+    #define BOOTMAGIC_LITE_ROW_RIGHT 11
     #define BOOTMAGIC_LITE_COLUMN_RIGHT 0
     // generic split config
     #define SPLIT_WATCHDOG_ENABLE // this took 30 off the scanrate
@@ -51,47 +89,8 @@
     #define SPLIT_MODS_ENABLE                   // docs say it is for telling the other half about modifier (e.g. oneshot) state // this removed 35 from scanrate
 #endif
 
-#if defined(POINTING_DEVICE_ENABLE)
-    // #define POINTING_DEVICE_DEBUG // enables some handy debug output; pair with 'debug_mouse=true' in your keyboard_post_init_user // also, should wrap debug up in something maybe
-    #define MOUSE_EXTENDED_REPORT // do we need this?
-    #define POINTING_DEVICE_TASK_THROTTLE_MS 10 // this ensures that the trackball sensor polling happens only every 10ms
-    #define SPLIT_POINTING_ENABLE               // required for telling the master side about slave trackball state, i.e. if usb left, and tb right
-    #define POINTING_DEVICE_COMBINED
-    #define PMW33XX_CS_PIN GP13                 // where the SS (CS) pin on the PMW module connects to the mcu
-    #define PMW33XX_LIFTOFF_DISTANCE 0x07       // LIFTOFF_DISTANCE specifies how far from the sensor the trackball is
-    #define DRAGSCROLL_REVERSE_X
-    #define RIGHT_PMW_CPI 700       // your mouse cpi (DPI) setting (how fast the ball tracks)
-    #define LEFT_PMW_CPI 100    // dragscroll cpi - interestingly, can't be set below 100?
-#endif
-
-// WS2812 RGB LED strip input and number of LEDs
-#if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
-    #define WS2812_DI_PIN GP28 // evidently this is new
-    #define RGBLED_NUM 128                       // Total number of LEDs, total of both halves
-    #define RGB_MATRIX_SPLIT { 64, 64 }  //  (4x6) + 5 + 12 + 12 + 11 = 64
-    #define RGB_MATRIX_LED_COUNT RGBLED_NUM
-
-    // this brightness is only for 'default' rgb settings; userspace rgb is set in the keymap config.h
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50 // this has no effect unless you eeprom reset  // setting this too high will cause the trackball to reset every min or so, and at highest just brownout entirely
-    #define RGB_MATRIX_DEFAULT_HUE 5
-    #define RGB_MATRIX_DEFAULT_SAT 5
-    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-    #define NOP_FUDGE 0.4                       // not sure what this does - some math about rgb brightness or something? - but it won't compile without this set
-#endif
-
 #if defined(ENCODER_ENABLE)
     #define ENCODERS_PAD_A { GP14, GP26 }
     #define ENCODERS_PAD_B { GP15, GP27 }
     #define ENCODER_RESOLUTION 4
-#endif
-
-// For the tft display
-#if defined(QUANTUM_PAINTER_ENABLE)
-    #define DISPLAY_SPI_DIVISOR 0
-    #define DISPLAY_DC_PIN GP8
-    #define DISPLAY_CS_PIN GP9
-    #define DISPLAY_RST_PIN GP0 // without this, white screen
-    #define DISPLAY_LED_PIN GP22
-    #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0 // never turn off the display; i'm troubleshooting why QP is not working, this is not really necessary
-    #define QUANTUM_PAINTER_TASK_THROTTLE 50 // trying to reduce the scan rate hit
 #endif

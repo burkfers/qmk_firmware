@@ -5,7 +5,14 @@ endif
 ifeq ($(strip $(DRAGSCROLL_ENABLE)), yes)
 	OPT_DEFS += -DDRAGSCROLL_ENABLE
 endif
-
+# Trackball settings
+POINTING_DEVICE_ENABLE ?= yes
+ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
+	CUSTOM_POINTING_DEVICE  = yes		# Auto-mouse layer and such
+	POINTING_DEVICE_DRIVER 	= pmw3389
+	DRAGSCROLL_ENABLE		= yes
+	CUSTOM_DRAGSCROLL 		= yes
+endif
 QUANTUM_PAINTER_ENABLE ?= yes
 ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
 	QUANTUM_PAINTER_DRIVERS = st7789_spi

@@ -44,4 +44,6 @@
     // CPI not being set correctly...hmm... (can't be set in user?)
     #define PMW33XX_CPI 700       // your mouse cpi (DPI) setting (how fast the ball tracks)
     #define DRAGSCROLL_CPI 100    // dragscroll cpi - interestingly, can't be set below 100?
+    #define RIGHT_PMW_CPI 700       // your mouse cpi (DPI) setting (how fast the ball tracks)
+    #define LEFT_PMW_CPI 100    // dragscroll cpi - interestingly, can't be set below 100?
 #endif

@@ -34,7 +34,7 @@
 #if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
     #define RGB_MATRIX_LED_COUNT RGBLED_NUM // won't compile without this
     #define RGB_TOT_IND_L 28 // 2x falcon + 11 = 35
-    // flags were super buggy, have to do this to prevent overwriting colours.
+    // flags are a bitfield that i don't understand, so doing this...
     #define RGB_KEYS_L_MIN 0 // 4x6 +5 = 29 (actual keys, 4x6 + 5 + 1f + 5dpad + 1f = 36)
     #define RGB_KEYS_L_MAX 28
     #define RGB_KEYS_R_MIN 63 // 35+29 = 64; 63+29=92
