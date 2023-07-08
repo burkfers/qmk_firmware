@@ -25,9 +25,9 @@
 //  ENCODER_CCW_CW(LEFT-FALCON1), ENCODER_CCW_CW(LEFT-FALCON2),
 //  ENCODER_CCW_CW(RIGHT-FALCON1), ENCODER_CCW_CW(RIGHT-FALCON2)
 // and this is kinda hard to grok, cuz the physical implementation is mirrored.
-//          physically |  logically
-//          L2,L1,     |  L1,L2,
-//          R1,R2      |  R1,R2
+//          physically |  logically  |  in-code
+//          L2,L1,     |  L1,L2,     |  FAL1,FAL2
+//          R1,R2      |  R1,R2      |  FAL3,FAL4
 // hindsight: this seems kinda dumb...why not just re-order logical to equal physical?
 #if defined(ENCODER_MAP_ENABLE)
     const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {

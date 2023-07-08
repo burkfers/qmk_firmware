@@ -132,7 +132,7 @@ enum custom_keycodes {
     #define FAL1_L3 HSV_MOONLANDER
     // left, flat
     #define FAL2_L0 HSV_CYAN
-    #define FAL2_L1 HSV_MOONLANDER
+    #define FAL2_L1 HSV_RED
     #define FAL2_L2 HSV_MOONLANDER
     #define FAL2_L3 HSV_MOONLANDER
     // right, angled - full-time layer selector
@@ -147,7 +147,7 @@ enum custom_keycodes {
     #define FAL4_L3 HSV_MOONLANDER
 #endif
 
-// encoder button mapping
+// encoder button mapping // uhhh why do we have this again...
     // left, flat
     #define FAL1_L0_BT KC_NO
     #define FAL1_L1_BT KC_NO

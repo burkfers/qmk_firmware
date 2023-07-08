@@ -42,8 +42,8 @@
 typedef uint8_t ledmap[RGB_MATRIX_LED_COUNT][3];
 extern const ledmap ledmaps[];
 
-void set_rgb_range(uint8_t led_start, uint8_t led_last, int val, int layer);
-void set_rgb_led(int index, int hue, int sat, int val);
+void set_rgb_ledmap(uint8_t first_led, uint8_t last_led, int val, int layer);
+void set_rgb_range(uint8_t first_led, uint8_t last_led, int hue, int sat, int val);
 
 void rgb_matrix_layers_enable(void);     // do we need this?
 void rgb_matrix_layers_disable(void);    // do we need this?

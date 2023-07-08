@@ -34,6 +34,10 @@
     // #endif
 #endif
 
+#if defined(RGB_MATRIX_LEDMAPS_ENABLED)
+    #define RGB_INDICATOR_BRIGHTNESS 100
+#endif
+
 #if defined(POINTING_DEVICE_ENABLE)
     #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
     #define AUTO_MOUSE_DEFAULT_LAYER 1

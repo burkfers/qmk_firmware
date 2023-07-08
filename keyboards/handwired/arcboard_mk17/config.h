@@ -37,10 +37,22 @@
     #define RGB_MATRIX_LED_COUNT RGBLED_NUM
     #define RGB_TOT_IND_L 28 // 2x falcon + 11 = 35
     // flags are a bitfield that i don't understand, so doing this...
-    #define RGB_KEYS_L_MIN 0 // 4x6 +5 = 29 (actual keys, 4x6 + 5 + 1f + 5dpad + 1f = 36)
+    #define RGB_KEYS_L_MIN 0 // (actual keys, 4x6 + 5 + 1f + 5dpad + 1f = 36)
     #define RGB_KEYS_L_MAX 28
-    #define RGB_KEYS_R_MIN 63 // 35+29 = 64; 63+29=92
-    #define RGB_KEYS_R_MAX 92 // 92+35 = 128....but should be 127...
+    #define RGB_FAL1_MIN 29
+    #define RGB_FAL1_MAX 40
+    #define RGB_FAL2_MIN 41
+    #define RGB_FAL2_MAX 52
+    #define RGB_IND_L_MIN 53
+    #define RGB_IND_L_MAX 63
+    #define RGB_KEYS_R_MIN 64
+    #define RGB_KEYS_R_MAX 92
+    #define RGB_FAL3_MIN 93
+    #define RGB_FAL3_MAX 104
+    #define RGB_FAL4_MIN 105
+    #define RGB_FAL4_MAX 116
+    #define RGB_IND_R_MIN 117
+    #define RGB_IND_R_MAX 127
     // this brightness is only for 'default' rgb settings; userspace rgb is set in the keymap config.h
     #define RGB_MATRIX_DEFAULT_HUE 5
     #define RGB_MATRIX_DEFAULT_SAT 5
