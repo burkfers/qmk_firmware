@@ -18,4 +18,4 @@ ENCODER_MAP_ENABLE = yes
 
 # Enable the TFT screens
 # currently disabled cuz wiring woes
-QUANTUM_PAINTER_ENABLE 	= yes
+QUANTUM_PAINTER_ENABLE 	= no

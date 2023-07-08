@@ -80,15 +80,13 @@ void                       post_process_record_user(uint16_t keycode, keyrecord_
 
     void init_ui(void) {
         font = qp_load_font_mem(font_futura40);
-        display = qp_st7789_make_spi_device(240, 320, DISPLAY_CS_PIN, DISPLAY_DC_PIN, DISPLAY_RST_PIN, DISPLAY_SPI_DIVISOR, 3);
-        qp_init(display, QP_ROTATION_0);
+        display = qp_st7789_make_spi_device(320, 240, DISPLAY_CS_PIN, DISPLAY_DC_PIN, DISPLAY_RST_PIN, DISPLAY_SPI_DIVISOR, 3);
+        qp_init(display, QP_ROTATION_270);
         // could not get the backlight feature working, sorry elpekenin!
         setPinOutput(DISPLAY_LED_PIN);
         writePinHigh(DISPLAY_LED_PIN);
-        painter_font_handle_t font;
-        font = qp_load_font_mem(font_futura40);
-        qp_drawtext_recolor(display, 25, 25, font, "Init...", HSV_WHITE, HSV_BLUE);
-        qp_rect(display, 0, 0, 240, 320, HSV_BLUE, true);
+
+        qp_rect(display, 0, 0, 320, 240, HSV_BLACK, true);
         qp_flush(display);
     }
 
@@ -120,21 +118,21 @@ void                       post_process_record_user(uint16_t keycode, keyrecord_
             int qwerty_layer = strcmp(layer_name, qwerty);
             int nav_layer = strcmp(layer_name, nav);
             int symbols_layer = strcmp(layer_name, symbols);
-            if (mouse_layer==0) {
-                qp_rect(display, 0, 106, 240, 212, HSV_BLUE, true);
-                qp_drawtext_recolor(display, 45, ypos, font, "MOUSE", HSV_WHITE, HSV_BLUE);
-            }
             if (qwerty_layer==0) {
-                qp_rect(display, 0, 106, 240, 212, HSV_WHITE, true);
-                qp_drawtext_recolor(display, 35, ypos, font, "QWERTY", HSV_BLACK, HSV_WHITE);
+                // qp_rect(display, 0, 106, 240, 212, HSV_WHITE, true);
+                qp_drawtext_recolor(display, 35, ypos, font, "  QWERTY  ", HSV_WHITE, HSV_BLACK);
+            }
+            if (mouse_layer==0) {
+                // qp_rect(display, 0, 106, 240, 212, HSV_BLUE, true);
+                qp_drawtext_recolor(display, 45, ypos, font, "  MOUSE  ", HSV_WHITE, HSV_BLACK);
             }
             if (nav_layer==0) {
-                qp_rect(display, 0, 106, 240, 212, HSV_CHARTREUSE, true);
-                qp_drawtext_recolor(display, 75, ypos, font, "NAV", HSV_BLACK, HSV_CHARTREUSE);
+                // qp_rect(display, 0, 106, 240, 212, HSV_CHARTREUSE, true);
+                qp_drawtext_recolor(display, 75, ypos, font, "    NAV    ", HSV_WHITE, HSV_BLACK);
             }
             if (symbols_layer==0) {
-                qp_rect(display, 0, 106, 240, 212, HSV_PINK, true);
-                qp_drawtext_recolor(display, 25, ypos, font, "SYMBOLS", HSV_BLACK, HSV_PINK);
+                // qp_rect(display, 0, 106, 240, 212, HSV_PINK, true);
+                qp_drawtext_recolor(display, 25, ypos, font, " SYMBOLS ", HSV_WHITE, HSV_BLACK);
             }
         }
         qp_flush(display);

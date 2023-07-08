@@ -51,7 +51,7 @@ void set_rgb_led(int index, int hue, int sat, int val) {
     HSV hsv = {
         .h = hue,
         .s = sat,
-        .v = 150,
+        .v = 100,
     };
     if (hsv.h || hsv.s) {
         RGB rgb = hsv_to_rgb(hsv);
