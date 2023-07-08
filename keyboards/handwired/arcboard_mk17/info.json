@@ -15,11 +15,20 @@
         "quantum_painter": false,
         "rgb_matrix": true
     },
+    "bootmagic": {
+        "matrix": [0, 0]
+    },
     "split": {
         "bootmagic": {
-            "matrix": [0, 0]
+            "matrix": [0, 11]
         },
-        "enabled": true
+        "enabled": true,
+        "transport": {
+            "watchdog": true,
+            "watchdog_timeout": 3000,
+            "sync_matrix_state": true,
+            "sync_modifiers": true
+        }
     },
     "matrix_pins": {
         "cols": ["GP21", "GP20", "GP19", "GP18", "GP17", "GP16"],

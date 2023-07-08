@@ -111,3 +111,16 @@ const ledmap PROGMEM ledmaps[] = {
 
 For the quantum painter stuff, it's all in the `arcboard_mk17_qp.c` file, and currently kinda broken due to SPI/transport issues - probably more due to my build execution, not QMK.
 
+## Troubleshooting
+### serial baudrate
+```
+Experiment: See what the scan rate change is for each setting:
+e.g. keyboard/config.h; #define SERIAL_USART_SPEED 800000
+230400 = 640 (default)
+460800 = 780 (labeled as 'experimental')
+700000 = 840
+800000 = 860 (35% improvement! very consistent numbers)
+850000 = 'Failed to execute encoder/pointer' errors
+900000 = 875, but inconsistent numbers, ranging from 855-875
+921600 = 'Failed to execute encoder' errors
+```
