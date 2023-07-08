@@ -30,6 +30,10 @@
     #define DRAG_TOG KC_NO
 #endif
 
+#if defined(QUANTUM_PAINTER_ENABLE)
+    #include "lvgl.h"
+#endif
+
 #define XXX KC_NO
 #define __LED__ KC_NO
 

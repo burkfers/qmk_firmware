@@ -102,8 +102,8 @@
     #define SPLIT_MODS_ENABLE                   // docs say it is for telling the other half about modifier (e.g. oneshot) state // this removed 35 from scanrate
 #endif
 
-#if defined(ENCODER_ENABLE)
-    #define ENCODERS_PAD_A { GP14, GP26 }
-    #define ENCODERS_PAD_B { GP15, GP27 }
-    #define ENCODER_RESOLUTION 4
-#endif
+// #if defined(ENCODER_ENABLE)
+//     #define ENCODERS_PAD_A { GP14, GP26 }
+//     #define ENCODERS_PAD_B { GP15, GP27 }
+//     #define ENCODER_RESOLUTION 4
+// #endif

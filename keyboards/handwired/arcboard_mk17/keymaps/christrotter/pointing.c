@@ -54,6 +54,13 @@
         } else {
             pointing_device_set_cpi(PMW33XX_CPI);
         }
+
+        // set the left trackball to only scroll
+        left_report.h = left_report.x;
+        left_report.v = left_report.y;
+        left_report.x = 0;
+        left_report.y = 0;
+
         return pointing_device_combine_reports(left_report, right_report);
     }
 #endif

@@ -39,6 +39,11 @@
         // debug_matrix=true;
         // debug_keyboard=true;
         // debug_mouse=true;
+
+        #if defined(POINTING_DEVICE_ENABLE)
+            pointing_device_set_cpi_on_side(true, LEFT_PMW_CPI);
+            pointing_device_set_cpi_on_side(false, RIGHT_PMW_CPI);
+        #endif
     }
 #endif
 
@@ -139,7 +144,9 @@ void                       post_process_record_user(uint16_t keycode, keyrecord_
     }
 
 void housekeeping_task_user(void) {
-    draw_ui_user();
+    if (qp_lvgl_attach(display)) {
+        draw_ui_user();
+    }
 }
 
 #endif // QUANTUM_PAINTER_ENABLE
