@@ -58,8 +58,11 @@ static uint16_t auto_pointer_layer_timer = 0;
 #    define SNIPING KC_NO
 #endif // !POINTING_DEVICE_ENABLE
 
-enum {
-    TD_SFT_CWRD = 0
+enum my_keycodes {
+    C_LT = SAFE_RANGE // CUSTOM_LAYERTOGGLE
+};
+
+tap_dance_action_t tap_dance_actions[] = {
 };
 
 
@@ -76,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_LCTL,         PT_Z,         KC_X,         KC_C,         KC_V,    KC_B,       KC_N,            KC_M,      KC_COMM,       KC_DOT,         PT_SLSH, KC_LALT,
   // ╰────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────╯
                                                  KC_BSPC,       KC_SPC,  KC_DEL,      KC_TAB,          KC_ENT,
-                                                        TG(LAYER_GAME),   LOWER,      RAISE
+                                                        C_LT,   LOWER,      RAISE
   //                                           ╰─────────────────────────────────╯ ╰──────────────────────────╯
   ),
 
@@ -143,14 +146,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────╮
         KC_ESC,         KC_1,         KC_2,         KC_3,         KC_4,    KC_5,       KC_6,             KC_7,        KC_8,         KC_9,            KC_0, KC_MINS,
   // ├────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────┤
-        KC_TAB, RALT_T(KC_Q),         KC_W,         KC_E,         KC_R,    KC_T,       KC_Y,             KC_U,        KC_I, RALT_T(KC_O),            KC_P, KC_BSLS,
+        KC_TAB, RALT_T(KC_Q),         KC_W,         KC_F,         KC_P,    KC_B,       KC_J,             KC_L,        KC_U, RALT_T(KC_O),         KC_SCLN, KC_BSLS,
   // ├────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────┤
-       KC_LSFT, LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F),    KC_G,       KC_H,    RSFT_T(KC_J), RCTL_T(KC_K), LALT_T(KC_L), RGUI_T(KC_SCLN), KC_QUOT,
+       KC_LSFT, LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),    KC_G,       KC_M,    RSFT_T(KC_N), RCTL_T(KC_E), LALT_T(KC_I),    RGUI_T(KC_O), KC_QUOT,
   // ├────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────┤
-       KC_LCTL,         PT_Z,         KC_X,         KC_C,         KC_V,    KC_B,       KC_N,            KC_M,      KC_COMM,       KC_DOT,         PT_SLSH, KC_LALT,
+       KC_LCTL,         PT_Z,         KC_X,         KC_C,         KC_D,    KC_V,       KC_K,            KC_H,      KC_COMM,       KC_DOT,         PT_SLSH, KC_LALT,
   // ╰────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────╯
                                                  KC_BSPC,       KC_SPC,  KC_DEL,      KC_TAB,          KC_ENT,
-                                                        TG(LAYER_GAME),   LOWER,      RAISE
+                                                                  C_LT,   LOWER,      RAISE
   //                                           ╰─────────────────────────────────╯ ╰──────────────────────────╯
   ),
   [LAYER_GAME] = LAYOUT(
@@ -164,15 +167,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_LCTL,         PT_Z,         KC_X,         KC_C,         KC_V,    KC_B,       KC_N,            KC_M,      KC_COMM,       KC_DOT,         PT_SLSH, KC_LALT,
   // ╰────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────╯
                                                   _______,     _______,  _______,    _______,         _______,
-                                                               _______,  _______,    _______
+                                                                  C_LT,  _______,    _______
   //                                           ╰─────────────────────────────────╯ ╰──────────────────────────╯
   ),
 };
 // clang-format on
 
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_SFT_CWRD] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_SHIFT, QK_CAPS_WORD_TOGGLE)
-};
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+        case C_LT:
+            if(record->event.pressed) {
+                static uint8_t current_default_layer = LAYER_BASE;
+                switch(current_default_layer) {
+                    case LAYER_BASE:
+                        default_layer_set(1UL << LAYER_GAME);
+                        current_default_layer = LAYER_GAME;
+                        break;
+                    case LAYER_GAME:
+                        default_layer_set(1UL << LAYER_COLEMAK);
+                        current_default_layer = LAYER_COLEMAK;
+                        break;
+                    default:
+                    case LAYER_COLEMAK:
+                        default_layer_set(1UL << LAYER_BASE);
+                        current_default_layer = LAYER_BASE;
+                        break;
+                };
+            } else {
+
+            }
+            return false; // no further processing
+        default:
+            return true; // process elsewhere
+    }
+}
 
 #ifdef POINTING_DEVICE_ENABLE
 #    ifdef CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
@@ -215,58 +243,6 @@ void rgb_matrix_update_pwm_buffers(void);
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-    HSV rgb_to_hsv(RGB rgb) {
-        HSV hsv;
-        unsigned char rgbMin, rgbMax;
-
-        rgbMin = rgb.r < rgb.g ? (rgb.r < rgb.b ? rgb.r : rgb.b) : (rgb.g < rgb.b ? rgb.g : rgb.b);
-        rgbMax = rgb.r > rgb.g ? (rgb.r > rgb.b ? rgb.r : rgb.b) : (rgb.g > rgb.b ? rgb.g : rgb.b);
-
-        hsv.v = rgbMax;
-        if (hsv.v == 0)
-        {
-            hsv.h = 0;
-            hsv.s = 0;
-            return hsv;
-        }
-
-        hsv.s = 255 * (rgbMax - rgbMin) / hsv.v;
-        if (hsv.s == 0)
-        {
-            hsv.h = 0;
-            return hsv;
-        }
-
-        if (rgbMax == rgb.r)
-            hsv.h = 0 + 43 * (rgb.g - rgb.b) / (rgbMax - rgbMin);
-        else if (rgbMax == rgb.g)
-            hsv.h = 85 + 43 * (rgb.b - rgb.r) / (rgbMax - rgbMin);
-        else
-            hsv.h = 171 + 43 * (rgb.r - rgb.g) / (rgbMax - rgbMin);
-
-        return hsv;
-    }
-
-    void rgb_matrix_set_color_hs(int index, uint8_t hue, uint8_t sat, uint8_t val) {
-        HSV hsv = { .h = hue, .s = sat, .v = val * (float)rgb_matrix_config.hsv.v/255};
-        //HSV hsv = { .h = hue, .s = sat, .v = rgb_matrix_config.hsv.v};
-
-        RGB rgb = hsv_to_rgb(hsv);
-        rgb_matrix_set_color(index, rgb.r, rgb.g, rgb.b);
-    }
-
-    void rgb_matrix_set_color_rgb_brght(int index, uint8_t red, uint8_t green, uint8_t blue) {
-        //rgb_matrix_set_color(index, red, green, blue);
-        RGB rgb = { .r = red, .g = green, .b = blue};
-        HSV hsv = rgb_to_hsv(rgb);
-
-        if(hsv.v > 0) {
-            rgb_matrix_set_color_hs(index, hsv.h, hsv.s, hsv.v);
-        } else {
-            rgb_matrix_set_color(index, 0, 0, 0);
-        }
-    }
-
 enum colors {
     hOFF = 0,
     hPURPLE,
@@ -305,8 +281,8 @@ const uint8_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────┤
             hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,      hLRED,      hBLUE,      hBLUE,      hBLUE,      hLRED,      hLRED,
   // ╰────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────╯
-                                                hOFF,      hCYAN,      hTORQ,    hPURPLE,      hCYAN,
-                                                           hCYAN,      hCYAN,       hLRED
+                                               hCYAN,      hCYAN,      hTORQ,    hPURPLE,      hCYAN,
+                                                           hCYAN,      hCYAN,      hLRED
   //                                            ╰─────────────────────────────╯ ╰─────────────────────╯
   ),
   [LAYER_RAISE] = LAYOUT(
@@ -319,8 +295,8 @@ const uint8_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────┤
             hOFF,      hPINK,      hPINK,      hPINK,      hPINK,       hOFF,        hOFF,      hBLUE,       hOFF,      hBLUE,       hOFF,      hCYAN,
   // ╰────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────╯
-                                                hOFF,       hOFF,      hTORQ,       hTORQ,       hOFF,
-                                                            hOFF,       hOFF,        hOFF
+                                                hOFF,       hOFF,       hOFF,        hOFF,       hOFF,
+                                                            hOFF,      hTORQ,       hTORQ
   //                                            ╰─────────────────────────────╯ ╰─────────────────────╯
   ),
   [LAYER_ADJUST] = LAYOUT(
@@ -365,6 +341,20 @@ const uint8_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                             hOFF,       hOFF,       hOFF
   //                                            ╰─────────────────────────────╯ ╰─────────────────────╯
   ),
+  [LAYER_COLEMAK] = LAYOUT(
+  // ╭────────────────────────────────────────────────────────────────────────╮ ╭────────────────────────────────────────────────────────────────────────────────────────────────╮
+           hPINK,      hPINK,      hPINK,      hPINK,      hPINK,      hPINK,       hPINK,      hPINK,      hPINK,      hPINK,      hPINK,      hPINK,
+  // ├────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+         hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,     hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,
+  // ├────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+         hPURPLE,      hCYAN,      hCYAN,      hCYAN,      hCYAN,    hPURPLE,     hPURPLE,      hCYAN,      hCYAN,      hCYAN,      hCYAN,    hPURPLE,
+  // ├────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+         hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,     hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,
+  // ╰────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────╯
+                                                hCYAN,      hCYAN,      hTORQ,      hTORQ,       hCYAN,
+                                                           hCYAN,      hCYAN,      hCYAN
+  //                                       ╰──────────────────────────────────╯ ╰─────────────────────╯
+  ),
 };
 // clang-format on
 
@@ -380,26 +370,6 @@ const HSV hsv_colors[] = {
     [hRED]      = {  0, 255, 255}
 };
 
-// #define    hPINK 0xff2030
-// #define  hPURPLE 0xd400ff
-// #define     hOFF 0x000000
-// #define    hCYAN 0x00ffff
-// #define    hTORQ 0x00ccbe
-// #define    hLRED 0xff1010
-// #define    hBLUE 0x2222dd
-// #define  hORANGE 0xffd000
-// #define     hRED 0xff0000
-
-    // RGB hex_to_rgb(uint32_t hex) {
-    //     RGB rgb = {
-    //         .r = ((hex >> 16) & 0xFF),
-    //         .g = ((hex >>  8) & 0xFF),
-    //         .b = ((hex      ) & 0xFF)
-    //     };
-
-    //     return rgb;
-    // }
-
     bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         int layer = get_highest_layer(layer_state|default_layer_state);
 
@@ -413,9 +383,7 @@ const HSV hsv_colors[] = {
                     if(hsv.s > 0)
                         hsv.v = rgb_matrix_config.hsv.v;
                     RGB rgb = hsv_to_rgb(hsv);
-                    //rgb_matrix_set_color_rgb_brght( index, rgb.r, rgb.g/4, rgb.b/2 );
                     rgb_matrix_set_color( index, rgb.r, rgb.g, rgb.b );
-                    //rgb_matrix_set_color(index, 225, 50,0);
                 };
             };
         };
