@@ -23,6 +23,7 @@
 enum charybdis_keymap_layers {
     LAYER_BASE = 0,
     LAYER_GAME,
+    LAYER_COLEMAK,
     LAYER_LOWER,
     LAYER_RAISE,
     LAYER_ADJUST,
@@ -40,7 +41,7 @@ static uint16_t auto_pointer_layer_timer = 0;
 #    endif // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS
 
 #    ifndef CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD
-#        define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD 4
+#        define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD 3
 #    endif // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD
 #endif     // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
@@ -57,6 +58,10 @@ static uint16_t auto_pointer_layer_timer = 0;
 #    define SNIPING KC_NO
 #endif // !POINTING_DEVICE_ENABLE
 
+enum {
+    TD_SFT_CWRD = 0
+};
+
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -64,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────╮
         KC_ESC,         KC_1,         KC_2,         KC_3,         KC_4,    KC_5,       KC_6,             KC_7,        KC_8,         KC_9,            KC_0, KC_MINS,
   // ├────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────┤
-        KC_TAB,         KC_Q,         KC_W,         KC_E,         KC_R,    KC_T,       KC_Y,             KC_U,        KC_I,         KC_O,            KC_P, KC_BSLS,
+        KC_TAB, RALT_T(KC_Q),         KC_W,         KC_E,         KC_R,    KC_T,       KC_Y,             KC_U,        KC_I, RALT_T(KC_O),            KC_P, KC_BSLS,
   // ├────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────┤
        KC_LSFT, LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F),    KC_G,       KC_H,    RSFT_T(KC_J), RCTL_T(KC_K), LALT_T(KC_L), RGUI_T(KC_SCLN), KC_QUOT,
   // ├────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────┤
@@ -79,14 +84,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
        KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_LBRC,   KC_P7,   KC_P8,   KC_P9, KC_RBRC, XXXXXXX,
+       RGB_MOD, KC_RALT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_LBRC,   KC_P7,   KC_P8,   KC_P9, KC_RBRC, KC_GRAVE,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       RGB_TOG, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,    KC_PPLS,   KC_P4,   KC_P5,   KC_P6, KC_PMNS, KC_PEQL,
+       RGB_TOG, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,    KC_PPLS,   KC_P4,   KC_P5,   KC_P6, KC_PMNS,  KC_EQL,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
       RGB_RMOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_PAST,   KC_P1,   KC_P2,   KC_P3, KC_PSLS, KC_PDOT,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   _______, _______, _______,      KC_P0, _______,
-                                           XXXXXXX, _______,     ADJUST
+                                           CW_TOGG, _______,     ADJUST
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -94,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
         KC_F12,      KC_F1,      KC_F2,      KC_F3,      KC_F4,   KC_F5,      KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
   // ├──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, KC_MNXT,    XXXXXXX, KC_HOME,   KC_UP, KC_PGUP, XXXXXXX, KC_VOLU,
+       XXXXXXX,    KC_RALT,    XXXXXXX,    XXXXXXX,    XXXXXXX, KC_MNXT,    XXXXXXX, KC_HOME,   KC_UP, KC_PGUP, XXXXXXX, KC_VOLU,
   // ├──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX,    KC_LGUI,    KC_LALT,    KC_LCTL,    KC_LSFT, KC_MPLY,    XXXXXXX, KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX, KC_MUTE,
   // ├──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
@@ -122,17 +127,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [LAYER_POINTER] = LAYOUT(
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
-       RGB_VAI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       RGB_VAI, XXXXXXX, XXXXXXX, XXXXXXX, EE_CLR,  QK_BOOT,    QK_BOOT, EE_CLR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, DPI_MOD, S_D_MOD,    S_D_MOD, DPI_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       RGB_VAD, KC_RALT, XXXXXXX, XXXXXXX, DPI_MOD, S_D_MOD,    S_D_MOD, DPI_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,    XXXXXXX, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, _______, DRGSCRL, SNIPING, EE_CLR,  QK_BOOT,    QK_BOOT, EE_CLR,  SNIPING, DRGSCRL, _______, XXXXXXX,
+       XXXXXXX, TG(LAYER_POINTER), DRGSCRL, SNIPING, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,  SNIPING, DRGSCRL, TG(LAYER_POINTER), XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   _______, _______, _______,    KC_BTN3, KC_BTN1,
-                                           _______, TO(LAYER_BASE),    KC_BTN2
+                                           _______, TG(LAYER_POINTER),    KC_BTN2
   //                            ╰───────────────────────────╯ ╰──────────────────╯
+  ),
+  [LAYER_COLEMAK] = LAYOUT(
+  // ╭────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────╮
+        KC_ESC,         KC_1,         KC_2,         KC_3,         KC_4,    KC_5,       KC_6,             KC_7,        KC_8,         KC_9,            KC_0, KC_MINS,
+  // ├────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────┤
+        KC_TAB, RALT_T(KC_Q),         KC_W,         KC_E,         KC_R,    KC_T,       KC_Y,             KC_U,        KC_I, RALT_T(KC_O),            KC_P, KC_BSLS,
+  // ├────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────┤
+       KC_LSFT, LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F),    KC_G,       KC_H,    RSFT_T(KC_J), RCTL_T(KC_K), LALT_T(KC_L), RGUI_T(KC_SCLN), KC_QUOT,
+  // ├────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────┤
+       KC_LCTL,         PT_Z,         KC_X,         KC_C,         KC_V,    KC_B,       KC_N,            KC_M,      KC_COMM,       KC_DOT,         PT_SLSH, KC_LALT,
+  // ╰────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────╯
+                                                 KC_BSPC,       KC_SPC,  KC_DEL,      KC_TAB,          KC_ENT,
+                                                        TG(LAYER_GAME),   LOWER,      RAISE
+  //                                           ╰─────────────────────────────────╯ ╰──────────────────────────╯
   ),
   [LAYER_GAME] = LAYOUT(
   // ╭────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────╮
@@ -150,6 +169,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 // clang-format on
+
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_SFT_CWRD] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_SHIFT, QK_CAPS_WORD_TOGGLE)
+};
 
 #ifdef POINTING_DEVICE_ENABLE
 #    ifdef CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
@@ -244,18 +267,20 @@ void rgb_matrix_update_pwm_buffers(void);
         }
     }
 
-#define    hPINK 0xff2030
-#define  hPURPLE 0xd400ff
-#define     hOFF 0x000000
-#define    hCYAN 0x00ffff
-#define    hTORQ 0x00ccbe
-#define    hLRED 0xff1010
-#define    hBLUE 0x2222dd
-#define  hORANGE 0xffd000
-#define     hRED 0xff0000
+enum colors {
+    hOFF = 0,
+    hPURPLE,
+    hPINK,
+    hCYAN,
+    hTORQ,
+    hLRED,
+    hBLUE,
+    hORANGE,
+    hRED
+};
 
 // clang-format off
-const uint32_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
+const uint8_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE] = LAYOUT(
   // ╭────────────────────────────────────────────────────────────────────────╮ ╭────────────────────────────────────────────────────────────────────────────────────────────────╮
            hPINK,      hPINK,      hPINK,      hPINK,      hPINK,      hPINK,       hPINK,      hPINK,      hPINK,      hPINK,      hPINK,      hPINK,
@@ -314,13 +339,13 @@ const uint32_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [LAYER_POINTER] = LAYOUT(
   // ╭────────────────────────────────────────────────────────────────────────╮ ╭────────────────────────────────────────────────────────────────────────────────────────────────╮
-            hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,
+            hOFF,       hOFF,       hOFF,       hOFF,       hRED,       hRED,       hRED,       hRED,       hOFF,       hOFF,       hOFF,       hOFF,
+  // ├────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+            hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,      hCYAN,      hCYAN,       hOFF,       hOFF,       hOFF,       hOFF,
   // ├────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────┤
             hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,
   // ├────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────┤
-            hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,
-  // ├────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────┤
-            hOFF,       hOFF,      hPINK,      hPINK,       hRED,       hRED,       hRED,       hRED,      hPINK,      hPINK,       hOFF,       hOFF,
+            hOFF,       hOFF,      hPINK,      hPINK,       hOFF,       hOFF,       hOFF,       hOFF,      hPINK,      hPINK,       hOFF,       hOFF,
   // ╰────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────╯
                                                 hOFF,       hOFF,       hOFF,      hPINK,      hPINK,
                                                             hOFF,       hOFF,      hPINK
@@ -343,15 +368,37 @@ const uint32_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-    RGB hex_to_rgb(uint32_t hex) {
-        RGB rgb = {
-            .r = ((hex >> 16) & 0xFF),
-            .g = ((hex >>  8) & 0xFF),
-            .b = ((hex      ) & 0xFF)
-        };
+const HSV hsv_colors[] = {
+    [hOFF]      = {  0,   0,   0},
+    [hPURPLE]   = {205, 255, 255},
+    [hPINK]     = {251, 223, 255},
+    [hCYAN]     = {128, 255, 255},
+    [hTORQ]     = {120, 255, 204},
+    [hLRED]     = {255, 239, 255},
+    [hBLUE]     = {170, 215, 221},
+    [hORANGE]   = { 20, 208, 255},
+    [hRED]      = {  0, 255, 255}
+};
 
-        return rgb;
-    }
+// #define    hPINK 0xff2030
+// #define  hPURPLE 0xd400ff
+// #define     hOFF 0x000000
+// #define    hCYAN 0x00ffff
+// #define    hTORQ 0x00ccbe
+// #define    hLRED 0xff1010
+// #define    hBLUE 0x2222dd
+// #define  hORANGE 0xffd000
+// #define     hRED 0xff0000
+
+    // RGB hex_to_rgb(uint32_t hex) {
+    //     RGB rgb = {
+    //         .r = ((hex >> 16) & 0xFF),
+    //         .g = ((hex >>  8) & 0xFF),
+    //         .b = ((hex      ) & 0xFF)
+    //     };
+
+    //     return rgb;
+    // }
 
     bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         int layer = get_highest_layer(layer_state|default_layer_state);
@@ -361,9 +408,13 @@ const uint32_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 uint8_t index = g_led_config.matrix_co[row][col];
 
                 if(led_min <= index && index <= led_max) {
-                    uint32_t hex = pgm_read_dword(&ledmaps[layer][row][col]);
-                    RGB rgb = hex_to_rgb(hex);
-                    rgb_matrix_set_color_rgb_brght( index, rgb.r, rgb.g/4, rgb.b/2 );
+                    uint8_t color = pgm_read_byte(&ledmaps[layer][row][col]);
+                    HSV hsv = hsv_colors[color];
+                    if(hsv.s > 0)
+                        hsv.v = rgb_matrix_config.hsv.v;
+                    RGB rgb = hsv_to_rgb(hsv);
+                    //rgb_matrix_set_color_rgb_brght( index, rgb.r, rgb.g/4, rgb.b/2 );
+                    rgb_matrix_set_color( index, rgb.r, rgb.g, rgb.b );
                     //rgb_matrix_set_color(index, 225, 50,0);
                 };
             };
