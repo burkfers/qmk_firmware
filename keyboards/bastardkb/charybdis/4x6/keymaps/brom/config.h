@@ -39,3 +39,5 @@
 
 
 #define TAPPING_TERM 200
+
+#define RGB_MATRIX_TIMEOUT 300000
