@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        XXXXXXX, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_MPRV,    XXXXXXX,  KC_END, XXXXXXX, KC_PGDN, KC_MPRV, KC_VOLD,
   // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                            _______,    _______, _______,    _______, _______,
-                                                       _______,  ADJUST,    _______
+                                                       CW_TOGG,  ADJUST,    _______
   //                                  ╰─────────────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -172,6 +172,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 // clang-format on
+
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LSFT_T(KC_F):
+        case RSFT_T(KC_J):
+        case LSFT_T(KC_T):
+        case RSFT_T(KC_N): // Immediately select the hold action when another key is pressed.
+            return true;
+        default: // Do not select the hold action when another key is pressed.
+            return false;
+    }
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
