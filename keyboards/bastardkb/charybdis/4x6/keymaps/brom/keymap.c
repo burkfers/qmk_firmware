@@ -279,8 +279,8 @@ const uint8_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────┤
          hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,     hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,
   // ╰────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────╯
-                                                hOFF,      hCYAN,      hTORQ,      hTORQ,       hCYAN,
-                                                           hCYAN,      hCYAN,      hCYAN
+                                               hCYAN,      hCYAN,      hTORQ,      hTORQ,       hCYAN,
+                                                           hCYAN,      hLRED,      hLRED
   //                                       ╰──────────────────────────────────╯ ╰─────────────────────╯
   ),
   [LAYER_LOWER] = LAYOUT(
@@ -293,8 +293,8 @@ const uint8_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────┤
             hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,      hLRED,      hBLUE,      hBLUE,      hBLUE,      hLRED,      hLRED,
   // ╰────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────╯
-                                               hCYAN,      hCYAN,      hTORQ,    hPURPLE,      hCYAN,
-                                                           hCYAN,      hCYAN,      hLRED
+                                                hOFF,       hOFF,       hOFF,      hBLUE,       hOFF,
+                                                           hCYAN,      hLRED,      hLRED
   //                                            ╰─────────────────────────────╯ ╰─────────────────────╯
   ),
   [LAYER_RAISE] = LAYOUT(
@@ -308,7 +308,7 @@ const uint8_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
             hOFF,      hPINK,      hPINK,      hPINK,      hPINK,      hCYAN,        hOFF,      hBLUE,       hOFF,      hBLUE,      hCYAN,      hCYAN,
   // ╰────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────╯
                                                 hOFF,       hOFF,       hOFF,        hOFF,       hOFF,
-                                                            hOFF,      hTORQ,       hTORQ
+                                                           hCYAN,      hLRED,       hLRED
   //                                            ╰─────────────────────────────╯ ╰─────────────────────╯
   ),
   [LAYER_ADJUST] = LAYOUT(
@@ -329,14 +329,14 @@ const uint8_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭────────────────────────────────────────────────────────────────────────╮ ╭────────────────────────────────────────────────────────────────────────────────────────────────╮
             hOFF,       hOFF,       hOFF,       hOFF,       hRED,       hRED,       hRED,       hRED,       hOFF,       hOFF,       hOFF,       hOFF,
   // ├────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────┤
-            hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,      hCYAN,      hCYAN,       hOFF,       hOFF,       hOFF,       hOFF,
+            hOFF,       hOFF,       hOFF,       hOFF,      hCYAN,      hCYAN,      hCYAN,      hCYAN,       hOFF,       hOFF,       hOFF,       hOFF,
   // ├────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────┤
             hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,
   // ├────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────┤
             hOFF,       hOFF,      hPINK,      hPINK,       hOFF,       hOFF,       hOFF,       hOFF,      hPINK,      hPINK,       hOFF,       hOFF,
   // ╰────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────╯
                                                 hOFF,       hOFF,       hOFF,      hPINK,      hPINK,
-                                                            hOFF,       hOFF,      hPINK
+                                                            hOFF,      hLRED,      hPINK
   //                                            ╰─────────────────────────────╯ ╰─────────────────────╯
   ),
   [LAYER_GAME] = LAYOUT(
@@ -350,7 +350,7 @@ const uint8_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
             hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,       hOFF,
   // ╰────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────╯
                                                 hOFF,       hOFF,       hOFF,       hOFF,       hOFF,
-                                                            hOFF,       hOFF,       hOFF
+                                                            hOFF,      hLRED,      hLRED
   //                                            ╰─────────────────────────────╯ ╰─────────────────────╯
   ),
   [LAYER_COLEMAK] = LAYOUT(
@@ -363,8 +363,8 @@ const uint8_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────┤
          hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,     hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,    hPURPLE,
   // ╰────────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────────────────────────╯
-                                                hCYAN,      hCYAN,      hTORQ,      hTORQ,       hCYAN,
-                                                           hCYAN,      hCYAN,      hCYAN
+                                               hCYAN,      hCYAN,      hTORQ,      hTORQ,       hCYAN,
+                                                           hCYAN,      hLRED,      hLRED
   //                                       ╰──────────────────────────────────╯ ╰─────────────────────╯
   ),
 };
