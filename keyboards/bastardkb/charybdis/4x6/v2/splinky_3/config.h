@@ -42,3 +42,6 @@
 
 #define BOOTMAGIC_LITE_ROW_RIGHT 5
 #define BOOTMAGIC_LITE_COLUMN_RIGHT 0
+
+/* VBUS detection. */
+#define USB_VBUS_PIN GP19
