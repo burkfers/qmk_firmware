@@ -1,19 +1,5 @@
-/*
- * Copyright 2023 Chris Trotter <ctrotter@gmail.com> (@christrotter)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Publicw License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2023 Chris Trotter (@christrotter)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
@@ -31,7 +17,7 @@
 #endif
 
 #if defined(QUANTUM_PAINTER_ENABLE)
-    #include "lvgl.h"
+    // #include "lvgl.h"
 #endif
 
 #define XXX KC_NO
@@ -140,10 +126,10 @@ enum custom_keycodes {
     #define FAL2_L2 HSV_MOONLANDER
     #define FAL2_L3 HSV_MOONLANDER
     // right, angled - full-time layer selector
-    #define FAL3_L0 HSV_MOONLANDER
-    #define FAL3_L1 HSV_RED
-    #define FAL3_L2 HSV_PINK
-    #define FAL3_L3 HSV_CHARTREUSE
+    #define FAL3_L0 HSV_SPRINGGREEN
+    #define FAL3_L1 HSV_MOONLANDER
+    #define FAL3_L2 HSV_MOONLANDER
+    #define FAL3_L3 HSV_MOONLANDER
     // right, flat
     #define FAL4_L0 HSV_CYAN
     #define FAL4_L1 HSV_GREEN

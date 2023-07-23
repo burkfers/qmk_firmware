@@ -30,7 +30,6 @@
     #define SPLIT_POINTING_ENABLE               // required for telling the master side about slave trackball state, i.e. if usb left, and tb right
     #define POINTING_DEVICE_COMBINED
     #define PMW33XX_CS_PIN GP13                 // where the SS (CS) pin on the PMW module connects to the mcu
-    #define PMW33XX_LIFTOFF_DISTANCE 0x07       // LIFTOFF_DISTANCE specifies how far from the sensor the trackball is
 #endif
 
 #if defined(POINTING_DEVICE_ENABLE) || defined(QUANTUM_PAINTER_ENABLE)
@@ -42,7 +41,7 @@
 #endif
 
 #if defined(QUANTUM_PAINTER_ENABLE)
-    #define ST7789_NUM_DEVICES 2
+    #define ST7789_NUM_DEVICES 1
     #define QUANTUM_PAINTER_TASK_THROTTLE 50 // trying to reduce the scan rate impact
     #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0 // this is super important - you get a white screen after 30s otherwise
     #define DISPLAY_SPI_DIVISOR 0

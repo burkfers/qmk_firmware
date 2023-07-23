@@ -1,4 +1,4 @@
-// Copyright 2022 Chris Trotter (@christrotter)
+// Copyright 2023 Chris Trotter (@christrotter)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "arcboard_mk17.h"
@@ -14,7 +14,9 @@
 
 void keyboard_post_init_kb(void) {
     #if defined(QUANTUM_PAINTER_ENABLE)
-        init_ui();
+        if (!(is_keyboard_left())) {
+            init_ui();
+        }
     #endif
 
     keyboard_post_init_user(); //_user should not be in the keyboard.c

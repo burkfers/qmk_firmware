@@ -1,4 +1,4 @@
-// Copyright 2022 Chris Trotter (@christrotter)
+// Copyright 2023 Chris Trotter (@christrotter)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
