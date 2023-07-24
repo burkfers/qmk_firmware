@@ -16,9 +16,9 @@
     #include "print.h"
     void keyboard_post_init_user(void) {
         // Customise these values to desired behaviour
-        debug_enable=true;
-        debug_matrix=true;
-        debug_keyboard=true;
+        // debug_enable=true;
+        // debug_matrix=true;
+        // debug_keyboard=true;
         // debug_mouse=true;
     }
 #endif
@@ -35,22 +35,69 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 #endif
 
+enum keycodes {
+  KC_CYCLE_LAYERS = QK_USER,
+};
+// 1st layer on the cycle
+#define LAYER_CYCLE_START 0
+// Last layer on the cycle
+#define LAYER_CYCLE_END   3
+
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 __attribute__((weak)) void post_process_record_keymap(uint16_t keycode, keyrecord_t *record) {}
 void                       post_process_record_user(uint16_t keycode, keyrecord_t *record) { post_process_record_keymap(keycode, record); }
 
+// ball pedal, toe pedal
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_QWERTY] = LAYOUT(
-    KC_0, KC_1,             KC_A, KC_B,
-    KC_2, KC_3,             KC_C, KC_D,
-    KC_4, KC_5,             KC_E, KC_F
+[_SCROLL] = LAYOUT(
+    KC_0, KC_MS_WH_DOWN,    KC_CYCLE_LAYERS, KC_MS_WH_DOWN,
+    KC_2, KC_MS_WH_UP,      KC_CYCLE_LAYERS, KC_MS_BTN3,
+    EE_CLR, KC_LSFT,        KC_CYCLE_LAYERS, KC_MS_WH_UP // the up/down are inverted for some reason
 ),
 [_MOUSE] = LAYOUT(
-    KC_0, KC_1,             KC_6, KC_7,
-    KC_2, KC_3,             KC_8, KC_9,
-    KC_4, KC_5,             KC_0, KC_1
+    KC_0, KC_1,             KC_CYCLE_LAYERS, KC_MS_BTN1,
+    KC_2, KC_3,             KC_CYCLE_LAYERS, KC_MS_BTN3,
+    KC_4, KC_5,             KC_CYCLE_LAYERS, KC_MS_BTN2
+),
+[_SPACES] = LAYOUT(
+    KC_0, KC_1,             KC_CYCLE_LAYERS, KC_SPCLEFT,
+    KC_2, KC_3,             KC_CYCLE_LAYERS, KC_NO,
+    KC_4, KC_5,             KC_CYCLE_LAYERS, KC_SPCRGHT
+),
+[_MGMT] = LAYOUT(
+    KC_0, KC_1,             KC_CYCLE_LAYERS, QK_BOOT,
+    KC_2, KC_3,             KC_CYCLE_LAYERS, EE_CLR,
+    KC_4, KC_5,             KC_CYCLE_LAYERS, KC_MACLOCK
 )
 };
+
+#if defined(RGB_MATRIX_LEDMAPS_ENABLED)
+// the indicator LEDs are mapped using the flags and for loop.
+// Right thumb: KC_MULTILNE, OSM(MOD_LSFT), MO(_SYMBOLS), KC_ENTER, KC_SPACE, MAGIPLAY,
+const ledmap ledmaps[] = {
+    [_SCROLL]   = LEDMAP(
+      WHITE, RED,       SPRING, RED,
+      WHITE, SPRING,    SPRING, CYAN,
+      RED, GREEN,       SPRING, GREEN
+   ),
+   [_MOUSE]     = LEDMAP(
+      RED, RED,         SPRING, PURPLE,
+      RED, RED,         SPRING, PINK,
+      RED, RED,         SPRING, CHART
+   ),
+   [_SPACES]     = LEDMAP(
+      RED, RED,         SPRING, PINK,
+      RED, RED,         SPRING, WHITE,
+      RED, RED,         SPRING, CHART
+   ),
+   [_MGMT]     = LEDMAP(
+      RED, RED,         SPRING, RED,
+      RED, RED,         SPRING, ORANGE,
+      RED, RED,         SPRING, RED
+   )
+};
+#endif // RGB_MATRIX_LEDMAPS_ENABLED
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!(process_record_keymap(keycode, record)
@@ -226,24 +273,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return false;
                 }
                 return true;
+                case KC_CYCLE_LAYERS:
+                  // Our logic will happen on presses, nothing is done on releases
+                  if (!record->event.pressed) {
+                    // We've already handled the keycode (doing nothing), let QMK know so no further code is run unnecessarily
+                    return false;
+                  }
+
+                  uint8_t current_layer = get_highest_layer(layer_state);
+
+                  // Check if we are within the range, if not quit
+                  if (current_layer > LAYER_CYCLE_END || current_layer < LAYER_CYCLE_START) {
+                    return false;
+                  }
+
+                  uint8_t next_layer = current_layer + 1;
+                  if (next_layer > LAYER_CYCLE_END) {
+                      next_layer = LAYER_CYCLE_START;
+                  }
+                  layer_move(next_layer);
+                  return false;
     }
     #endif // end CUSTOM_KEYCODES (for troubleshooting)
     return true;
 }
-
-#if defined(RGB_MATRIX_LEDMAPS_ENABLED)
-// the indicator LEDs are mapped using the flags and for loop.
-// Right thumb: KC_MULTILNE, OSM(MOD_LSFT), MO(_SYMBOLS), KC_ENTER, KC_SPACE, MAGIPLAY,
-const ledmap ledmaps[] = {
-    [_QWERTY]   = LEDMAP(
-      CYAN, CYAN,       CYAN, CYAN,
-      CYAN, CYAN,       CYAN, CYAN,
-      CYAN, CYAN,       CYAN, CYAN
-   ),
-   [_MOUSE]     = LEDMAP(
-      RED, RED,         RED, RED,
-      RED, RED,         RED, RED,
-      RED, RED,         RED, RED
-   )
-};
-#endif // RGB_MATRIX_LEDMAPS_ENABLED

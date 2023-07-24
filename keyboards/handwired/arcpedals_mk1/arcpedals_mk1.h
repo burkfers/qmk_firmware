@@ -59,9 +59,11 @@
     HSV_GREEN
 
 enum userspace_layers {
-    _QWERTY             = 0,
+    _SCROLL             = 0,
     FIRST_DEFAULT_LAYER = 0,
     _MOUSE,
+    _SPACES,
+    _MGMT,
 };
 
 #if defined(RGB_MATRIX_LEDMAPS_ENABLED)
