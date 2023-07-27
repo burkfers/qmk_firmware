@@ -47,27 +47,34 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
 __attribute__((weak)) void post_process_record_keymap(uint16_t keycode, keyrecord_t *record) {}
 void                       post_process_record_user(uint16_t keycode, keyrecord_t *record) { post_process_record_keymap(keycode, record); }
 
-// ball pedal, toe pedal
+// clang-format off
+/*
+    left                                      right
+    ball-pedal-left,   toe-pedal-left,        ball-pedal-left,   toe-pedal-left,
+    ball-pedal-center, toe-pedal-center,      ball-pedal-center, toe-pedal-center,
+    ball-pedal-right,  toe-pedal-right,       ball-pedal-right,  toe-pedal-right
+*/
+// clang-format on
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SCROLL] = LAYOUT(
-    KC_0, KC_MS_WH_DOWN,    KC_CYCLE_LAYERS, KC_MS_WH_DOWN,
-    KC_2, KC_MS_WH_UP,      KC_CYCLE_LAYERS, KC_MS_BTN3,
-    EE_CLR, KC_LSFT,        KC_CYCLE_LAYERS, KC_MS_WH_UP // the up/down are inverted for some reason
+    KC_CYCLE_LAYERS, KC_MS_WH_LEFT,    KC_CYCLE_LAYERS, KC_MS_BTN3,
+    KC_CYCLE_LAYERS, KC_MS_WH_DOWN,    KC_CYCLE_LAYERS, KC_MS_WH_UP,
+    KC_CYCLE_LAYERS, LGUI(KC_TILD),    KC_CYCLE_LAYERS, KC_MS_WH_RIGHT // the up/down are inverted for some reason
 ),
 [_MOUSE] = LAYOUT(
-    KC_0, KC_1,             KC_CYCLE_LAYERS, KC_MS_BTN1,
-    KC_2, KC_3,             KC_CYCLE_LAYERS, KC_MS_BTN3,
-    KC_4, KC_5,             KC_CYCLE_LAYERS, KC_MS_BTN2
+    KC_CYCLE_LAYERS, KC_NO,            KC_CYCLE_LAYERS, KC_MS_BTN2,
+    KC_CYCLE_LAYERS, KC_MS_BTN1,       KC_CYCLE_LAYERS, KC_MS_BTN3,
+    KC_CYCLE_LAYERS, KC_NO,            KC_CYCLE_LAYERS, KC_NO
 ),
 [_SPACES] = LAYOUT(
-    KC_0, KC_1,             KC_CYCLE_LAYERS, KC_SPCLEFT,
-    KC_2, KC_3,             KC_CYCLE_LAYERS, KC_NO,
-    KC_4, KC_5,             KC_CYCLE_LAYERS, KC_SPCRGHT
+    KC_CYCLE_LAYERS, KC_NO,            KC_CYCLE_LAYERS, KC_TAB_R,
+    KC_CYCLE_LAYERS, KC_SPCLEFT,       KC_CYCLE_LAYERS, KC_SPCRGHT,
+    KC_CYCLE_LAYERS, KC_TAB_L,         KC_CYCLE_LAYERS, KC_NO
 ),
 [_MGMT] = LAYOUT(
-    KC_0, KC_1,             KC_CYCLE_LAYERS, QK_BOOT,
-    KC_2, KC_3,             KC_CYCLE_LAYERS, EE_CLR,
-    KC_4, KC_5,             KC_CYCLE_LAYERS, KC_MACLOCK
+    KC_CYCLE_LAYERS, QK_BOOT,          KC_CYCLE_LAYERS, KC_MACLOCK,
+    KC_CYCLE_LAYERS, EE_CLR,           KC_CYCLE_LAYERS, EE_CLR,
+    KC_CYCLE_LAYERS, KC_MACLOCK,       KC_CYCLE_LAYERS, QK_BOOT
 )
 };
 
@@ -76,24 +83,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Right thumb: KC_MULTILNE, OSM(MOD_LSFT), MO(_SYMBOLS), KC_ENTER, KC_SPACE, MAGIPLAY,
 const ledmap ledmaps[] = {
     [_SCROLL]   = LEDMAP(
-      WHITE, RED,       SPRING, RED,
-      WHITE, SPRING,    SPRING, CYAN,
-      RED, GREEN,       SPRING, GREEN
+      SPRING, RED,         SPRING, PINK,
+      SPRING, ORANGE,      SPRING, YELLOW,
+      SPRING, CYAN,        SPRING, GREEN
    ),
    [_MOUSE]     = LEDMAP(
-      RED, RED,         SPRING, PURPLE,
-      RED, RED,         SPRING, PINK,
-      RED, RED,         SPRING, CHART
+      SPRING, WHITE,         SPRING, CHART,
+      SPRING, PURPLE,        SPRING, PINK,
+      SPRING, WHITE,         SPRING, WHITE
    ),
    [_SPACES]     = LEDMAP(
-      RED, RED,         SPRING, PINK,
-      RED, RED,         SPRING, WHITE,
-      RED, RED,         SPRING, CHART
+      SPRING, WHITE,       SPRING, PINK,
+      SPRING, RED,         SPRING, WHITE,
+      SPRING, RED,         SPRING, WHITE
    ),
    [_MGMT]     = LEDMAP(
-      RED, RED,         SPRING, RED,
-      RED, RED,         SPRING, ORANGE,
-      RED, RED,         SPRING, RED
+      SPRING, RED,         SPRING, YELLOW,
+      SPRING, ORANGE,      SPRING, ORANGE,
+      SPRING, YELLOW,      SPRING, RED
    )
 };
 #endif // RGB_MATRIX_LEDMAPS_ENABLED
