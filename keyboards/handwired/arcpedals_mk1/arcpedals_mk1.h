@@ -62,7 +62,10 @@ enum userspace_layers {
     _SCROLL             = 0,
     FIRST_DEFAULT_LAYER = 0,
     _MOUSE,
+    _FUSION,
     _SPACES,
+    _ARROWS,
+    _MODS,
     _MGMT,
 };
 

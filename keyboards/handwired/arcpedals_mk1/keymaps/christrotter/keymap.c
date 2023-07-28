@@ -41,7 +41,7 @@ enum keycodes {
 // 1st layer on the cycle
 #define LAYER_CYCLE_START 0
 // Last layer on the cycle
-#define LAYER_CYCLE_END   3
+#define LAYER_CYCLE_END   6
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 __attribute__((weak)) void post_process_record_keymap(uint16_t keycode, keyrecord_t *record) {}
@@ -57,19 +57,34 @@ void                       post_process_record_user(uint16_t keycode, keyrecord_
 // clang-format on
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SCROLL] = LAYOUT(
-    KC_CYCLE_LAYERS, KC_MS_WH_LEFT,    KC_CYCLE_LAYERS, KC_MS_BTN3,
+    KC_CYCLE_LAYERS, KC_MS_WH_RIGHT,   KC_CYCLE_LAYERS, KC_MS_BTN3,
     KC_CYCLE_LAYERS, KC_MS_WH_DOWN,    KC_CYCLE_LAYERS, KC_MS_WH_UP,
-    KC_CYCLE_LAYERS, LGUI(KC_TILD),    KC_CYCLE_LAYERS, KC_MS_WH_RIGHT // the up/down are inverted for some reason
+    KC_CYCLE_LAYERS, LGUI(KC_TILD),    KC_CYCLE_LAYERS, KC_MS_WH_LEFT // the up/down left/right are inverted for some reason
 ),
 [_MOUSE] = LAYOUT(
     KC_CYCLE_LAYERS, KC_NO,            KC_CYCLE_LAYERS, KC_MS_BTN2,
     KC_CYCLE_LAYERS, KC_MS_BTN1,       KC_CYCLE_LAYERS, KC_MS_BTN3,
     KC_CYCLE_LAYERS, KC_NO,            KC_CYCLE_LAYERS, KC_NO
 ),
+[_FUSION] = LAYOUT(
+    KC_CYCLE_LAYERS, KC_S,             KC_CYCLE_LAYERS, KC_MS_BTN3,
+    KC_CYCLE_LAYERS, KC_MS_WH_DOWN,    KC_CYCLE_LAYERS, KC_MS_WH_UP,
+    KC_CYCLE_LAYERS, LGUI(KC_MS_BTN3), KC_CYCLE_LAYERS, KC_NO
+),
 [_SPACES] = LAYOUT(
     KC_CYCLE_LAYERS, KC_NO,            KC_CYCLE_LAYERS, KC_TAB_R,
     KC_CYCLE_LAYERS, KC_SPCLEFT,       KC_CYCLE_LAYERS, KC_SPCRGHT,
     KC_CYCLE_LAYERS, KC_TAB_L,         KC_CYCLE_LAYERS, KC_NO
+),
+[_ARROWS] = LAYOUT(
+    KC_CYCLE_LAYERS, KC_NO,            KC_CYCLE_LAYERS, KC_DOWN,
+    KC_CYCLE_LAYERS, KC_LEFT,          KC_CYCLE_LAYERS, KC_RIGHT,
+    KC_CYCLE_LAYERS, KC_UP,            KC_CYCLE_LAYERS, KC_NO
+),
+[_MODS] = LAYOUT(
+    KC_CYCLE_LAYERS, KC_NO,            KC_CYCLE_LAYERS, KC_LGUI,
+    KC_CYCLE_LAYERS, KC_LALT,          KC_CYCLE_LAYERS, KC_LSFT,
+    KC_CYCLE_LAYERS, KC_LCTL,          KC_CYCLE_LAYERS, KC_NO
 ),
 [_MGMT] = LAYOUT(
     KC_CYCLE_LAYERS, QK_BOOT,          KC_CYCLE_LAYERS, KC_MACLOCK,
@@ -88,14 +103,29 @@ const ledmap ledmaps[] = {
       SPRING, CYAN,        SPRING, GREEN
    ),
    [_MOUSE]     = LEDMAP(
-      SPRING, WHITE,         SPRING, CHART,
-      SPRING, PURPLE,        SPRING, PINK,
-      SPRING, WHITE,         SPRING, WHITE
+      SPRING, WHITE,       SPRING, CHART,
+      SPRING, PURPLE,      SPRING, PINK,
+      SPRING, WHITE,       SPRING, WHITE
+   ),
+    [_FUSION]   = LEDMAP(
+      SPRING, GOLD,        SPRING, PINK,
+      SPRING, RED,         SPRING, GREEN,
+      SPRING, PURPLE,      SPRING, WHITE
    ),
    [_SPACES]     = LEDMAP(
       SPRING, WHITE,       SPRING, PINK,
       SPRING, RED,         SPRING, WHITE,
       SPRING, RED,         SPRING, WHITE
+   ),
+   [_ARROWS]     = LEDMAP(
+      SPRING, WHITE,       SPRING, GREEN,
+      SPRING, GREEN,       SPRING, GREEN,
+      SPRING, GREEN,       SPRING, WHITE
+   ),
+   [_MODS]     = LEDMAP(
+      SPRING, WHITE,       SPRING, PURPLE,
+      SPRING, YELLOW,      SPRING, GREEN,
+      SPRING, BLUE,        SPRING, WHITE
    ),
    [_MGMT]     = LEDMAP(
       SPRING, RED,         SPRING, YELLOW,
