@@ -6,7 +6,7 @@
 * Keyboard Maintainer: [christrotter](https://github.com/christrotter)
 
 ## Features
-* Layer changing with the ball of your foot; toes for functionality
+* Foot rest w. layer changing using the ball of your foot; toes get the main functionality
 * Split keyboard w. TRRS
 * RGB all day long
 * JST connector for remote indicator bar
@@ -26,6 +26,27 @@
   * LEDs: https://www.aliexpress.com/item/4000475685852.html
   * JST connectors: https://www.aliexpress.com/item/32954418743.html (but I highly recommend buying a JST crimper, connectors, and using 26awg silicone wiring)
 
+## History
+I have issues holding keys down and was looking for a way to remove strain from my hands.  Eye/face tracking and voice commands are things I'm also looking into, but pedals seemed more accessible to me at the time.
+
+Anyways I had all the parts sitting around, and after two weeks of work the pedals are operational!
+
+**Things I tried that didn't work:**
+* Ball-of-foot pedals only; maybe my implementation was bad, but I couldn't do any kind of rapid keypress actions.
+* Adjustable springiness of ball pedals; the design provides for 6 or 7 positions of the fulcrum, and I found 'almost full spring force' best - keeping the base pedals more as foot rests than actionable things
+* High-angle toe pedals; you end up having to float your foot and that's bad
+* Toe and ball pedals; you end up having to float your foot AND contort it, which is even worse
+
+**Things I considered:**
+* 'gas pedal'-like functionality; I had some rheostats and was going to try this, but you'd then lose the ability to do any other kind of functionality.  Maybe one day I'll revisit this.
+* 'distortion pedal'-like functionality; foot stop actions are even slower than ball-of-foot
+* 'side' buttons, a la MSI Liberator; a lot of ankle penalties with this one, but thought about it
+
+**Things I'll be trying next:**
+* v2 will feature 'heel stays put' functionality and focus on making the layer switching easy
+* v2 will also have formed pedals, I think
+* v1 is going to get a remote indicator/maybe-keys functionality for rapid layer switching/understanding
+
 ## Details
 * JST connectors make wiring and troubleshooting much easier.  Much, much, much easier.  USE A FLUX PEN WHEN SOLDERING WOW.
 * I used some old Grifiti wrist pad (palm rest) (about 3/4"/~20mm neoprene pad) for the heel pads.
@@ -42,6 +63,18 @@ More pictures here: https://crazymittens.imgur.com/all
 
 
 ## Bootloader and flashing
+First, update the variables in build.sh to suit user/build cores/etc.
+```shell
+#!/bin/bash
+KB_PATH=handwired/arcpedals_mk1 #<--- this
+HOME_DIR=/Users/christrotter/git/printing/qmk_firmware #<--- this
+KB_DIR=$HOME_DIR/keyboards/$KB_PATH
+USER_DIR=$HOME_DIR/users/christrotter #<--- this
+
+BUILD_CORES=12 #<--- this (figure out how many logical CPU cores you have, adjust number accordingly)
+KEYMAP='christrotter' #<--- this
+KEYBOARD='handwired/arcpedals_mk1' #<--- this
+```
 Make example for this keyboard (after setting up your build environment):
 
     ./build.sh build
@@ -55,6 +88,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Bootmagic reset**: Hold down the left-most ball-of-foot pedal and plug in the keyboard
+* **Physical reset button**: Quickly (within 250ms) double-press the 'boot' button on the PCB
+* **Keycode in layout**: There is a 'MGMT' layer that has `QK_BOOT` and `EE_CLR` buttons available.
