@@ -52,6 +52,30 @@ void set_rgb_range(uint8_t first_led, uint8_t last_led, int hue, int sat, int va
     }
 }
 
+static uint8_t layerIndicatorLeds[]         = {12,25,26,39,40,53};
+static uint8_t leftOneIndicatorLeds[]       = {13,14,27,28,41,42};
+static uint8_t leftTwoIndicatorLeds[]       = {15,16,29,30,43,44};
+static uint8_t leftThreeIndicatorLeds[]     = {17,18,31,32,45,46};
+static uint8_t rightOneIndicatorLeds[]      = {19,20,33,34,47,48};
+static uint8_t rightTwoIndicatorLeds[]      = {21,22,35,36,49,50};
+static uint8_t rightThreeIndicatorLeds[]    = {23,24,37,38,51,52};
+
+// set_rgb_list(RGB_FAL1_MIN, RGB_FAL1_MAX, FAL1_L0);
+void set_rgb_array(uint8_t ledArray[], int hue, int sat, int val, int layer) {
+    // const ledmap *l = &(ledmaps[layer]);
+    for (int i = 0; i <= 5; i++) {
+        HSV hsv = {
+            .h = hue,
+            .s = sat,
+            .v = RGB_INDICATOR_BRIGHTNESS,
+        };
+        if (hsv.h || hsv.s) {
+            RGB rgb = hsv_to_rgb(hsv);
+            rgb_matrix_set_color(ledArray[i], rgb.r, rgb.g, rgb.b);
+        }
+    }
+}
+
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (is_keyboard_left()) {
         // set LEFT per-key leds by ledmap
@@ -59,6 +83,13 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     } else {
         // set RIGHT per-key leds by ledmap
         set_rgb_ledmap(RGB_KEYS_R_MIN, RGB_KEYS_R_MAX, rgb_matrix_get_val(), get_highest_layer(layer_state | default_layer_state));
+        set_rgb_array(layerIndicatorLeds, HSV_GREEN);
+        set_rgb_array(leftOneIndicatorLeds, HSV_YELLOW);
+        set_rgb_array(leftTwoIndicatorLeds, HSV_ORANGE);
+        set_rgb_array(leftThreeIndicatorLeds, HSV_RED);
+        set_rgb_array(rightOneIndicatorLeds, HSV_CYAN);
+        set_rgb_array(rightTwoIndicatorLeds, HSV_SPRINGGREEN);
+        set_rgb_array(rightThreeIndicatorLeds, HSV_GREEN);
     }
     return rgb_matrix_indicators_advanced_keymap(led_min, led_max);
 }

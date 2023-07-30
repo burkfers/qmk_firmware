@@ -30,6 +30,8 @@
     #define RGB_KEYS_R_MIN 6
     #define RGB_KEYS_R_MAX 11
     #define RGB_TOT_IND_L 0
+    #define RGB_IND_R_MIN 12
+    #define RGB_IND_R_MAX 53
     #define RGB_MATRIX_DEFAULT_HUE 5
     #define RGB_MATRIX_DEFAULT_SAT 5
     #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
