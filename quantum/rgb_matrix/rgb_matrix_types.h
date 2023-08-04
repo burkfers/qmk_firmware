@@ -73,12 +73,6 @@ typedef struct PACKED {
 #define LED_FLAG_UNDERGLOW 0x02
 #define LED_FLAG_KEYLIGHT 0x04
 #define LED_FLAG_INDICATOR 0x08
-// #define LED_FLAG_INDICATOR_L 0x09
-// #define LED_FLAG_INDICATOR_R 0x10
-// #define LED_FLAG_FALCON1 0x11
-// #define LED_FLAG_FALCON2 0x12
-// #define LED_FLAG_FALCON3 0x13
-// #define LED_FLAG_FALCON4 0x14
 
 #define NO_LED 255
 

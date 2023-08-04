@@ -23,6 +23,8 @@
 
 // WS2812 RGB LED strip input and number of LEDs
 #if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
+    #define RGB_MATRIX_KEYPRESSES
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
     #define RGB_MATRIX_LED_COUNT RGBLED_NUM
     // I got better scan rate performance by avoiding led_min/led_max and flags.
     #define RGB_KEYS_L_MIN 0 // (actual keys, 4x6 + 5 + 1f + 5dpad + 1f = 36)

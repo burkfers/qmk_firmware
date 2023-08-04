@@ -68,6 +68,20 @@ enum userspace_layers {
     _MODS,
     _MGMT,
 };
+#define LAYER_SCROLL \
+     HSV_MOONLANDER
+#define LAYER_MOUSE \
+     HSV_PINK
+#define LAYER_FUSION \
+     HSV_ORANGE
+#define LAYER_SPACES \
+     HSV_AZURE
+#define LAYER_ARROWS \
+     HSV_SPRINGGREEN
+#define LAYER_MODS \
+     HSV_PURPLE
+#define LAYER_MGMT \
+     HSV_RED
 
 #if defined(RGB_MATRIX_LEDMAPS_ENABLED)
     #include "rgb_ledmaps.h"
