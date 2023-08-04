@@ -16,9 +16,6 @@
  */
 #pragma once
 
-/* Disable unused features. */
-//#define NO_ACTION_ONESHOT
-
 /* Charybdis-specific features. */
 #define CHARYBDIS_MINIMUM_DEFAULT_DPI 500
 #define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 200
