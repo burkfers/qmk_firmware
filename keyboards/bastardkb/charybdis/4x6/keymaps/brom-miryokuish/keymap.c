@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        TD_BOOT,     TD_CLR,    TD_MAKE,    XXXXXXX,    XXXXXXX, KC_MPRV,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                           XXXXXXX,    XXXXXXX, XXXXXXX,    KC_MPLY, KC_MSTP,
+                                           XXXXXXX,    XXXXXXX, XXXXXXX,    KC_MSTP, KC_MPLY,
                                                        XXXXXXX, XXXXXXX,    KC_MUTE
   //                                  ╰─────────────────────────────────╯ ╰──────────────────╯
   ),
