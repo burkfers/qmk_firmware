@@ -249,7 +249,7 @@ const uint8_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
        hPINK, hPRPL, hPRPL, hPRPL, hPRPL, hPRPL,    hPRPL, hPRPL, hPRPL, hPRPL, hPRPL, hPINK,
   // ╰──────────────────────────────────────────┤ ├───────────────────────────────────────────╯
                             hMGTA, hCYAN, hYELO,    hBLUE, hGREN,
-                                    hOFF, hLRED,    hLRED
+                                    hOFF,  hOFF,    hLRED
   //                      ╰─────────────────────╯ ╰──────────────╯
   ),
   [LAYER_NUM] = LAYOUT(
