@@ -38,7 +38,8 @@ enum my_keycodes {
 enum {
    U_TD_BOOT = 0,
    U_TD_CLR,
-   U_TD_MAKE,
+   U_TD_MAKER,
+   U_TD_MAKEL,
 };
 
 void u_td_fn_boot(tap_dance_state_t *state, void *user_data) {
@@ -46,14 +47,24 @@ void u_td_fn_boot(tap_dance_state_t *state, void *user_data) {
         reset_keyboard();
     }
 }
-void u_td_fn_make(tap_dance_state_t *state, void *user_data) {
+void u_td_fn_make_l(tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         // adapted from quantum.c, since we can't tap quantum codes
 
         SEND_STRING_DELAY("qmk flash ", TAP_CODE_DELAY);
-        SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP SS_TAP(X_ENTER), TAP_CODE_DELAY);
+        SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP " -bl uf2-split-left" SS_TAP(X_ENTER), TAP_CODE_DELAY);
     }
 }
+void u_td_fn_make_r(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 2) {
+        // adapted from quantum.c, since we can't tap quantum codes
+
+        SEND_STRING_DELAY("qmk flash ", TAP_CODE_DELAY);
+        SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP " -bl uf2-split-right " SS_TAP(X_ENTER), TAP_CODE_DELAY);
+    }
+}
+
+
 void u_td_fn_clr(tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         eeconfig_disable();
@@ -64,12 +75,14 @@ void u_td_fn_clr(tap_dance_state_t *state, void *user_data) {
 tap_dance_action_t tap_dance_actions[] = {
     [U_TD_BOOT] = ACTION_TAP_DANCE_FN(u_td_fn_boot),
     [U_TD_CLR] = ACTION_TAP_DANCE_FN(u_td_fn_clr),
-    [U_TD_MAKE] = ACTION_TAP_DANCE_FN(u_td_fn_make),
+    [U_TD_MAKEL] = ACTION_TAP_DANCE_FN(u_td_fn_make_l),
+    [U_TD_MAKER] = ACTION_TAP_DANCE_FN(u_td_fn_make_r),
 };
 
 #define TD_BOOT TD(U_TD_BOOT)
 #define TD_CLR TD(U_TD_CLR)
-#define TD_MAKE TD(U_TD_MAKE)
+#define TD_MAKR TD(U_TD_MAKER)
+#define TD_MAKL TD(U_TD_MAKEL)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -96,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, KC_QUOT,    KC_4,    KC_5,    KC_6,  KC_EQL,    XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX,  KC_GRV,    KC_1,    KC_2,    KC_3, KC_BSLS,    XXXXXXX, XXXXXXX, XXXXXXX,  TD_MAKE,  TD_CLR,   TD_BOOT,
+       XXXXXXX,  KC_GRV,    KC_1,    KC_2,    KC_3, KC_BSLS,    XXXXXXX, XXXXXXX, XXXXXXX,  TD_MAKR,  TD_CLR,   TD_BOOT,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                    KC_DOT,    KC_0, KC_MINS,    XXXXXXX, XXXXXXX,
                                            KC_COMM, _______,    XXXXXXX
@@ -111,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX,    KC_LGUI,    KC_LALT,    KC_LCTL,    KC_LSFT, XXXXXXX,    KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, CW_TOGG, XXXXXXX,
   // ├──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-        TD_BOOT,    TD_CLR,    TD_MAKE,    XXXXXXX,    XXXXXXX, XXXXXXX,    KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_INS, XXXXXXX,
+        TD_BOOT,    TD_CLR,    TD_MAKL,    XXXXXXX,    XXXXXXX, XXXXXXX,    KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_INS, XXXXXXX,
   // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                            XXXXXXX,    XXXXXXX, XXXXXXX,    KC_BSPC,  KC_ENT,
                                                        CW_TOGG, XXXXXXX,     KC_DEL
@@ -126,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        KC_MPLY,  KC_F11,   KC_F4,   KC_F5,   KC_F6, KC_SCRL,    XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_MPRV,  KC_F10,   KC_F1,   KC_F2,   KC_F3, KC_PAUS,    XXXXXXX, XXXXXXX, XXXXXXX, TD_MAKE,  TD_CLR, TD_BOOT,
+       KC_MPRV,  KC_F10,   KC_F1,   KC_F2,   KC_F3, KC_PAUS,    XXXXXXX, XXXXXXX, XXXXXXX, TD_MAKR,  TD_CLR, TD_BOOT,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                    KC_APP,  KC_SPC,  KC_TAB,    XXXXXXX, XXXXXXX,
                                            _______, _______,    XXXXXXX
@@ -140,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        KC_PAUS,    KC_LGUI,    KC_LALT,    KC_LCTL,    KC_LSFT, KC_MPLY,    KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, XXXXXXX,
   // ├──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       TD_BOOT,     TD_CLR,    TD_MAKE,    XXXXXXX,    XXXXXXX, KC_MPRV,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       TD_BOOT,     TD_CLR,    TD_MAKL,    XXXXXXX,    XXXXXXX, KC_MPRV,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                            XXXXXXX,    XXXXXXX, XXXXXXX,    KC_MSTP, KC_MPLY,
                                                        XXXXXXX, XXXXXXX,    KC_MUTE
@@ -154,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, KC_DQUO,  KC_DLR, KC_PERC, KC_CIRC, KC_PLUS,    XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, KC_TILD, KC_EXLM,   KC_AT, KC_HASH, KC_PIPE,    XXXXXXX, XXXXXXX, XXXXXXX, TD_MAKE, TD_CLR,  TD_BOOT,
+       XXXXXXX, KC_TILD, KC_EXLM,   KC_AT, KC_HASH, KC_PIPE,    XXXXXXX, XXXXXXX, XXXXXXX, TD_MAKR, TD_CLR,  TD_BOOT,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   KC_LPRN, KC_RPRN, KC_UNDS,    XXXXXXX, XXXXXXX,
                                            _______, _______,    XXXXXXX
