@@ -11,7 +11,12 @@
         "device_version": "0.0.1"
     },
     "rgblight": {
-        "split_count": [3, 3]
+        "led_count": 6,
+        "split_count": [3, 3],
+        "animations": {
+            "knight": true,
+            "christmas": true
+        }
     },
     "ws2812": {
         "pin": "D1"
