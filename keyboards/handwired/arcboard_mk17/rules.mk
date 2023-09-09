@@ -15,3 +15,6 @@ DRAGSCROLL_ENABLE		= yes
 
 # Encoder
 ENCODER_MAP_ENABLE = yes
+
+# Unicode support
+UNICODEMAP_ENABLE = yes
