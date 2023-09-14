@@ -32,7 +32,7 @@ typedef struct {
     uint8_t row;
 } keypos_t;
 
-typedef enum keyevent_type_t { TICK_EVENT = 0, KEY_EVENT = 1, ENCODER_CW_EVENT = 2, ENCODER_CCW_EVENT = 3, COMBO_EVENT = 4 } keyevent_type_t;
+typedef enum keyevent_type_t { TICK_EVENT = 0, KEY_EVENT = 1, ENCODER_CW_EVENT = 2, ENCODER_CCW_EVENT = 3, COMBO_EVENT = 4, POINTING_MODE_EVENT = 5 } keyevent_type_t;
 
 /* key event */
 typedef struct {
@@ -48,6 +48,7 @@ typedef struct {
 /* special keypos_t entries */
 #define KEYLOC_ENCODER_CW 253
 #define KEYLOC_ENCODER_CCW 252
+#define KEYLOC_POINTING_MODE 251
 
 static inline bool IS_NOEVENT(const keyevent_t event) {
     return event.type == TICK_EVENT;
@@ -64,7 +65,9 @@ static inline bool IS_COMBOEVENT(const keyevent_t event) {
 static inline bool IS_ENCODEREVENT(const keyevent_t event) {
     return event.type == ENCODER_CW_EVENT || event.type == ENCODER_CCW_EVENT;
 }
-
+static inline bool IS_POINTINGEVENT(const keyevent_t event) {
+    return event.type == POINTING_MODE_EVENT;
+}
 /* Common keypos_t object factory */
 #define MAKE_KEYPOS(row_num, col_num) ((keypos_t){.row = (row_num), .col = (col_num)})
 
@@ -91,6 +94,11 @@ static inline bool IS_ENCODEREVENT(const keyevent_t event) {
 #    define MAKE_ENCODER_CW_EVENT(enc_id, press) MAKE_EVENT(KEYLOC_ENCODER_CW, (enc_id), (press), ENCODER_CW_EVENT)
 #    define MAKE_ENCODER_CCW_EVENT(enc_id, press) MAKE_EVENT(KEYLOC_ENCODER_CCW, (enc_id), (press), ENCODER_CCW_EVENT)
 #endif // ENCODER_MAP_ENABLE
+
+#ifdef POINTING_MODE_MAP_ENABLE
+/* Pointing mode events */
+#    define MAKE_POINTING_MODE_EVENT(map_id, dir, press) MAKE_EVENT(KEYLOC_POINTING_MODE, (uint8_t)(((map_id) << 2) | (dir)), (press), POINTING_MODE_EVENT)
+#endif
 
 /* it runs once at early stage of startup before keyboard_init. */
 void keyboard_setup(void);

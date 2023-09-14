@@ -204,5 +204,11 @@ __attribute__((weak)) uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key
         return keycode_at_encodermap_location(layer, key.col, false);
     }
 #endif // ENCODER_MAP_ENABLE
+
+#if defined(POINTING_MODE_MAP_ENABLE)
+    else if (key.row == KEYLOC_POINTING_MODE && key.col < ((pointing_mode_map_count() << 2) | 0x03)) {
+        return keycode_at_pointing_mode_map_location(key.col);
+    }
+#endif // defined(POINTING_MODE_MAP_ENABLE)
     return KC_NO;
 }
