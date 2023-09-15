@@ -168,3 +168,22 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
             return false;
     }
 }
+
+bool achordion_chord(uint16_t tap_hold_keycode,
+                     keyrecord_t* tap_hold_record,
+                     uint16_t other_keycode,
+                     keyrecord_t* other_record) {
+  // Exceptionally consider the following chords as holds, even though they
+  // are on the same hand in Dvorak.
+  switch (tap_hold_keycode) {
+    case HOME_J:
+    case HOME_K:
+    case HOME_L:
+    case HOME_SCLN:
+      if (other_keycode == KC_ENT || other_keycode == LT(LAYER_SYM, KC_ENT)) { return true; }
+      break;
+  }
+
+  // Otherwise, follow the opposite hands rule.
+  return achordion_opposite_hands(tap_hold_record, other_record);
+}

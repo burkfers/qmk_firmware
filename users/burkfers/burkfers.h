@@ -49,3 +49,14 @@ enum colors {
 };
 extern const uint8_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS];
 #endif
+
+#define HOME_A LGUI_T(KC_A)
+#define HOME_S LALT_T(KC_S)
+#define HOME_D LCTL_T(KC_D)
+#define HOME_F LSFT_T(KC_F)
+#define HOME_J RSFT_T(KC_J)
+#define HOME_K RCTL_T(KC_K)
+#define HOME_L LALT_T(KC_L)
+#define HOME_SCLN RGUI_T(KC_SCLN)
+#define RALT_W RALT_T(KC_W)
+#define RALT_O RALT_T(KC_O)
