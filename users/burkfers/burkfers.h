@@ -1,3 +1,7 @@
+#pragma once
+
+#include "quantum.h"
+
 enum charybdis_keymap_layers {
     LAYER_BASE = 0,
     LAYER_GAME,
@@ -23,3 +27,25 @@ enum {
 
 #define DOTCOMM LT(10, KC_DOT)
 
+void u_td_fn_boot(tap_dance_state_t *state, void *user_data);
+void u_td_fn_make_l(tap_dance_state_t *state, void *user_data);
+void u_td_fn_make_r(tap_dance_state_t *state, void *user_data);
+void u_td_fn_sysrq_reisub(tap_dance_state_t *state, void *user_data);
+void u_td_fn_clr(tap_dance_state_t *state, void *user_data);
+
+#ifdef RGB_MATRIX_ENABLE
+enum colors {
+    hOFF = 0,
+    hPRPL,
+    hPINK,
+    hCYAN,
+    hLRED,
+    hBLUE,
+    hORNG,
+    hRED,
+    hMGTA,
+    hYELO,
+    hGREN,
+};
+extern const uint8_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS];
+#endif

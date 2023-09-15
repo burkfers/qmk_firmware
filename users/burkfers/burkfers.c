@@ -3,6 +3,15 @@
 #include "quantum.h"
 #include "keycodes.h"
 #include "burkfers.h"
+#include "charybdis.h"
+
+tap_dance_action_t tap_dance_actions[] = {
+    [U_TD_BOOT] = ACTION_TAP_DANCE_FN(u_td_fn_boot),
+    [U_TD_CLR] = ACTION_TAP_DANCE_FN(u_td_fn_clr),
+    [U_TD_MAKEL] = ACTION_TAP_DANCE_FN(u_td_fn_make_l),
+    [U_TD_MAKER] = ACTION_TAP_DANCE_FN(u_td_fn_make_r),
+    [U_TD_SYSRQ] = ACTION_TAP_DANCE_FN(u_td_fn_sysrq_reisub),
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_achordion(keycode, record)) { return false; }
@@ -61,4 +70,101 @@ void matrix_scan_user(void) {
 
 uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
   return 500;
+}
+void u_td_fn_boot(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 2) {
+        reset_keyboard();
+    }
+}
+void u_td_fn_make_l(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 2) {
+        // adapted from quantum.c, since we can't tap quantum codes
+
+        SEND_STRING_DELAY("qmk flash ", TAP_CODE_DELAY);
+        SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP " -bl uf2-split-left" SS_TAP(X_ENTER), TAP_CODE_DELAY);
+    }
+}
+void u_td_fn_make_r(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 2) {
+        // adapted from quantum.c, since we can't tap quantum codes
+
+        SEND_STRING_DELAY("qmk flash ", TAP_CODE_DELAY);
+        SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP " -bl uf2-split-right " SS_TAP(X_ENTER), TAP_CODE_DELAY);
+    }
+}
+
+void u_td_fn_sysrq_reisub(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 2) {
+        register_mods(MOD_LALT);
+        register_code(KC_PRINT_SCREEN);
+        wait_ms(50);
+        tap_code(KC_R);
+        wait_ms(50);
+        tap_code(KC_E);
+        wait_ms(50);
+        tap_code(KC_I);
+        wait_ms(50);
+        tap_code(KC_S);
+        wait_ms(50);
+        tap_code(KC_U);
+        wait_ms(50);
+        tap_code(KC_B);
+        unregister_code(KC_PRINT_SCREEN);
+        unregister_mods(MOD_LALT);
+    }
+}
+
+void u_td_fn_clr(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 2) {
+        eeconfig_disable();
+        soft_reset_keyboard();
+    }
+}
+
+#ifdef RGB_MATRIX_ENABLE
+const HSV hsv_colors[] = {
+    [ hOFF]     = {  0,   0,   0},
+    [hPRPL]     = {205, 255, 255},
+    [hPINK]     = {251, 223, 255},
+    [hCYAN]     = {128, 255, 255},
+    [hLRED]     = {255, 239, 255},
+    [hBLUE]     = {170, 215, 221},
+    [hORNG]     = { 20, 208, 255},
+    [ hRED]     = {  0, 255, 255},
+    [hMGTA]     = {220, 255, 255},
+    [hYELO]     = { 15, 255, 255},
+    [hGREN]     = { 50, 255, 255},
+};
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+        int layer = get_highest_layer(layer_state|default_layer_state);
+
+        for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+            for(uint8_t col = 0; col < MATRIX_COLS; ++col) {
+                uint8_t index = g_led_config.matrix_co[row][col];
+
+                if(led_min <= index && index <= led_max) {
+                    uint8_t color = pgm_read_byte(&ledmaps[layer][row][col]);
+                    HSV hsv = hsv_colors[color];
+                    if(hsv.s > 0)
+                        hsv.v = rgb_matrix_config.hsv.v;
+                    RGB rgb = hsv_to_rgb(hsv);
+                    rgb_matrix_set_color( index, rgb.r, rgb.g, rgb.b );
+                };
+            };
+        };
+    return false;
+}
+#endif
+
+bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
+    switch(keycode) {
+        case DRGSCRL:
+        case SNIPING:
+        case S_D_MOD:
+        case DPI_MOD:
+            return true;
+        default:
+            return false;
+    }
 }
