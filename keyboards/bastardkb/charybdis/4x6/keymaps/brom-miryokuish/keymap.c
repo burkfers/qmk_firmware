@@ -19,6 +19,7 @@
 #include "modifiers.h"
 #include "quantum.h"
 #include QMK_KEYBOARD_H
+#include "features/achordion.h"
 
 enum charybdis_keymap_layers {
     LAYER_BASE = 0,
@@ -231,6 +232,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_achordion(keycode, record)) { return false; }
+
     static bool dotcomm_state = true; // true=dot; false=comma
     const uint16_t mod_shift = get_mods() & MOD_MASK_SHIFT;
     switch(keycode) {
@@ -478,4 +481,12 @@ void shutdown_user(void) {
     rgb_matrix_set_color_all(200, 10, 10);
     rgb_matrix_update_pwm_buffers();
 #endif // RGB_MATRIX_ENABLE
+}
+
+void matrix_scan_user(void) {
+  achordion_task();
+}
+
+uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+  return 500;
 }
