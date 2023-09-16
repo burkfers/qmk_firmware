@@ -37,7 +37,9 @@ void u_td_fn_clr(tap_dance_state_t *state, void *user_data);
 enum colors {
     hOFF = 0,
     hPRPL,
+    hDPRP,
     hPINK,
+    hDPNK,
     hCYAN,
     hLRED,
     hBLUE,

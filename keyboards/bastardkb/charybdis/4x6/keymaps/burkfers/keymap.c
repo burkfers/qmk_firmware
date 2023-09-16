@@ -157,13 +157,13 @@ void rgb_matrix_update_pwm_buffers(void);
 const uint8_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE] = LAYOUT(
   // ╭──────────────────────────────────────────╮ ╭───────────────────────────────────────────╮
-       hPINK, hPINK, hPINK, hPINK, hPINK, hPINK,    hPINK, hPINK, hPINK, hPINK, hPINK, hPINK,
+       hDPNK, hDPNK, hDPNK, hDPNK, hDPNK, hDPNK,    hDPNK, hDPNK, hDPNK, hDPNK, hDPNK, hDPNK,
   // ├──────────────────────────────────────────┤ ├───────────────────────────────────────────┤
-       hPINK, hPRPL, hPRPL, hPRPL, hPRPL, hPRPL,    hPRPL, hPRPL, hPRPL, hPRPL, hPRPL, hPINK,
+       hDPNK, hDPRP, hDPRP, hDPRP, hDPRP, hDPRP,    hDPRP, hDPRP, hDPRP, hDPRP, hDPRP, hDPNK,
   // ├───────-──────────────────────────────────┤ ├───────────────────────────────────────────┤
-       hPINK, hPRPL, hPRPL, hPRPL, hPRPL, hPRPL,    hPRPL, hPRPL, hPRPL, hPRPL, hPRPL, hPINK,
+       hDPNK, hDPRP, hDPRP, hDPRP, hDPRP, hDPRP,    hDPRP, hDPRP, hDPRP, hDPRP, hDPRP, hDPNK,
   // ├──────────────────────────────────────────┤ ├───────────────────────────────────────────┤
-       hPINK, hPRPL, hPRPL, hPRPL, hPRPL, hPRPL,    hPRPL, hPRPL, hPRPL, hPRPL, hPRPL, hPINK,
+       hDPNK, hDPRP, hDPRP, hDPRP, hDPRP, hDPRP,    hDPRP, hDPRP, hDPRP, hDPRP, hDPRP, hDPNK,
   // ╰──────────────────────────────────────────┤ ├───────────────────────────────────────────╯
                             hMGTA, hCYAN, hYELO,    hBLUE, hGREN,
                                     hOFF,  hOFF,    hLRED

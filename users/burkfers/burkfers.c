@@ -1,3 +1,4 @@
+#include "action_layer.h"
 #include QMK_KEYBOARD_H
 #include "features/achordion.h"
 #include "quantum.h"
@@ -125,7 +126,9 @@ void u_td_fn_clr(tap_dance_state_t *state, void *user_data) {
 const HSV hsv_colors[] = {
     [ hOFF]     = {  0,   0,   0},
     [hPRPL]     = {205, 255, 255},
+    [hDPRP]     = {205, 255, 150},
     [hPINK]     = {251, 223, 255},
+    [hDPNK]     = {251, 223, 155},
     [hCYAN]     = {128, 255, 255},
     [hLRED]     = {255, 239, 255},
     [hBLUE]     = {170, 215, 221},
