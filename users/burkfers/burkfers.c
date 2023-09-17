@@ -6,14 +6,6 @@
 #include "burkfers.h"
 #include "charybdis.h"
 
-tap_dance_action_t tap_dance_actions[] = {
-    [U_TD_BOOT] = ACTION_TAP_DANCE_FN(u_td_fn_boot),
-    [U_TD_CLR] = ACTION_TAP_DANCE_FN(u_td_fn_clr),
-    [U_TD_MAKEL] = ACTION_TAP_DANCE_FN(u_td_fn_make_l),
-    [U_TD_MAKER] = ACTION_TAP_DANCE_FN(u_td_fn_make_r),
-    [U_TD_SYSRQ] = ACTION_TAP_DANCE_FN(u_td_fn_sysrq_reisub),
-};
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_achordion(keycode, record)) { return false; }
 
@@ -122,6 +114,15 @@ void u_td_fn_clr(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+tap_dance_action_t tap_dance_actions[] = {
+    [U_TD_BOOT] = ACTION_TAP_DANCE_FN(u_td_fn_boot),
+    [U_TD_CLR] = ACTION_TAP_DANCE_FN(u_td_fn_clr),
+    [U_TD_MAKEL] = ACTION_TAP_DANCE_FN(u_td_fn_make_l),
+    [U_TD_MAKER] = ACTION_TAP_DANCE_FN(u_td_fn_make_r),
+    [U_TD_SYSRQ] = ACTION_TAP_DANCE_FN(u_td_fn_sysrq_reisub),
+};
+
+
 #ifdef RGB_MATRIX_ENABLE
 const HSV hsv_colors[] = {
     [ hOFF]     = {  0,   0,   0},
@@ -190,3 +191,28 @@ bool achordion_chord(uint16_t tap_hold_keycode,
   // Otherwise, follow the opposite hands rule.
   return achordion_opposite_hands(tap_hold_record, other_record);
 }
+
+#ifdef THUMB_COMBOS
+const uint16_t PROGMEM thumbcombos_base_right[] = {LT(LAYER_SYM, KC_ENT), LT(LAYER_NUM, KC_BSPC), COMBO_END};
+const uint16_t PROGMEM thumbcombos_base_left[] = {LT(LAYER_NAV, KC_SPC), LT(LAYER_POINTER, KC_TAB), COMBO_END};
+const uint16_t PROGMEM thumbcombos_nav[] = {KC_ENT, KC_BSPC, COMBO_END};
+const uint16_t PROGMEM thumbcombos_mouse[] = {KC_BTN2, KC_BTN1, COMBO_END};
+const uint16_t PROGMEM thumbcombos_media[] = {KC_MSTP, KC_MPLY, COMBO_END};
+#ifdef THUMB_COMBOS_LEFT
+const uint16_t PROGMEM thumbcombos_num[] = {KC_0, KC_MINS, COMBO_END};
+const uint16_t PROGMEM thumbcombos_sym[] = {KC_RPRN, KC_UNDS, COMBO_END};
+const uint16_t PROGMEM thumbcombos_fun[] = {KC_SPC, KC_TAB, COMBO_END};
+#endif
+combo_t key_combos[] = {
+  COMBO(thumbcombos_base_right, LT(LAYER_FUN, KC_DEL)),
+  COMBO(thumbcombos_nav, KC_DEL),
+  COMBO(thumbcombos_mouse, KC_BTN3),
+  COMBO(thumbcombos_media, KC_MUTE),
+#ifdef THUMB_COMBOS_LEFT
+  COMBO(thumbcombos_base_left, LT(LAYER_MEDIA, KC_ESC)),
+  COMBO(thumbcombos_num, KC_DOT),
+  COMBO(thumbcombos_sym, KC_LPRN),
+  COMBO(thumbcombos_fun, KC_APP)
+#endif
+};
+#endif

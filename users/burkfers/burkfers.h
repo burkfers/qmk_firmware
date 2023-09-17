@@ -27,11 +27,6 @@ enum {
 
 #define DOTCOMM LT(10, KC_DOT)
 
-void u_td_fn_boot(tap_dance_state_t *state, void *user_data);
-void u_td_fn_make_l(tap_dance_state_t *state, void *user_data);
-void u_td_fn_make_r(tap_dance_state_t *state, void *user_data);
-void u_td_fn_sysrq_reisub(tap_dance_state_t *state, void *user_data);
-void u_td_fn_clr(tap_dance_state_t *state, void *user_data);
 
 #ifdef RGB_MATRIX_ENABLE
 enum colors {

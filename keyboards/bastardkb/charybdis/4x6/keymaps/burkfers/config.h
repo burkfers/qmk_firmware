@@ -29,3 +29,6 @@
 #define SPLIT_MODS_ENABLE
 
 #define EE_HANDS
+
+#define THUMB_COMBOS
+//#define THUMB_COMBOS_LEFT
