@@ -177,19 +177,18 @@ bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
-  // Exceptionally consider the following chords as holds, even though they
-  // are on the same hand in Dvorak.
-  switch (tap_hold_keycode) {
-    case HOME_J:
-    case HOME_K:
-    case HOME_L:
-    case HOME_SCLN:
-      if (other_keycode == KC_ENT || other_keycode == LT(LAYER_SYM, KC_ENT)) { return true; }
-      break;
-  }
-
-  // Otherwise, follow the opposite hands rule.
-  return achordion_opposite_hands(tap_hold_record, other_record);
+    switch (tap_hold_keycode) {
+        case HOME_J:
+        case HOME_K:
+        case HOME_L:
+        case HOME_SCLN:
+            if (other_keycode == KC_ENT || other_keycode == LT(LAYER_SYM, KC_ENT)) { return true; } // allow gui+return as a one hand hold
+            break;
+        case LT(LAYER_FUN, KC_DEL): // combo result confuses achordion (has no handedness) - allow, because it's bilateral
+            return true;
+    }
+    // Otherwise, follow the opposite hands rule.
+    return achordion_opposite_hands(tap_hold_record, other_record);
 }
 
 #ifdef THUMB_COMBOS
