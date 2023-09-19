@@ -185,6 +185,11 @@ bool achordion_chord(uint16_t tap_hold_keycode,
             if (other_keycode == KC_ENT || other_keycode == LT(LAYER_SYM, KC_ENT)) { return true; } // allow gui+return as a one hand hold
             break;
         case LT(LAYER_FUN, KC_DEL): // combo result confuses achordion (has no handedness) - allow, because it's bilateral
+        case LT(LAYER_SYM, KC_ENT):
+        case LT(LAYER_MEDIA, KC_ESC):
+        case LT(LAYER_NAV, KC_SPC):
+        case LT(LAYER_POINTER, KC_TAB):
+        case LT(LAYER_NUM, KC_BSPC):
             return true;
     }
     // Otherwise, follow the opposite hands rule.
@@ -195,7 +200,7 @@ bool achordion_chord(uint16_t tap_hold_keycode,
 const uint16_t PROGMEM thumbcombos_base_right[] = {LT(LAYER_SYM, KC_ENT), LT(LAYER_NUM, KC_BSPC), COMBO_END};
 const uint16_t PROGMEM thumbcombos_base_left[] = {LT(LAYER_NAV, KC_SPC), LT(LAYER_POINTER, KC_TAB), COMBO_END};
 const uint16_t PROGMEM thumbcombos_nav[] = {KC_ENT, KC_BSPC, COMBO_END};
-const uint16_t PROGMEM thumbcombos_mouse[] = {KC_BTN2, KC_BTN1, COMBO_END};
+//const uint16_t PROGMEM thumbcombos_mouse[] = {KC_BTN2, KC_BTN1, COMBO_END};
 const uint16_t PROGMEM thumbcombos_media[] = {KC_MSTP, KC_MPLY, COMBO_END};
 #ifdef THUMB_COMBOS_LEFT
 const uint16_t PROGMEM thumbcombos_num[] = {KC_0, KC_MINS, COMBO_END};
@@ -205,7 +210,7 @@ const uint16_t PROGMEM thumbcombos_fun[] = {KC_SPC, KC_TAB, COMBO_END};
 combo_t key_combos[] = {
   COMBO(thumbcombos_base_right, LT(LAYER_FUN, KC_DEL)),
   COMBO(thumbcombos_nav, KC_DEL),
-  COMBO(thumbcombos_mouse, KC_BTN3),
+//  COMBO(thumbcombos_mouse, KC_BTN3),
   COMBO(thumbcombos_media, KC_MUTE),
 #ifdef THUMB_COMBOS_LEFT
   COMBO(thumbcombos_base_left, LT(LAYER_MEDIA, KC_ESC)),
