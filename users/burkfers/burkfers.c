@@ -177,6 +177,8 @@ bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
+    if(layer_state_is(LAYER_POINTER)) { return true; } // don't use achordion on mouse layer
+
     switch (tap_hold_keycode) {
         case HOME_J:
         case HOME_K:
@@ -190,6 +192,8 @@ bool achordion_chord(uint16_t tap_hold_keycode,
         case LT(LAYER_NAV, KC_SPC):
         case LT(LAYER_POINTER, KC_TAB):
         case LT(LAYER_NUM, KC_BSPC):
+        case DRGSCRL:
+        case SNIPING:
             return true;
     }
     // Otherwise, follow the opposite hands rule.
