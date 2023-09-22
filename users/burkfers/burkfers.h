@@ -20,8 +20,12 @@ enum my_keycodes {
 enum {
    U_TD_BOOT = 0,
    U_TD_CLR,
+#ifdef EE_HANDS
    U_TD_MAKER,
    U_TD_MAKEL,
+#else
+   U_TD_MAKE,
+#endif
    U_TD_SYSRQ,
 };
 

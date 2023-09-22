@@ -69,6 +69,8 @@ void u_td_fn_boot(tap_dance_state_t *state, void *user_data) {
         reset_keyboard();
     }
 }
+
+#ifdef EE_HANDS
 void u_td_fn_make_l(tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         // adapted from quantum.c, since we can't tap quantum codes
@@ -85,6 +87,16 @@ void u_td_fn_make_r(tap_dance_state_t *state, void *user_data) {
         SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP " -bl uf2-split-right " SS_TAP(X_ENTER), TAP_CODE_DELAY);
     }
 }
+#else
+void u_td_fn_make(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 2) {
+        // adapted from quantum.c, since we can't tap quantum codes
+
+        SEND_STRING_DELAY("qmk flash ", TAP_CODE_DELAY);
+        SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP " " SS_TAP(X_ENTER), TAP_CODE_DELAY);
+    }
+}
+#endif
 
 void u_td_fn_sysrq_reisub(tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
@@ -117,8 +129,12 @@ void u_td_fn_clr(tap_dance_state_t *state, void *user_data) {
 tap_dance_action_t tap_dance_actions[] = {
     [U_TD_BOOT] = ACTION_TAP_DANCE_FN(u_td_fn_boot),
     [U_TD_CLR] = ACTION_TAP_DANCE_FN(u_td_fn_clr),
+#ifdef EE_HANDS
     [U_TD_MAKEL] = ACTION_TAP_DANCE_FN(u_td_fn_make_l),
     [U_TD_MAKER] = ACTION_TAP_DANCE_FN(u_td_fn_make_r),
+#else
+    [U_TD_MAKE] = ACTION_TAP_DANCE_FN(u_td_fn_make),
+#endif
     [U_TD_SYSRQ] = ACTION_TAP_DANCE_FN(u_td_fn_sysrq_reisub),
 };
 
