@@ -1,13 +1,13 @@
 #include "action_layer.h"
 #include QMK_KEYBOARD_H
-#include "features/achordion.h"
+//#include "features/achordion.h"
 #include "quantum.h"
 #include "keycodes.h"
 #include "burkfers.h"
 #include "charybdis.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_achordion(keycode, record)) { return false; }
+   // if (!process_achordion(keycode, record)) { return false; }
 
     static bool dotcomm_state = true; // true=dot; false=comma
     const uint16_t mod_shift = get_mods() & MOD_MASK_SHIFT;
@@ -58,7 +58,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_user(void) {
-  achordion_task();
+  //achordion_task();
 }
 
 uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
