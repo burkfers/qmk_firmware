@@ -26,13 +26,14 @@
 #define TD_MAKE TD(U_TD_MAKE)
 #define TD_SYSR TD(U_TD_SYSRQ)
 
+#define GASC_L(G01, A01, S01, C01) LGUI_T(G01), LALT_T(A01), LCTL_T(S01), LSFT_T(C01)
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE] = LAYOUT(
   // ╭──────────────────────────────────────────────────────────────────────────╮ ╭─────────────────────────────────────────────────────────────────────╮
                KC_Q, RALT_T(KC_W),         KC_E,         KC_R,           KC_T,        KC_Y,         KC_U,         KC_I, RALT_T(KC_O),            KC_P,
   // ├──────────────────────────────────────────────────────────────────────────┤ ├─────────────────────────────────────────────────────────────────────┤
-       LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F),           KC_G,        KC_H, RSFT_T(KC_J), RCTL_T(KC_K), LALT_T(KC_L), RGUI_T(KC_SCLN),
+        GASC_L(KC_A, KC_S, KC_D, KC_F),           KC_G,        KC_H, RSFT_T(KC_J), RCTL_T(KC_K), LALT_T(KC_L), RGUI_T(KC_SCLN),
   // ├──────────────────────────────────────────────────────────────────────────┤ ├─────────────────────────────────────────────────────────────────────┤
                KC_Z,         KC_X,         KC_C,         KC_V,           KC_B,        KC_N,         KC_M,      KC_COMM,       KC_DOT,         KC_SLSH,
   // ╰──────────────────────────────────────────────────────────────────────────┤ ├─────────────────────────────────────────────────────────────────────╯
@@ -133,11 +134,11 @@ void rgb_matrix_update_pwm_buffers(void);
 const uint8_t PROGMEM ledmaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE] = LAYOUT(
   // ╭───────────────────────────────────╮ ╭────────────────────────────────────╮
-       hPRPL, hPRPL, hPRPL, hPRPL, hPRPL,    hPRPL, hPRPL, hPRPL, hPRPL, hPRPL,
+        hOFF,  hOFF,  hOFF,  hOFF,  hOFF,     hOFF,  hOFF,  hOFF,  hOFF,  hOFF,
   // ├───────────────────────────────────┤ ├────────────────────────────────────┤
-       hPRPL, hPRPL, hPRPL, hPRPL, hPRPL,    hPRPL, hPRPL, hPRPL, hPRPL, hPRPL,
+        hOFF,  hOFF,  hOFF,  hOFF,  hOFF,     hOFF,  hOFF,  hOFF,  hOFF,  hOFF,
   // ├───────────────────────────────────┤ ├────────────────────────────────────┤
-       hPRPL, hPRPL, hPRPL, hPRPL, hPRPL,    hPRPL, hPRPL, hPRPL, hPRPL, hPRPL,
+        hOFF,  hOFF,  hOFF,  hOFF,  hOFF,     hOFF,  hOFF,  hOFF,  hOFF,  hOFF,
   // ╰───────────────────────────────────┤ ├────────────────────────────────────╯
                      hMGTA, hCYAN, hYELO,    hBLUE, hGREN
   //               ╰─────────────────────╯ ╰──────────────╯
