@@ -56,11 +56,18 @@
 #define ZOOM_MUTE LSFT(LGUI(KC_COMM))
 #define ZOOM_VID LSFT(LGUI(KC_DOT))
 
+#define MEET_MUTE LSFT(LGUI(KC_8))
+#define MEET_VID LSFT(LGUI(KC_9))
+
 // single button to reset layer
 #define KC_LAYRST TO(_QWERTY)
 
 enum custom_keycodes {
     KC_YAY = SAFE_RANGE,
+    KC_SHRUG,
+    KC_TABLE,
+    KC_TABLE2,
+    KC_DISA,
 };
 
 // Left-hand home row mods

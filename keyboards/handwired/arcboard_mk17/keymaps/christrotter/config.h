@@ -13,6 +13,10 @@
 #define ONESHOT_TIMEOUT 2000        /* Time (in ms) before the one shot key is released */
 #define CUSTOM_KEYCODES
 
+// unicode
+#define UNICODE_SELECTED_MODE UNICODE_MODE_MAC
+#define UNICODE_KEY_MAC KC_LEFT_ALT
+
 #if defined(CONSOLE_ENABLE)
     #define DEBUG_MATRIX_SCAN_RATE // we call it on the TFTs
     // #if defined(QP_DEBUG_ENABLE)

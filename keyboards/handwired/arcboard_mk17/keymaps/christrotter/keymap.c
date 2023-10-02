@@ -151,19 +151,6 @@ void housekeeping_task_user(void) {
 
 #endif // QUANTUM_PAINTER_ENABLE
 
-// unicode support
-enum unicode_names {
-    BANG,
-    IRONY,
-    SNEK
-};
-
-const uint32_t unicode_map[] PROGMEM = {
-    [BANG]  = 0x203D,  // ‽
-    [IRONY] = 0x2E2E,  // ⸮
-    [SNEK]  = 0x1F40D, // 🐍
-};
-
 
 // this might be handy...
 // KC_MCTL (pops mission control - the thing used to re-order 'spaces')
@@ -174,15 +161,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TILD,LT(0,KC_1),LT(0,KC_2),LT(0,KC_3),LT(0,KC_4),LT(0,KC_5),     LT(0,KC_6),LT(0,KC_7),LT(0,KC_8),LT(0,KC_9),KC_0,KC_EQUAL,
     KC_TAB , KC_Q,LT(0,KC_W),HOME_E, LT(0,KC_R),LT(0,KC_T),             KC_Y,   KC_U,LT(0,KC_I), KC_O,   KC_P,   KC_MINUS,
     KC_LSFT, LT(0,KC_A),  HOME_S,  HOME_D,  HOME_F , KC_G,              KC_H,  HOME_J, HOME_K, HOME_L, KC_QUOT, KC_SCLN,
-    DRAG_TOG,LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),LT(0,KC_B),    LT(0,KC_N), HOME_M, KC_COMM, KC_DOT, KC_SLASH, ZOOM_MUTE,
+    DRAG_TOG,LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),LT(0,KC_B),    LT(0,KC_N), HOME_M, KC_COMM, KC_DOT, KC_SLASH, MEET_MUTE,
     KC_BSPC, MO(_NAV), KC_DEL, KC_ESC, OSM(MOD_LSFT), KC_1,             KC_MULTILNE, MO(_NAV), MO(_SYMBOLS), KC_ENTER, KC_SPACE, KC_LAYRST,
     KC_UP, KC_MULTILNE, OSM(MOD_LSFT), OSM(MOD_LSFT), KC_B, KC_2,       KC_N, KC_UP, KC_LEFT, KC_DOWN, KC_RIGHT, KC_MACSHOT
 ),
 [_MOUSE] = LAYOUT(
-    QK_BOOT, EE_CLR, _______, _______, _______, _______,               _______, _______, _______, _______, EE_CLR, QK_BOOT,
+    _______, _______, _______, _______, EE_CLR, QK_BOOT,               QK_BOOT, EE_CLR, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,               KC_CHRMBACK, KC_CHRMFWD, _______, _______, _______, _______,
-    _______, _______, _______, _______, UM(SNEK), _______,               KC_CHRMBACK, KC_MS_BTN1,KC_MS_BTN3,KC_MS_BTN2, _______, _______,
-    _______, _______, _______, _______, _______, _______,               KC_CHRMFWD, KC_MS_BTN1,KC_MS_BTN3,KC_MS_BTN2, _______, ZOOM_VID,
+    _______, _______, _______, _______, _______, _______,               KC_CHRMBACK, KC_MS_BTN1,KC_MS_BTN3,KC_MS_BTN2, _______, _______,
+    _______, _______, _______, _______, _______, KC_SHRUG,               KC_CHRMFWD, KC_MS_BTN1,KC_MS_BTN3,KC_MS_BTN2, _______, MEET_VID,
     _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, KC_MUTE
 ),
@@ -222,8 +209,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
     #endif
     // now we check for specific keycodes...
+    // note there is a macos bug that means any unicode ending in 0 doesn't register.
     #if defined(CUSTOM_KEYCODES)
         switch (keycode) {
+                case KC_SHRUG:
+                  if (record->event.pressed) {
+                    send_unicode_string("¯\\_(ツ)_/¯");
+                  }
+                  break;
+                case KC_TABLE:
+                  if (record->event.pressed) {
+                    send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
+                  }
+                  break;
+                case KC_TABLE2:
+                  if (record->event.pressed) {
+                    send_unicode_string("(╯°□°)╯︵┻━┻");
+                  }
+                  break;
+                case KC_DISA:
+                  if (record->event.pressed) {
+                    send_unicode_string("ಠ_ಠ");
+                  }
+                  break;
                 case LT(0,KC_YAY):
                 if (record->event.pressed) {
                     SEND_STRING("\\o/");
@@ -405,10 +413,10 @@ const ledmap ledmaps[] = {
     ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
    ),
    [_MOUSE]     = LEDMAP(
-      RED,   YELLOW, ___n___, ___n___, ___n___, ___n___,           ___n___, ___n___, ___n___, ___n___,  YELLOW,     RED,
+      ___n___,   ___n___, ___n___, ___n___, YELLOW, RED,               RED,  YELLOW, ___n___, ___n___, ___n___, ___n___,
       GOLD, ___n___, ___n___, ___n___, ___n___, ___n___,               RED,   GREEN, ___n___, ___n___, ___n___, ___n___,
      GREEN, ___n___, ___n___, ___n___, ___n___, ___n___,               RED,    CYAN,    PINK,    CYAN, ___n___, ___n___,
-     ORANGE, ___n___, ___n___, ___n___, ___n___, ___n___,         GREEN,    CYAN,    PINK,    CYAN, ___n___,     RED,
+     ORANGE, ___n___, ___n___, ___n___, ___n___, PURPLE,         GREEN,    CYAN,    PINK,    CYAN, ___n___,     RED,
      DEL,     TOG_NAV, DEL,     ESC,     SHIFT, ___n___,           GREEN,   TOG_NAV,   TOG_SYM, ENTER,   SPACE, ___n___,
     ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
    ),
