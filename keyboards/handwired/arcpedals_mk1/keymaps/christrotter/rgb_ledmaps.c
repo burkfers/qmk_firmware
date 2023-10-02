@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "rgb_ledmaps.h"
-#include "arcpedals_mk1.h"
+#include "arcpedals_mk2.h"
 #include "print.h"
 
 #if defined(POINTING_DEVICE_ENABLE) && defined(DRAGSCROLL_ENABLE)
