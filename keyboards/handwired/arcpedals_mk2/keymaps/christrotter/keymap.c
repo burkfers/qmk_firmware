@@ -12,6 +12,10 @@
     #include "rgb_ledmaps.h"
 #endif
 
+#if defined(POINTING_DEVICE_ENABLE)
+    #include "pointing.c"
+#endif
+
 #if defined(CONSOLE_ENABLE)
     #include "print.h"
     void keyboard_post_init_user(void) {
@@ -56,22 +60,19 @@ void                       post_process_record_user(uint16_t keycode, keyrecord_
 // clang-format on
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SCROLL] = LAYOUT(
-    // left-left-button
-    // KC_N, KC_N, KC_N, KC_N,     KC_MS_WH_RIGHT, KC_MS_WH_UP, KC_MS_WH_DOWN, KC_MS_WH_LEFT,
-    KC_N, KC_N, KC_N, KC_N,     KC_RIGHT, KC_UP, KC_DOWN, KC_LEFT,
-    KC_N, KC_N, KC_N, KC_N,     KC_F, KC_N, KC_N, KC_N
+    // physical layout is:
+    // left, toe, ball, right  -  right, toe, ball, left (wat)
+    LGUI(KC_MS_BTN3), KC_MS_WH_UP, KC_N, KC_MS_WH_LEFT,         KC_MS_BTN3, KC_MS_WH_DOWN, KC_CHRMCYC, KC_MS_WH_RIGHT
+    // KC_A, KC_B, KC_C, KC_D,     KC_RIGHT, KC_UP, KC_DOWN, KC_LEFT
 ),
 [_MOUSE] = LAYOUT(
-    KC_N, KC_N, KC_N, KC_N,     KC_MS_BTN1, KC_MS_BTN3, KC_N, KC_MS_BTN2,
-    KC_N, KC_N, KC_N, KC_N,     KC_F, KC_N, KC_N, KC_N
+    KC_A, KC_B, KC_C, KC_D,     KC_MS_BTN1, KC_MS_BTN3, KC_N, KC_MS_BTN2
 ),
 [_FUSION] = LAYOUT(
-    KC_N, KC_N, KC_N, KC_N,     LGUI(KC_MS_BTN3), KC_MS_BTN3, KC_S, KC_MS_BTN2,
-    KC_N, KC_N, KC_N, KC_N,     KC_F, KC_N, KC_N, KC_N
+    KC_A, KC_B, KC_C, KC_D,     LGUI(KC_MS_BTN3), KC_MS_BTN3, KC_S, KC_MS_BTN2
 ),
 [_MGMT] = LAYOUT(
-    KC_N, KC_N, KC_N, KC_N,     KC_N, EE_CLR, QK_BOOT, KC_N,
-    KC_N, KC_N, KC_N, KC_N,     KC_F, KC_N, KC_N, KC_N
+    KC_A, KC_B, KC_C, KC_D,     KC_N, EE_CLR, QK_BOOT, KC_N
 )
 };
 
@@ -80,16 +81,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Right thumb: KC_MULTILNE, OSM(MOD_LSFT), MO(_SYMBOLS), KC_ENTER, KC_SPACE, MAGIPLAY,
 const ledmap ledmaps[] = {
     [_SCROLL]   = LEDMAP(
-      WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE,       BLUE, CYAN, CYAN, RED, GREEN, CYAN, CYAN, CYAN
+      PURPLE, RED, WHITE, ORANGE, BG, BG, BG, BG,                   SPRING, GREEN, CYAN, PINK, BG, BG, BG, BG
    ),
    [_MOUSE]     = LEDMAP(
-      WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE,       RED, CYAN, CYAN, PINK, WHITE, PURPLE, CYAN, CYAN
+      WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE,       RED, PINK, WHITE, PURPLE, CYAN, CYAN, CYAN, CYAN
    ),
     [_FUSION]   = LEDMAP(
-      WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE,       ORANGE, CYAN, CYAN, PINK, CYAN, PURPLE, CYAN, CYAN
+      WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE,       ORANGE, PINK, CYAN, PURPLE, CYAN, CYAN, CYAN, CYAN
    ),
    [_MGMT]     = LEDMAP(
-      WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE,       WHITE, CYAN, CYAN, RED, RED, WHITE, CYAN, CYAN
+      WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE,       WHITE, RED, RED, WHITE, CYAN, CYAN, CYAN, CYAN
    )
 };
 #endif // RGB_MATRIX_LEDMAPS_ENABLED
@@ -100,9 +101,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #if defined(RGB_MATRIX_LEDMAPS_ENABLED)
             && process_record_user_rgb_matrix(keycode, record)
         #endif
+        #if defined(CUSTOM_POINTING_DEVICE)
+            && process_record_pointing(keycode, record)
+        #endif
           && true)) {
         return false;
     }
+
     // now we check for specific keycodes...
     #if defined(CUSTOM_KEYCODES)
         switch (keycode) {

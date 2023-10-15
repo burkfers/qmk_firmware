@@ -231,7 +231,7 @@ void set_rgb_range(uint8_t first_led, uint8_t last_led, int hue, int sat, int va
 }
 
 void set_rgb_array(uint8_t ledArray[], int hue, int sat, int val) {
-    for (int i = 0; i <= 5; i++) {
+    for (int i = 0; i <= 23; i++) {
         HSV hsv = {
             .h = hue,
             .s = sat,
@@ -243,42 +243,42 @@ void set_rgb_array(uint8_t ledArray[], int hue, int sat, int val) {
         }
     }
 }
-// static uint8_t layerIndicatorLeds[]         = {12,25,26,39,40,53};
+static uint8_t layerIndicatorLeds[]         = {16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39};
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     // uprintf("LastHitBufferTick, Index: %d,%d \n",(g_last_hit_tracker.tick[0]), (g_last_hit_tracker.index[0]));
     if (is_keyboard_left()) {
         // set LEFT per-key leds by ledmap
-        set_rgb_ledmap(RGB_KEYS_L_MIN, RGB_KEYS_L_MAX, rgb_matrix_get_val(), get_highest_layer(layer_state | default_layer_state));
+        set_rgb_ledmap(0, 7, rgb_matrix_get_val(), get_highest_layer(layer_state | default_layer_state));
     } else {
         // set RIGHT per-key leds by ledmap
         // set_rgb_ledmap(RGB_KEYS_R_MIN, RGB_KEYS_R_MAX, rgb_matrix_get_val(), get_highest_layer(layer_state | default_layer_state));
         set_rgb_ledmap(8, 15, rgb_matrix_get_val(), get_highest_layer(layer_state | default_layer_state));
-        // switch(get_highest_layer(layer_state|default_layer_state)) {
-        //     case 0:
-        //         set_rgb_array(layerIndicatorLeds, LAYER_SCROLL);
-        //         break;
-        //     case 1:
-        //         set_rgb_array(layerIndicatorLeds, LAYER_MOUSE);
-        //         break;
-        //     case 2:
-        //         set_rgb_array(layerIndicatorLeds, LAYER_FUSION);
-        //         break;
-        //     case 3:
-        //         set_rgb_array(layerIndicatorLeds, LAYER_SPACES);
-        //         break;
-        //     case 4:
-        //         set_rgb_array(layerIndicatorLeds, LAYER_ARROWS);
-        //         break;
-        //     case 5:
-        //         set_rgb_array(layerIndicatorLeds, LAYER_MODS);
-        //         break;
-        //     case 6:
-        //         set_rgb_array(layerIndicatorLeds, LAYER_MGMT);
-        //         break;
-        //     default:
-        //         break;
-        // }
+        switch(get_highest_layer(layer_state|default_layer_state)) {
+            case 0:
+                set_rgb_array(layerIndicatorLeds, LAYER_SCROLL);
+                break;
+            case 1:
+                set_rgb_array(layerIndicatorLeds, LAYER_MOUSE);
+                break;
+            case 2:
+                set_rgb_array(layerIndicatorLeds, LAYER_FUSION);
+                break;
+            case 3:
+                set_rgb_array(layerIndicatorLeds, LAYER_SPACES);
+                break;
+            case 4:
+                set_rgb_array(layerIndicatorLeds, LAYER_ARROWS);
+                break;
+            case 5:
+                set_rgb_array(layerIndicatorLeds, LAYER_MODS);
+                break;
+            case 6:
+                set_rgb_array(layerIndicatorLeds, LAYER_MGMT);
+                break;
+            default:
+                break;
+        }
 
     }
     return rgb_matrix_indicators_advanced_keymap(led_min, led_max);

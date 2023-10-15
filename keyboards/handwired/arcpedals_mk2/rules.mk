@@ -10,3 +10,5 @@ RGB_MATRIX_LEDMAPS_ENABLED = yes 	# turn on per-key colours
 # RP2040-specific split options
 PICO_INTRINSICS_ENABLED = no # ATM Unsupported by ChibiOS.
 SERIAL_DRIVER = vendor
+
+POINTING_DEVICE_ENABLE = yes

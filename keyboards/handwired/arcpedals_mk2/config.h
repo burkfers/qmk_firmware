@@ -21,19 +21,27 @@
     #define SPLIT_LAYER_STATE_ENABLE            // docs say use this if you are using split and rgb lighting per layer // this added 20 to scanrate???
 #endif
 
+#if defined(POINTING_DEVICE_ENABLE)
+    // #define POINTING_DEVICE_DEBUG
+    // #define MOUSE_EXTENDED_REPORT // do we need this?
+    #define POINTING_DEVICE_TASK_THROTTLE_MS 10 // this ensures that the trackball sensor polling happens only every 10ms
+    #define SPLIT_POINTING_ENABLE               // required for telling the master side about slave trackball state, i.e. if usb left, and tb right
+    #define POINTING_DEVICE_RIGHT
+    #define PMW33XX_CS_PIN GP13                 // where the SS (CS) pin on the PMW module connects to the mcu
+#endif
+
+#if defined(POINTING_DEVICE_ENABLE) || defined(QUANTUM_PAINTER_ENABLE)
+    // SPI setup (PMW33xx is normally in use)
+    #define SPI_DRIVER SPID1  // Waveshare documentation says these pins are SPI1
+    #define SPI_SCK_PIN GP10  // clock is shared
+    #define SPI_MOSI_PIN GP11 // mosi is shared
+    #define SPI_MISO_PIN GP12 // this is dedicated for pmw according to wiring doc
+#endif
+
 // WS2812 RGB LED strip input and number of LEDs
 #if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
-    #define RGB_MATRIX_KEYPRESSES
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
     #define RGB_MATRIX_LED_COUNT RGBLED_NUM
     // I got better scan rate performance by avoiding led_min/led_max and flags.
-    #define RGB_KEYS_L_MIN 0 // (actual keys, 4x6 + 5 + 1f + 5dpad + 1f = 36)
-    #define RGB_KEYS_L_MAX 3
-    #define RGB_KEYS_R_MIN 4
-    #define RGB_KEYS_R_MAX 7
-    #define RGB_TOT_IND_L 0
-    #define RGB_IND_R_MIN 8
-    #define RGB_IND_R_MAX 19
     #define RGB_MATRIX_DEFAULT_HUE 5
     #define RGB_MATRIX_DEFAULT_SAT 5
     #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS

@@ -32,6 +32,7 @@
 
 #define KC_CHRMBACK LGUI(KC_LBRC)
 #define KC_CHRMFWD LGUI(KC_RBRC)
+#define KC_CHRMCYC LGUI(KC_TILDE)
 
 // we want to handle word movement (nav) and word select (symbols) on the arrow cluster
 // KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
@@ -76,6 +77,7 @@ enum custom_keycodes {
     // constants across all layers, vs. setting key-led-slots individually
     // note: these cannot have braces e.g. #define HRM_SFT {GREEN} blows up the evaluation of the [3] part of the int[KEYS_COUNT][3]; sees it as one item
     #define ___n___ {0, 0, 0}
+    #define BG SPRING
     #define TOG_MSE BLUE
     #define TOG_NAV CHART
     #define TOG_SYM PINK

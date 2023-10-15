@@ -66,7 +66,7 @@ enum userspace_layers {
     _MGMT,
 };
 #define LAYER_SCROLL \
-     HSV_MOONLANDER
+     HSV_BLUE
 #define LAYER_MOUSE \
      HSV_PINK
 #define LAYER_FUSION \
