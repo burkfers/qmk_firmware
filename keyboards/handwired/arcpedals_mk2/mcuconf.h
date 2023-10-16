@@ -19,6 +19,7 @@
 
 #include_next <mcuconf.h>
 
+// for waveshare rp2040-plus the PMW3360 did not work on SPI0
 #undef RP_SPI_USE_SPI1
 #define RP_SPI_USE_SPI1 TRUE
 

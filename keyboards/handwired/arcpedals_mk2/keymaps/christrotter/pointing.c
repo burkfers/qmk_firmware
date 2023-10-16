@@ -12,20 +12,15 @@
         int8_t y = 0;
         x = mouse_report.x;
         y = mouse_report.y;
-        // uprintf("x: %d, y: %d",x,y);
         if (x > 100) {
             layer_move(0);
-            // uprintf("Move to 0.");
         } else if (x < -100) {
             layer_move(1);
-            // uprintf("Move to 1.");
         }
         if (y > 100) {
             layer_move(2);
-            // uprintf("Move to 2.");
         } else if (y < -100) {
             layer_move(3);
-            // uprintf("Move to 3.");
         }
         mouse_report.x = 0;
         mouse_report.y = 0;

@@ -23,7 +23,6 @@
 
 #if defined(POINTING_DEVICE_ENABLE)
     // #define POINTING_DEVICE_DEBUG
-    // #define MOUSE_EXTENDED_REPORT // do we need this?
     #define POINTING_DEVICE_TASK_THROTTLE_MS 10 // this ensures that the trackball sensor polling happens only every 10ms
     #define SPLIT_POINTING_ENABLE               // required for telling the master side about slave trackball state, i.e. if usb left, and tb right
     #define POINTING_DEVICE_RIGHT

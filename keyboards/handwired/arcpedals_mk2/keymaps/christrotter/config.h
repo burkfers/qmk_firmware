@@ -2,8 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
-// keyboard config
-// this is how long 'hold for effect' takes; 300 feels way too long, 200 causes too many accidental triggers
+
 #undef TAPPING_TERM
 #define TAPPING_TERM 225            // time (in ms) for a tap to become a hold
 #define TAP_CHECK TAPPING_TERM
@@ -22,12 +21,6 @@
 #endif
 
 #if defined(POINTING_DEVICE_ENABLE)
-    // #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
-    // #define AUTO_MOUSE_DEFAULT_LAYER 1
-    // #define AUTO_MOUSE_DEBOUNCE 25
     #define POINTING_DEVICE_INVERT_Y_RIGHT
     #define ROTATIONAL_TRANSFORM_ANGLE 90
-    // #define DRAGSCROLL_BUFFER_SIZE 6
-    // CPI not being set correctly...hmm... (can't be set in user?)
-    // #define PMW33XX_CPI 700       // your mouse cpi (DPI) setting (how fast the ball tracks)
 #endif
