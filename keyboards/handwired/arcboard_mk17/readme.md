@@ -58,6 +58,8 @@
 </tr>
 </table>
 
+**More pictures:** https://imgur.com/a/pIDDqV1
+
 ## Hardware
 * Keyboard Maintainer: [Chris Trotter](https://github.com/christrotter)
 * Hardware Supported: RP2040 w. mxledbit 'container' PCBs, ST7789 TFTs, 3D-printed chassis
