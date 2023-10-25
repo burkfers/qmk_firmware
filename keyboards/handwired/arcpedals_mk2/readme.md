@@ -13,6 +13,15 @@
 
 * Keyboard Maintainer: [christrotter](https://github.com/christrotter)
 
+## Two weeks in usage notes
+* Toe button sticks a lot - ideally we move to something with less travel
+  * mk3 do diy pcb, microswitch/led
+* Side buttons are handy but not very ergonomic; mk3 should have more toe buttons in a splay?
+* The trackball works great but I don't actually switch layers that often
+* led ring is super fun but turns the red ball black when looking at it - a transparent ball w. frosted surface would be ideal...
+  * bomtarnes resin-printed a trackball with these characteristics...
+* My heels go numb after a while - a me-problem? ... probably just me...?
+
 ## Features
 * Four buttons per foot
 * Trackball-powered layer switcher with integrated RGB indicator
