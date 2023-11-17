@@ -32,6 +32,11 @@
 // Invert X axis on mouse reports.
 #define POINTING_DEVICE_INVERT_X
 
+// Enable pointing device modes
+#define POINTING_DEVICE_MODES_ENABLE
+#define POINTING_PRECISION_DIVISOR 4
+#define POINTING_DRAG_DIVISOR 16
+
 /* RGB matrix support. */
 #ifdef RGB_MATRIX_ENABLE
 #    ifndef __arm__
