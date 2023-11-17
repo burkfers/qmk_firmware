@@ -35,8 +35,10 @@
 
 // Enable pointing device modes
 #define POINTING_DEVICE_MODES_ENABLE
-#define POINTING_PRECISION_DIVISOR 4
 #define POINTING_DRAG_DIVISOR 16
+#define POINTING_CARET_DIVISOR_V 16
+#define POINTING_CARET_DIVISOR_H 32
+
 
 /* RGB matrix support. */
 #ifdef RGB_MATRIX_ENABLE

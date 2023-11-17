@@ -32,6 +32,8 @@ enum charybdis_keycodes {
 #        define DRAGSCROLL_MODE_TOGGLE PM_TG(PM_DRAG)
 #        define SNIPING_MODE PM_MO(PM_PRECISION)
 #        define SNIPING_MODE_TOGGLE PM_TG(PM_PRECISION)
+#        define CARET_SCROLL PM_MO(PM_CARET)
+#        define CARET_SCROLL_TOGGLE PM_TG(PM_CARET)
 
 #        define DPI_MOD POINTER_DEFAULT_DPI_FORWARD
 #        define DPI_RMOD POINTER_DEFAULT_DPI_REVERSE
@@ -41,6 +43,8 @@ enum charybdis_keycodes {
 #        define SNP_TOG SNIPING_MODE_TOGGLE
 #        define DRGSCRL DRAGSCROLL_MODE
 #        define DRG_TOG DRAGSCROLL_MODE_TOGGLE
+#        define CRTSCRL CARET_SCROLL
+#        define CRT_TOG CARET_SCROLL_TOGGLE
 #    endif // !NO_CHARYBDIS_KEYCODES
 
 /** \brief Return the current DPI value for the pointer's default mode. */
