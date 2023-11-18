@@ -13,6 +13,22 @@
 
 * Keyboard Maintainer: [christrotter](https://github.com/christrotter)
 
+## Four weeks in usage notes
+* Really need to fix the toe button, but I think the real issue is that at the end of the day, the spring/mx-switch mechanism is too much travel, full stop.
+  * so, i will be making some microswitch pcbs for this
+* Probably due to the high travel/wide spacing, i really only ever use the toe button.
+  * the side buttons are too much foot travel to be comfortable
+  * what i am imagining as the logical next step is that there would be two or three toe buttons, much smaller, and much lower travel; the pedal area would be 'effectively exactly the outline of your foot'; the side buttons would stay but also move to microswitches
+* even though i only ever use the toe button, it's been massively helpful and i will never go back.
+* the trackball for layer changing is very entertaining and a fun desk piece, but ultimately you have to reach pretty far; how to avoid that?
+  * also, you barely ever change layers; this seems an antipattern somehow...
+  * you barely ever change layers, so this is not really that big of a deal
+* someone called me out for white showing dirt, and it sure does, but that's ok
+  * they get pretty dirty and i don't really want to vacuum them!
+* visiting children find the whole setup fascinating and entertaining; job done
+* Discovered that the pedals will probably always be standalone, as there's no QMK concept of 'two sets of layers and layer states'.  (which is totally fine)
+* Discovered that you can do gpio triggering from QMK...so what would that mean for our 'sync' conundrum?
+
 ## Two weeks in usage notes
 * Toe button sticks a lot - ideally we move to something with less travel
   * mk3 do diy pcb, microswitch/led
