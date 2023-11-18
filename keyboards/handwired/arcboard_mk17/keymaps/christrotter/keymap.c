@@ -206,6 +206,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (keycode == DRAG_SCROLL && record->event.pressed) {
             set_scrolling = !set_scrolling;
             uprintf("Scrolling bool: %s \n", set_scrolling ? "true" : "false");
+            return false;
         }
     #endif
     // now we check for specific keycodes...
