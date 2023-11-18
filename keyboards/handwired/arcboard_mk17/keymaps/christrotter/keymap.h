@@ -10,10 +10,9 @@
 #endif
 
 #if defined(POINTING_DEVICE_ENABLE) && defined(DRAGSCROLL_ENABLE)
-    #define DRAG_TOG DRAG_SCROLL
     bool set_scrolling;
 #else
-    #define DRAG_TOG KC_NO
+    #define DRAG_SCROLL KC_NO
 #endif
 
 #if defined(QUANTUM_PAINTER_ENABLE)
@@ -64,6 +63,7 @@
 
 enum custom_keycodes {
     KC_YAY = SAFE_RANGE,
+    DRAG_SCROLL,
     KC_SHRUG,
     KC_TABLE,
     KC_TABLE2,

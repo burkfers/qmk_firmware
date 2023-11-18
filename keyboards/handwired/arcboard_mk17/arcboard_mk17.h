@@ -100,10 +100,8 @@ enum userspace_layers {
 
 #if defined(POINTING_DEVICE_ENABLE)
     enum board_keycodes {
-        DRAG_SCROLL,
         BOARD_SAFE_RANGE,
     };
-    #define DRGSCRL DRAG_SCROLL
 #endif // POINTING_DEVICE_ENABLE
 
 void keyboard_post_init_transport_sync(void);
