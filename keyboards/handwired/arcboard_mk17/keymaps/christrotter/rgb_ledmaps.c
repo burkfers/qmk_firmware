@@ -12,7 +12,6 @@
 __attribute__((weak)) bool rgb_matrix_indicators_keymap(void) { return true; }
 __attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) { return true; }
 bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) { return true; }
-bool rgb_matrix_indicators_user(void) { return rgb_matrix_indicators_keymap(); }
 
 void set_rgb_ledmap(uint8_t first_led, uint8_t last_led, int val, int layer) {
     const ledmap *l = &(ledmaps[layer]);
@@ -52,7 +51,7 @@ void set_rgb_range(uint8_t first_led, uint8_t last_led, int hue, int sat, int va
     }
 }
 
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_user(uint8_t led_min, uint8_t led_max) {
     bool is_shifted = (get_mods() | get_weak_mods()) & MOD_MASK_SHIFT;
     bool is_oneshot = (get_oneshot_mods() | get_mods()) & MOD_MASK_SHIFT;
 
@@ -122,5 +121,5 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         }
     }
 
-    return rgb_matrix_indicators_advanced_keymap(led_min, led_max);
+    return rgb_matrix_indicators_keymap(led_min, led_max);
 }
