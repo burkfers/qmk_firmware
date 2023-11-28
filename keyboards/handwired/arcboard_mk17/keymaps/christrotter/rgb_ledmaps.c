@@ -9,7 +9,6 @@
     #include "keymap.h"
 #endif
 
-// __attribute__((weak)) bool rgb_matrix_indicators_user(uint8_t led_min, uint8_t led_max) { return true; }
 bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) { return true; }
 
 void set_rgb_ledmap(uint8_t first_led, uint8_t last_led, int val, int layer) {
