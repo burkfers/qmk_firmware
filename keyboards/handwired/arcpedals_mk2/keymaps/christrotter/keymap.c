@@ -53,13 +53,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // physical layout is:
     //      (LEFT)                                                   (RIGHT)
     // left, toe, ball, right                              -    left, toe, ball, right
-    KC_MS_WH_RIGHT, KC_MS_WH_DOWN, KC_CHRMCYC, KC_MS_BTN1,      KC_MS_BTN3, KC_MS_WH_UP, KC_NO, KC_MS_WH_LEFT
+    KC_MS_BTN1, KC_MS_WH_DOWN, KC_CHRMCYC, KC_MS_WH_RIGHT,      KC_MS_WH_LEFT, KC_MS_WH_UP, KC_NO, KC_MS_BTN3
 ),
 [_MOUSE] = LAYOUT(
     KC_NO, KC_NO, KC_NO, KC_MS_BTN1,                            KC_NO, KC_MS_BTN3, KC_NO, KC_MS_BTN2
 ),
 [_FUSION] = LAYOUT(
-    KC_MS_WH_DOWN, LGUI(KC_MS_BTN3), KC_NO, KC_NO,              KC_NO, KC_MS_BTN3, KC_NO, KC_MS_WH_UP
+    KC_NO, KC_LGUI, KC_NO, KC_MS_WH_DOWN,              KC_MS_WH_UP, KC_MS_BTN3, KC_NO, KC_NO
 ),
 [_MGMT] = LAYOUT(
     KC_NO, EE_CLR, QK_BOOT, KC_NO,                              KC_NO, EE_CLR, QK_BOOT, KC_NO
