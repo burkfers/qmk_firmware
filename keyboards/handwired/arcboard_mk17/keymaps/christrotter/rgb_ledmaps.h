@@ -36,4 +36,4 @@ void set_rgb_range(uint8_t first_led, uint8_t last_led, int hue, int sat, int va
 
 void rgb_matrix_layers_enable(void);     // do we need this?
 void rgb_matrix_layers_disable(void);    // do we need this?
-bool rgb_matrix_indicators_keymap(uint8_t led_min, uint8_t led_max);
+// bool rgb_matrix_indicators_user(uint8_t led_min, uint8_t led_max);
