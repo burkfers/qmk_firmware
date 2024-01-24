@@ -50,18 +50,9 @@ static inline uint8_t read_all_cols(void) {
     }
     return c;
 }
-    // matrix.c handling rows
-    // looks like they shift every row high? then look at each col? 
-    // #elif (DIODE_DIRECTION == ROW2COL)
-    // Set col, read rows
-    // matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
-    // for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++, row_shifter <<= 1) {
-    //     matrix_read_rows_on_col(curr_matrix, current_col, row_shifter);
-    // }
 
-
-// need to look at the original matrix.c...
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+    bool matrix_has_changed = false;
     // we set each row HIGH, one by one, and poll all col state each time.
     // we need to build a fresh matrix scan so we can compare
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
@@ -73,12 +64,12 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             // why is this current_matrix (mlego code)
             // oh, they use prev/current(mlego) vs. current/temp(tzarc) vs. current/input(karl)
             // qmk uses raw_matrix/curr_matrix
-            temp_matrix[col] |= (((temp_col_state & (1 << col)) ? 1 : 0) << row);
+            temp_matrix[current_col] |= (((temp_col_state & (1 << current_col)) ? 1 : 0) << row);
         }
     }
 
     // Check if we've changed, return the last-read data
-    bool matrix_has_changed = memcmp(current_matrix, temp_matrix, sizeof(temp_matrix)) != 0;
+    matrix_has_changed = memcmp(current_matrix, temp_matrix, sizeof(temp_matrix)) != 0;
     if (matrix_has_changed) {
         memcpy(current_matrix, temp_matrix, sizeof(temp_matrix));
     }
