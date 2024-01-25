@@ -12,26 +12,17 @@
 static const uint16_t row_values[MATRIX_COLS] = ROWS;
 
 static const int msize = MATRIX_ROWS * sizeof(matrix_row_t);
-static matrix_row_t prev_matrix[MATRIX_ROWS];
+static matrix_row_t temp_matrix[MATRIX_ROWS] = {0};
 
 void matrix_init_custom(void) {
-    // we use two CS pins - one for each shift register chain, rows and cols
-    // setting them high turns off the shift register
-    
     setPinOutput(SPI_MATRIX_CHIP_SELECT_PIN_COLS);
     writePinHigh(SPI_MATRIX_CHIP_SELECT_PIN_COLS);
-
     setPinOutput(SPI_MATRIX_CHIP_SELECT_PIN_ROWS);
     writePinHigh(SPI_MATRIX_CHIP_SELECT_PIN_ROWS);
-
     spi_init();
-
-
-    matrix_io_delay();
-    
+    matrix_io_delay(); 
 }
 
-// we write row data to the entire 74HC595 shift register chain
 static inline void write_to_rows(uint16_t value) {
     uint8_t message[2] = {(value >> 8) & 0xFF, (uint8_t)(value & 0xFF)};
 
@@ -45,34 +36,42 @@ static inline void set_row_high(uint8_t row) {
     write_to_rows(row_values[row]); 
 }
 
-// we need to read col data from the 74HC589 shift register chain
 static inline uint16_t read_all_cols(void) {
     uint16_t col_pin_state = 0;
-    
+
     spi_start(SPI_MATRIX_CHIP_SELECT_PIN_COLS, false, SPI_MODE, SPI_MATRIX_DIVISOR); // cs pin, lsbFirst?, spi mode, spi divisor
-    spi_receive((uint8_t*)prev_matrix, MATRIX_COLS_SHIFT_REGISTER_COUNT);
+    spi_receive((uint8_t*)temp_matrix, MATRIX_COLS_SHIFT_REGISTER_COUNT * sizeof(matrix_row_t));
     spi_stop(); 
     
-    col_pin_state = prev_matrix[0] | (prev_matrix[1] >> 8);
+    col_pin_state = temp_matrix[0] | (temp_matrix[1] >> 8);
 
     return col_pin_state;
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
-    memset(current_matrix, 0, msize);
     
+    // memset(temp_matrix, 0, msize);
     for (uint16_t row = 0; row < MATRIX_ROWS; row++) {
         set_row_high(row);
         uint16_t temp_col_state = read_all_cols();
+        if (temp_col_state != 0) {
+            printf("row (%d), col register data: %u \n", row, temp_col_state);
+        }
         for (uint16_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-            prev_matrix[current_col] |= (((temp_col_state & (1 << current_col)) ? 1 : 0) << row);
+            // printf("row: %d \n", row);
+
+            temp_matrix[current_col] |= (((temp_col_state & (1 << current_col)) ? 1 : 0) << row);
         }
     }
 
-    bool matrix_has_changed = memcmp(current_matrix, prev_matrix, msize) != 0;
+    bool matrix_has_changed = memcmp(current_matrix, temp_matrix, sizeof(temp_matrix)) != 0;
     if (matrix_has_changed) {
-        printf("Matrix has changed.");
-        memcpy(prev_matrix, current_matrix, msize);
+        for(int i = 0; i < MATRIX_COLS; i++) {
+            printf(" %d ", temp_matrix[i]); // this outputs zeros
+        }
+        printf("sizeof matrix_row_t: %d \n", sizeof(matrix_row_t));
+        memcpy(current_matrix, temp_matrix, sizeof(temp_matrix));
+        printf("Matrix of size %d has changed. \n", msize);
     }
     return matrix_has_changed;
 }
