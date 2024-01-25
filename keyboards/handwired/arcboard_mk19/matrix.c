@@ -49,10 +49,9 @@ static inline uint16_t read_all_cols(void) {
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
-    
-    // memset(temp_matrix, 0, msize);
     for (uint16_t row = 0; row < MATRIX_ROWS; row++) {
         set_row_high(row);
+
         uint16_t temp_col_state = read_all_cols();
         if (temp_col_state != 0) {
             printf("row (%d), col register data: %u \n", row, temp_col_state);
