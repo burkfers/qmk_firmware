@@ -1,5 +1,16 @@
 # testing shift registers notes
 
+# no key-up
+Ok, so what is the logic here...
+- foreach row
+  - set pin high
+  - scan all cols for matching high
+  - build row in temp_matrix
+- compare temp_matrix against current_matrix
+  - if no changes, done;
+  - if changes, overwrite current_matrix with temp_matrix
+
+
 
 # testing the 595s
 This code was sufficient for me to see 3.3v on row pins 0-7 and 0v on row pins 8-15.

@@ -4,8 +4,8 @@
 #pragma once
 
 // SPI configuration
-#define SPI_MATRIX_DIVISOR 16
-#define SPI_MODE 3
+#define SPI_MATRIX_DIVISOR 64
+#define SPI_MODE 0
 #define SPI_DRIVER SPID1
 
 #define SPI_SCK_PIN GP10
