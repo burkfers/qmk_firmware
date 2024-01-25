@@ -5,6 +5,7 @@
 
 // SPI configuration
 #define SPI_MATRIX_DIVISOR 16
+#define SPI_MODE 3
 #define SPI_DRIVER SPID1
 
 #define SPI_SCK_PIN GP10
@@ -14,7 +15,11 @@
 #define SPI_MATRIX_CHIP_SELECT_PIN_ROWS GP9
 #define SPI_MATRIX_CHIP_SELECT_PIN_COLS GP5
 
-// two shift registers for rows(74HC595), two for cols(74HC589)
+// two shift registers for rows(74HC595 write pin high), two for cols(74HC589 receive pin state)
 #define MATRIX_COLS_SHIFT_REGISTER_COUNT 2
 #define MATRIX_ROWS_SHIFT_REGISTER_COUNT 2
 
+// I get what these are, but don't get how he arrived at them
+// why
+#define COLS {0x8000, 0x4000, 0x2000, 0x1000, 0x0800, 0x0400, 0x0200, 0x0100, 0x0080, 0x0040, 0x0020, 0x0010, 0x0001}
+#define ROWS {0x8000, 0x4000, 0x2000, 0x1000, 0x0800, 0x0400, 0x0200, 0x0100, 0x0080, 0x0040, 0x0020, 0x0010, 0x0001}
