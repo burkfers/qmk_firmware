@@ -9,8 +9,7 @@
 #include "print.h"
 
 // these are the lists of hex values
-static const uint16_t row_values[MATRIX_COLS] = COLS;
-static const uint16_t col_values[MATRIX_ROWS] = ROWS;
+static const uint16_t row_values[MATRIX_COLS] = ROWS;
 
 static const int msize = MATRIX_ROWS * sizeof(matrix_row_t);
 static matrix_row_t prev_matrix[MATRIX_ROWS];
@@ -48,16 +47,14 @@ static inline void set_row_high(uint8_t row) {
 
 // we need to read col data from the 74HC589 shift register chain
 static inline uint16_t read_all_cols(void) {
-
     uint16_t col_pin_state = 0;
-
+    
     spi_start(SPI_MATRIX_CHIP_SELECT_PIN_COLS, false, SPI_MODE, SPI_MATRIX_DIVISOR); // cs pin, lsbFirst?, spi mode, spi divisor
-    spi_receive((uint8_t*)prev_matrix, MATRIX_COLS_SHIFT_REGISTER_COUNT * sizeof(matrix_row_t));
+    spi_receive((uint8_t*)prev_matrix, MATRIX_COLS_SHIFT_REGISTER_COUNT);
     spi_stop(); 
+    
+    col_pin_state = prev_matrix[0] | (prev_matrix[1] >> 8);
 
-    for (uint16_t col = 1; col < MATRIX_COLS; col++) {
-        col_pin_state |= (readPin(col_values[col]) << col);
-    }
     return col_pin_state;
 }
 
