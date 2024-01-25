@@ -11,7 +11,6 @@
 // these are the lists of hex values
 static const uint16_t row_values[MATRIX_COLS] = ROWS;
 
-static const int msize = MATRIX_ROWS * sizeof(matrix_row_t);
 static matrix_row_t temp_matrix[MATRIX_ROWS] = {0};
 
 void matrix_init_custom(void) {
@@ -43,6 +42,8 @@ static inline uint16_t read_all_cols(void) {
     spi_receive((uint8_t*)temp_matrix, MATRIX_COLS_SHIFT_REGISTER_COUNT * sizeof(matrix_row_t));
     spi_stop(); 
     
+    // feel like i don't know what is going on here...some bitshifting
+    // presumes that temp_matrix[] is only 0 or 1; and for [1], shift bits 8 cuz two pin sets, 0-7, and 8-15  ?
     col_pin_state = temp_matrix[0] | (temp_matrix[1] >> 8);
 
     return col_pin_state;
@@ -53,9 +54,9 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         set_row_high(row);
 
         uint16_t temp_col_state = read_all_cols();
-        if (temp_col_state != 0) {
+        // if (temp_col_state != 0) {
             printf("row (%d), col register data: %u \n", row, temp_col_state);
-        }
+        // }
         for (uint16_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
             // printf("row: %d \n", row);
 
@@ -70,7 +71,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         }
         printf("sizeof matrix_row_t: %d \n", sizeof(matrix_row_t));
         memcpy(current_matrix, temp_matrix, sizeof(temp_matrix));
-        printf("Matrix of size %d has changed. \n", msize);
+        // printf("Matrix of size %d has changed. \n", msize);
     }
     return matrix_has_changed;
 }

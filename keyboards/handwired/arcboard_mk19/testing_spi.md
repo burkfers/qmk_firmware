@@ -137,3 +137,4 @@ FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 The key-up is not working or something.
 Verified this with the qmk tester.
 
+debounce: true does not help
