@@ -1,6 +1,7 @@
 # testing shift registers notes
 
 # no key-up
+## day1
 Ok, so what is the logic here...
 - foreach row
   - set row pin high
@@ -43,9 +44,36 @@ If i had to guess, one set of registers is not being cleared...?
 
 Tried another board, same result.  So either there is something dramatically wrong with the hardware, or something being missed in firmware.
 
+## day2
+is it possible the rows aren't being un-set from 'high'?
 
+Outputting our 'message'...
+```
+christrotter:handwired/arcboard_mk19:1: our spi message: 128 0
+christrotter:handwired/arcboard_mk19:1: our spi message: 64 0
+christrotter:handwired/arcboard_mk19:1: our spi message: 32 0
+christrotter:handwired/arcboard_mk19:1: our spi message: 16 0
+christrotter:handwired/arcboard_mk19:1: our spi message: 8 0
+christrotter:handwired/arcboard_mk19:1: our spi message: 4 0
+christrotter:handwired/arcboard_mk19:1: our spi message: 2 0
+christrotter:handwired/arcboard_mk19:1: our spi message: 1 0
+christrotter:handwired/arcboard_mk19:1: our spi message: 0 128
+christrotter:handwired/arcboard_mk19:1: our spi message: 0 64
+christrotter:handwired/arcboard_mk19:1: our spi message: 0 32
+christrotter:handwired/arcboard_mk19:1: our spi message: 0 16
+christrotter:handwired/arcboard_mk19:1: our spi message: 0 8
+christrotter:handwired/arcboard_mk19:1: our spi message: 0 4
+christrotter:handwired/arcboard_mk19:1: our spi message: 0 2
+christrotter:handwired/arcboard_mk19:1: our spi message: 0 1
+```
+So the row is just constantly cycling, good.
 
-
+        for(int i = 0; i < MATRIX_ROWS; i++) {
+            printf("temp_matrix: %d : %d \n", i, temp_matrix[i]); // this outputs zeros
+        }
+        if (col_pin_state != 0) {
+            printf("col_pin_state: %u \n", col_pin_state);
+        }
 
 
 # testing the 595s
