@@ -3,12 +3,48 @@
 # no key-up
 Ok, so what is the logic here...
 - foreach row
-  - set pin high
+  - set row pin high
   - scan all cols for matching high
   - build row in temp_matrix
+- now we have a rows/cols temp_matrix
 - compare temp_matrix against current_matrix
   - if no changes, done;
   - if changes, overwrite current_matrix with temp_matrix
+HERE.  now what?
+
+If I connect (row pin, count3 from left) and (col pin, count3 from left) together...
+```
+christrotter:handwired/arcboard_mk19:2:
+christrotter:handwired/arcboard_mk19:2: r/c 0123456789ABCDEF
+christrotter:handwired/arcboard_mk19:2: 00: 0000000000000000
+christrotter:handwired/arcboard_mk19:2: 01: 0000000000000000
+christrotter:handwired/arcboard_mk19:2: 02: 0001000000000000
+christrotter:handwired/arcboard_mk19:2: 03: 0000000000000000
+christrotter:handwired/arcboard_mk19:2: 04: 0000000000000000
+christrotter:handwired/arcboard_mk19:2: 05: 0000000000000000
+christrotter:handwired/arcboard_mk19:2: 06: 0000000000000000
+christrotter:handwired/arcboard_mk19:2: 07: 0000000000000000
+christrotter:handwired/arcboard_mk19:2: 08: 0000000000000000
+christrotter:handwired/arcboard_mk19:2: 09: 0000000000000000
+christrotter:handwired/arcboard_mk19:2: 0A: 0000000000000000
+christrotter:handwired/arcboard_mk19:2: 0B: 0000000000000000
+christrotter:handwired/arcboard_mk19:2: 0C: 0000000000000000
+christrotter:handwired/arcboard_mk19:2: 0D: 0000000000000000
+christrotter:handwired/arcboard_mk19:2: 0E: 0000000000000000
+christrotter:handwired/arcboard_mk19:2: 0F: 0000000000000000
+christrotter:handwired/arcboard_mk19:2: keyboard_report: 00 | 06 00 00 00 00 00
+```
+And then:
+`➜  arcboard_mk19 git:(arcboard-series) ✗ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc`
+
+So it's outputting a keystroke...just not recognizing that it's been released...
+
+If i had to guess, one set of registers is not being cleared...?
+
+Tried another board, same result.  So either there is something dramatically wrong with the hardware, or something being missed in firmware.
+
+
+
 
 
 

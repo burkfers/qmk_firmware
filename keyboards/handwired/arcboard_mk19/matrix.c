@@ -21,6 +21,7 @@ void matrix_init_custom(void) {
 }
 
 static inline void write_to_rows(uint16_t value) {
+    // Burkfers: Message is 2 8 bit integers. Expression chops up value, a 16 bit integer, into two halves - necessary because spi_transmit below expects an array of bytes.
     uint8_t message[2] = {(value >> 8) & 0xFF, (uint8_t)(value & 0xFF)};
 
     spi_start(SPI_MATRIX_CHIP_SELECT_PIN_ROWS, false, SPI_MODE, SPI_MATRIX_DIVISOR);
@@ -34,10 +35,12 @@ static inline void set_row_high(uint8_t row) {
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     static matrix_row_t temp_matrix[MATRIX_ROWS] = {0};
+    matrix_io_delay();
 
     for (uint16_t row = 0; row < MATRIX_ROWS; row++) {
+        uint16_t col_pin_state;
+
         set_row_high(row); // write row high via 595 shift registers
-        uint16_t col_pin_state = 0;
 
         spi_start(SPI_MATRIX_CHIP_SELECT_PIN_COLS, false, SPI_MODE, SPI_MATRIX_DIVISOR);
         spi_receive((uint8_t*)temp_matrix, MATRIX_COLS_SHIFT_REGISTER_COUNT * sizeof(matrix_row_t)); // receive col data via 589 shift registers
