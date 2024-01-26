@@ -211,12 +211,16 @@ static void pointing_device_task_dilemma(report_mouse_t* mouse_report) {
     }
 }
 
+__attribute__((weak)) report_mouse_t pointing_device_task_kb2(report_mouse_t mouse_report) {
+    return mouse_report;
+}
+
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     if (is_keyboard_master()) {
         pointing_device_task_dilemma(&mouse_report);
         mouse_report = pointing_device_task_user(mouse_report);
     }
-    return mouse_report;
+    return pointing_device_task_kb2(mouse_report);
 }
 
 #    if defined(POINTING_DEVICE_ENABLE) && !defined(NO_DILEMMA_KEYCODES)
