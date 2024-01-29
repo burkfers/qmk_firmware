@@ -31,11 +31,11 @@ static inline void write_to_rows(uint16_t value) {
 static inline void set_row_high(uint8_t row) {
     write_to_rows(row_values[row]); 
 }
-
+// MATRIX_ROWS
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
-    static matrix_row_t temp_matrix[MATRIX_ROWS] = {0};
+    static matrix_row_t temp_matrix[16] = {0};
 
-    for (uint16_t row = 0; row < MATRIX_ROWS; row++) {
+    for (uint16_t row = 0; row < 16; row++) {
         uint16_t col_pin_state;
         uint8_t temp_receive[MATRIX_COLS_SHIFT_REGISTER_COUNT] = {0};
 
