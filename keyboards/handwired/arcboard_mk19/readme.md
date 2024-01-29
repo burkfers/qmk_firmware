@@ -26,6 +26,13 @@ Specific focus has been applied to maintaining the tension of minimizing combos 
 - Right-half has a PMW33xx, >>>>> left-half has...something else...
 
 
+# config details
+## spi shift register matrix
+
+
+## rgb matrix
+- 5x6 + 6 = 36/side
+
 # What if's
 ## ultrafalcon encoders
 PER60 encoder wheels with embedded GC9A01 LCDs on pushbuttons.
