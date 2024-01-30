@@ -1,5 +1,36 @@
 # testing shift registers notes
 
+# add the extra cols/rows to the layout
+
+
+# split usb-c power
+Uhm need to solder the bypass... :D
+
+
+
+# split
+adding split config starts throwing this:
+```c
+Compiling: keyboards/handwired/arcboard_mk19/matrix.c                                              keyboards/handwired/arcboard_mk19/matrix.c: In function 'matrix_scan_custom':
+keyboards/handwired/arcboard_mk19/matrix.c:32:5: error: iteration 16 invokes undefined behavior [-Werror=aggressive-loop-optimizations]
+     write_to_rows(row_values[row]);
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+keyboards/handwired/arcboard_mk19/matrix.c:38:5: note: within this loop
+     for (uint16_t row = 0; row < (MATRIX_ROWS * 2); row++) {
+     ^~~
+cc1: all warnings being treated as errors
+ [ERRORS]
+ |
+ |
+ |
+gmake: *** [builddefs/common_rules.mk:369: .build/obj_handwired_arcboard_mk19_christrotter/matrix.o] Error 1
+```
+
+We changed MATRIX_ROWS calls to be just '16', and it got farther...
+
+## soft-serial missing
+Also forgot this... `SERIAL_DRIVER = vendor` ... in rules.mk.
+
 # no key-up
 ## day1
 Ok, so what is the logic here...
@@ -75,6 +106,7 @@ So the row is just constantly cycling, good.
             printf("col_pin_state: %u \n", col_pin_state);
         }
 
+conclusion: Yes, they were not being 'un-set from high' cuz we were missing pull-down resistors on the col pins.  Adding those cleared up all weirdness. 
 
 # testing the 595s
 This code was sufficient for me to see 3.3v on row pins 0-7 and 0v on row pins 8-15.
