@@ -17,7 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
+<<<<<<< HEAD
 const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
+=======
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
+>>>>>>> develop
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location

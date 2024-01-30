@@ -22,8 +22,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-// #define QMK_KEYS_PER_SCAN 12
-
 /* OLED */
 #ifdef OLED_ENABLE
 #    define OLED_BRIGHTNESS 5
@@ -34,15 +32,9 @@
 #    define I2C_DRIVER I2CD2
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
-    /* RGB Matrix config */
-    #define RGB_MATRIX_LED_COUNT 36
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_UP_DOWN
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
-#    define RGB_MATRIX_KEYPRESSES
+#define RGB_MATRIX_LED_COUNT 36
 
+<<<<<<< HEAD
 
 /* RGB Matrix effect */
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
@@ -89,6 +81,8 @@
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
 
+=======
+>>>>>>> develop
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

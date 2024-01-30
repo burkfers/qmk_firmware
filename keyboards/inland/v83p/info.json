@@ -164,7 +164,13 @@
             { "flags": 2, "x": 224, "y": 32},
             { "flags": 2, "x": 224, "y": 48},
             { "flags": 2, "x": 224, "y": 64}
+<<<<<<< HEAD
         ]
+=======
+        ],
+        "react_on_keyup": true,
+        "sleep": true
+>>>>>>> develop
     },
     "layouts": {
         "LAYOUT_ansi": {

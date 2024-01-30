@@ -15,6 +15,7 @@
  */
 #pragma once
 
+<<<<<<< HEAD
 #ifdef LED_MATRIX_ENABLE
 
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
@@ -50,8 +51,13 @@
 // #    define ENABLE_LED_MATRIX_WAVE_LEFT_RIGHT
 // #    define ENABLE_LED_MATRIX_WAVE_UP_DOWN
 #endif
+=======
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+>>>>>>> develop
 
 /* Terrazzo animations */
+#define LED_MATRIX_ROWS 15
+#define LED_MATRIX_COLS 7
 
 // #define DISABLE_TERRAZZO_EFFECT_STRIPES
 // #define DISABLE_TERRAZZO_EFFECT_DINO

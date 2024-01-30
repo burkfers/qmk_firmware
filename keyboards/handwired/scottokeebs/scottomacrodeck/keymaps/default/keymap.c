@@ -19,8 +19,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
+<<<<<<<< HEAD:keyboards/handwired/scottokeebs/scottomacrodeck/keymaps/default/keymap.c
         KC_1, KC_2, KC_3,
         KC_Q, KC_W, KC_E, KC_R,
         KC_A, KC_S, KC_D, KC_F
     )
 };
+========
+        KC_MS_BTN1, KC_MS_BTN2, KC_MS_LEFT, KC_MS_UP,  KC_MS_DOWN, KC_MS_RIGHT
+    )
+};
+>>>>>>>> develop:keyboards/handwired/scottokeebs/scottomouse/keymaps/default/keymap.c

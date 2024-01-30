@@ -187,7 +187,12 @@
             "multisplash": true,
             "solid_splash": true,
             "solid_multisplash": true
+<<<<<<< HEAD
         }
+=======
+        },
+        "sleep": true
+>>>>>>> develop
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {

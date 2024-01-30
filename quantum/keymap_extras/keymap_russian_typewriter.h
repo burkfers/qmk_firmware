@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // Copyright 2023 QMK
+=======
+// Copyright 2024 QMK
+>>>>>>> develop
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************

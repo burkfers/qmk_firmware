@@ -21,8 +21,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-
 /* External spi flash */
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN B14
 
@@ -36,6 +34,7 @@
 #define AW20216S_CS_PIN_2 B15
 #define AW20216S_EN_PIN_1 C13
 #define AW20216S_EN_PIN_2 C13
+<<<<<<< HEAD
 
 #define DRIVER_1_LED_TOTAL 66
 #define DRIVER_2_LED_TOTAL 54
@@ -89,3 +88,5 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+=======
+>>>>>>> develop

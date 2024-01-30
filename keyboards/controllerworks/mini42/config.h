@@ -18,7 +18,10 @@
 #pragma once
 
 #define WS2812_PIO_USE_PIO1
+<<<<<<< HEAD
 #define RGB_MATRIX_LED_COUNT 54
+=======
+>>>>>>> develop
 
 #undef I2C_DRIVER
 #define I2C_DRIVER I2CD0

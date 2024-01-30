@@ -3,12 +3,18 @@
 
 #pragma once
 
+<<<<<<< HEAD
 #define RGB_MATRIX_LED_COUNT 64
+=======
+#define IS31FL3743A_I2C_ADDRESS_1 IS31FL3743A_I2C_ADDRESS_GND_GND
+
+>>>>>>> develop
 #define CAPS_LOCK_INDEX 28
 #define WIN_MOD_INDEX 16
 #define MAC_MOD_INDEX 17
 #define WIN_LOCK_INDEX 54
 #define SDB C1 //RGB matrix Power control PIN
+<<<<<<< HEAD
 
 /* RGB Matrix Animation modes. Explicitly enabled
  * For full list of effects, see:
@@ -17,3 +23,5 @@
 
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+=======
+>>>>>>> develop

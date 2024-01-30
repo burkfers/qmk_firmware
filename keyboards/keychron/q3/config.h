@@ -39,7 +39,11 @@
 #define ENCODER_DEFAULT_POS 0x3
 
 /* turn off effects when suspended */
+<<<<<<< HEAD
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
+=======
+#define RGB_MATRIX_SLEEP
+>>>>>>> develop
 
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS

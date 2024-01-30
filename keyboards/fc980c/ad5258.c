@@ -24,7 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // AD5258 I2C digital potentiometer
 // http://www.analog.com/media/en/technical-documentation/data-sheets/AD5258.pdf
 //
+<<<<<<< HEAD
 #define AD5258_I2C_ADDRESS 0x18
+=======
+#define AD5258_I2C_ADDRESS 0x30
+>>>>>>> develop
 #define AD5258_INST_RDAC   0x00
 #define AD5258_INST_EEPROM 0x20
 
@@ -35,18 +39,30 @@ void ad5258_init(void) {
 uint8_t ad5258_read_rdac(void) {
     // read RDAC register
     uint8_t ret = 0;
+<<<<<<< HEAD
     i2c_readReg(AD5258_I2C_ADDRESS, AD5258_INST_RDAC, &ret, 1, 100);
+=======
+    i2c_read_register(AD5258_I2C_ADDRESS, AD5258_INST_RDAC, &ret, 1, 100);
+>>>>>>> develop
     return ret;
 }
 
 uint8_t ad5258_read_eeprom(void) {
     uint8_t ret = 0;
+<<<<<<< HEAD
     i2c_readReg(AD5258_I2C_ADDRESS, AD5258_INST_EEPROM, &ret, 1, 100);
+=======
+    i2c_read_register(AD5258_I2C_ADDRESS, AD5258_INST_EEPROM, &ret, 1, 100);
+>>>>>>> develop
     return ret;
 }
 
 void ad5258_write_rdac(uint8_t rdac) {
     // write RDAC register:
     uint8_t data = rdac & 0x3F;
+<<<<<<< HEAD
     i2c_writeReg(AD5258_I2C_ADDRESS, AD5258_INST_RDAC, &data, 1, 100);
+=======
+    i2c_write_register(AD5258_I2C_ADDRESS, AD5258_INST_RDAC, &data, 1, 100);
+>>>>>>> develop
 }

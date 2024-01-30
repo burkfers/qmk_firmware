@@ -16,6 +16,7 @@
 
 #pragma once
 
+<<<<<<< HEAD
 #define RGB_MATRIX_LED_COUNT 20
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
@@ -69,6 +70,8 @@
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
+=======
+>>>>>>> develop
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

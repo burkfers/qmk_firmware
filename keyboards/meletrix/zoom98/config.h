@@ -1,6 +1,9 @@
 /*
+<<<<<<<< HEAD:keyboards/meletrix/zoom98/config.h
 Copyright 2023 meletrix
 
+========
+>>>>>>>> develop:keyboards/magic_force/mf34/config.h
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -19,6 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
+<<<<<<<< HEAD:keyboards/meletrix/zoom98/config.h
 
+========
+>>>>>>>> develop:keyboards/magic_force/mf34/config.h
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE

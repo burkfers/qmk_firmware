@@ -16,6 +16,7 @@
 
 #pragma once
 
+<<<<<<< HEAD
 //rgb matrix setting
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
@@ -76,3 +77,6 @@
 #define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_SDA
 #define RGB_MATRIX_LED_COUNT 91
 #define DRIVER_INDICATOR_LED_TOTAL 0
+=======
+#define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_SDA
+>>>>>>> develop

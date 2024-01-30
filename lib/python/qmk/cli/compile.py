@@ -33,6 +33,11 @@ def compile(cli):
 
     If a keyboard and keymap are provided this command will build a firmware based on that.
     """
+<<<<<<< HEAD
+=======
+
+    # If we've received `-kb all`, reroute it to mass-compile.
+>>>>>>> develop
     if is_all_keyboards(cli.args.keyboard):
         from .mass_compile import mass_compile
         cli.args.builds = []
@@ -42,6 +47,19 @@ def compile(cli):
         cli.config.mass_compile.no_temp = False
         return mass_compile(cli)
 
+<<<<<<< HEAD
+=======
+    # If we've received `-km all`, reroute it to mass-compile.
+    if cli.args.keymap == 'all':
+        from .mass_compile import mass_compile
+        cli.args.builds = [f'{cli.args.keyboard}:all']
+        cli.args.filter = []
+        cli.config.mass_compile.keymap = None
+        cli.config.mass_compile.parallel = cli.config.compile.parallel
+        cli.config.mass_compile.no_temp = False
+        return mass_compile(cli)
+
+>>>>>>> develop
     # Build the environment vars
     envs = build_environment(cli.args.env)
 
@@ -68,4 +86,8 @@ def compile(cli):
         return False
 
     target.configure(parallel=cli.config.compile.parallel, clean=cli.args.clean, compiledb=cli.args.compiledb)
+<<<<<<< HEAD
     target.compile(cli.args.target, dry_run=cli.args.dry_run, **envs)
+=======
+    return target.compile(cli.args.target, dry_run=cli.args.dry_run, **envs)
+>>>>>>> develop

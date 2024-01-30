@@ -17,7 +17,11 @@
 
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD
 
+<<<<<<< HEAD
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+=======
+#define RGB_MATRIX_SLEEP // turn off effects when suspended
+>>>>>>> develop
 #define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 
 #define RGB_MATRIX_KEYPRESSES

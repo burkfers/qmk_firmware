@@ -14,7 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rgb_matrix.h"
+#include "rgb_matrix_drivers.h"
+
+#include <stdbool.h>
+#include "keyboard.h"
+#include "color.h"
 #include "util.h"
 
 /* Each driver needs to define the struct
@@ -72,6 +76,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color_all = is31fl3741_set_color_all,
 };
 
+<<<<<<< HEAD
 #elif defined(IS31FLCOMMON)
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init          = IS31FL_RGB_init_drivers,
@@ -88,6 +93,48 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color_all = snled27351_set_color_all,
 };
 
+=======
+#elif defined(RGB_MATRIX_IS31FL3742A)
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init          = is31fl3742a_init_drivers,
+    .flush         = is31fl3742a_flush,
+    .set_color     = is31fl3742a_set_color,
+    .set_color_all = is31fl3742a_set_color_all,
+};
+
+#elif defined(RGB_MATRIX_IS31FL3743A)
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init          = is31fl3743a_init_drivers,
+    .flush         = is31fl3743a_flush,
+    .set_color     = is31fl3743a_set_color,
+    .set_color_all = is31fl3743a_set_color_all,
+};
+
+#elif defined(RGB_MATRIX_IS31FL3745)
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init          = is31fl3745_init_drivers,
+    .flush         = is31fl3745_flush,
+    .set_color     = is31fl3745_set_color,
+    .set_color_all = is31fl3745_set_color_all,
+};
+
+#elif defined(RGB_MATRIX_IS31FL3746A)
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init          = is31fl3746a_init_drivers,
+    .flush         = is31fl3746a_flush,
+    .set_color     = is31fl3746a_set_color,
+    .set_color_all = is31fl3746a_set_color_all,
+};
+
+#elif defined(RGB_MATRIX_SNLED27351)
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init          = snled27351_init_drivers,
+    .flush         = snled27351_flush,
+    .set_color     = snled27351_set_color,
+    .set_color_all = snled27351_set_color_all,
+};
+
+>>>>>>> develop
 #elif defined(RGB_MATRIX_AW20216S)
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init          = aw20216s_init_drivers,
@@ -103,7 +150,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 #    endif
 
 // LED color buffer
-rgb_led_t rgb_matrix_ws2812_array[RGB_MATRIX_LED_COUNT];
+rgb_led_t rgb_matrix_ws2812_array[WS2812_LED_COUNT];
 bool      ws2812_dirty = false;
 
 static void init(void) {
@@ -112,7 +159,7 @@ static void init(void) {
 
 static void flush(void) {
     if (ws2812_dirty) {
-        ws2812_setleds(rgb_matrix_ws2812_array, RGB_MATRIX_LED_COUNT);
+        ws2812_setleds(rgb_matrix_ws2812_array, WS2812_LED_COUNT);
         ws2812_dirty = false;
     }
 }

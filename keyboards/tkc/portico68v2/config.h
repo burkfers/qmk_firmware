@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
+<<<<<<< HEAD
 #define DRIVER_1_LED_TOTAL 82
 #define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 #define DRIVER_INDICATOR_LED_TOTAL 0
@@ -77,3 +78,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define RGB_MATRIX_LED_PROCESS_LIMIT 5
 // #define RGB_MATRIX_LED_FLUSH_LIMIT 26
+=======
+>>>>>>> develop

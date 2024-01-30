@@ -17,6 +17,7 @@
 
 #pragma once
 
+<<<<<<< HEAD
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
@@ -74,5 +75,8 @@
 
 #define RGB_MATRIX_LED_COUNT 6
 #endif
+=======
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+>>>>>>> develop
 
 #define B7_AUDIO

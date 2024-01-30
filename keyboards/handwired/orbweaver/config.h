@@ -18,6 +18,8 @@
 #pragma once
 
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+<<<<<<< HEAD
 #define RGB_MATRIX_LED_COUNT 20
+=======
+>>>>>>> develop
 #define I2C1_CLOCK_SPEED 100000
-#define RGB_MATRIX_CENTER { 40, 30 }

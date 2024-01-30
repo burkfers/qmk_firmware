@@ -19,7 +19,11 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
+<<<<<<< HEAD
 const is31fl3741_led_t PROGMEM g_is31fl3741_leds[RGB_MATRIX_LED_COUNT] = {
+=======
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
+>>>>>>> develop
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location

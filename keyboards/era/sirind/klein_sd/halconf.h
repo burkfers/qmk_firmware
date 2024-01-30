@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:keyboards/era/sirind/klein_sd/halconf.h
 /* Copyright 2023 eerraa
+========
+/* Copyright 2020 QMK
+>>>>>>>> develop:keyboards/keychron/q1v2/halconf.h
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,6 +20,12 @@
 
 #pragma once
 
+<<<<<<<< HEAD:keyboards/era/sirind/klein_sd/halconf.h
 #define HAL_USE_PWM TRUE
 
 #include_next <halconf.h>
+========
+#define HAL_USE_I2C TRUE
+
+#include_next <halconf.h>
+>>>>>>>> develop:keyboards/keychron/q1v2/halconf.h

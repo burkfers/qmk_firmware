@@ -35,7 +35,11 @@ jobs:
 
     - name: Get changed files
       id: file_changes
+<<<<<<< HEAD
       uses: tj-actions/changed-files@v39
+=======
+      uses: tj-actions/changed-files@v42
+>>>>>>> develop
 
     - name: Run qmk formatters
       shell: 'bash {0}'

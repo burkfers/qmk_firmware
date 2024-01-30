@@ -3,14 +3,34 @@
 
 #pragma once
 
+<<<<<<< HEAD
 #define I2C1_SDA_PIN B9
 #define I2C1_SCL_PIN B8
 #define DRIVER_ADDR_1 0b1010000
+=======
+<<<<<<<< HEAD:keyboards/idyllic/tinny50_rgb/config.h
+#ifdef RGB_MATRIX_ENABLE
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
+#define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS * 7/8
+
+/* The number of LEDs connected */
+#define RGB_MATRIX_LED_COUNT 30
+
+/* Enable RGB MATRIX effects */
+========
+#define I2C1_SDA_PIN B9
+#define I2C1_SCL_PIN B8
+#define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
+>>>>>>> develop
 #define RGB_MATRIX_LED_COUNT 47
 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
 
+<<<<<<< HEAD
+=======
+>>>>>>>> develop:keyboards/kprepublic/cstc40/config.h
+>>>>>>> develop
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
@@ -55,4 +75,8 @@
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
+<<<<<<< HEAD
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
+=======
+#define RGB_MATRIX_SLEEP
+>>>>>>> develop

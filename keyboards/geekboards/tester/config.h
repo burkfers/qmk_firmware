@@ -1,7 +1,10 @@
 #pragma once
 
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+
 #define LOCKING_SUPPORT_ENABL
 #define LOCKING_RESYNC_ENABLE
+<<<<<<< HEAD
 
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
@@ -61,3 +64,5 @@
 #    define DRIVER_2_LED_TOTAL 0
 #    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 #endif
+=======
+>>>>>>> develop

@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+<<<<<<< HEAD
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 4
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 26
@@ -44,11 +45,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define DRIVER_1_LED_TOTAL 36
 #    define DRIVER_2_LED_TOTAL 31
 #    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-
-#else
-// IS31FL3731 driver
+=======
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
 #define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_VCC
+>>>>>>> develop
+
+#ifndef RGB_MATRIX_ENABLE
+// IS31FL3731 driver
+<<<<<<< HEAD
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_VCC
+=======
+>>>>>>> develop
 #define IS31FL3731_LED_COUNT 67
 
 #define RGB_BACKLIGHT_ENABLED 1
