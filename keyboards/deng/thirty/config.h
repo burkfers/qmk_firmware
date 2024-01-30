@@ -17,7 +17,6 @@
 
 #define BACKLIGHT_PWM_DRIVER PWMD2
 #define BACKLIGHT_PWM_CHANNEL 4
-<<<<<<< HEAD
 
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
@@ -79,5 +78,3 @@
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
-=======
->>>>>>> develop

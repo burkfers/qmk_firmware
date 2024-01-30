@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:keyboards/era/sirind/klein_hs/halconf.h
 /* Copyright 2023 eerraa
-========
-/* Copyright 2020 QMK
->>>>>>>> develop:keyboards/mode/m60h/halconf.h
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

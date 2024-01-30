@@ -17,7 +17,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define WS2812_EXTERNAL_PULLUP
-<<<<<<<< HEAD:keyboards/rationalist/ratio60_hotswap/rev_a/config.h
-========
-
->>>>>>>> develop:keyboards/4pplet/waffling60/rev_e_iso/config.h

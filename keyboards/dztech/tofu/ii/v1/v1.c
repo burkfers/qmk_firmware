@@ -17,11 +17,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-<<<<<<< HEAD
 const is31fl3737_led_t PROGMEM g_is31fl3737_leds[RGB_MATRIX_LED_COUNT] = {
-=======
-const is31fl3737_led_t PROGMEM g_is31fl3737_leds[IS31FL3737_LED_COUNT] = {
->>>>>>> develop
     { 1, K_12, J_12, L_12 },
     { 1, K_11, J_11, L_11 },
     { 1, K_10, J_10, L_10 },

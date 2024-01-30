@@ -19,11 +19,6 @@
 
 #include_next <mcuconf.h>
 
-<<<<<<<< HEAD:keyboards/handwired/arcpedals_mk1/mcuconf.h
 #undef RP_SPI_USE_SPI1
 #define RP_SPI_USE_SPI1 TRUE
 
-========
-#undef RP_SPI_USE_SPI0
-#define RP_SPI_USE_SPI0 TRUE
->>>>>>>> develop:keyboards/bastardkb/dilemma/4x6_4/mcuconf.h

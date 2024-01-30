@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGB_MATRIX_ENABLE
 
-<<<<<<< HEAD
 /* ws2812 RGB MATRIX */
 #   define RGB_MATRIX_LED_COUNT 116
  // reacts to keypresses
@@ -31,12 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define RGB_MATRIX_DEFAULT_SPD 127
 
 // the above brighness setting has no effect on rgb_matrix_set_color().
-=======
-//  for all fingers used at once.
-#   define LED_HITS_TO_REMEMBER 10
-
-// the max brightness setting has no effect on rgb_matrix_set_color().
->>>>>>> develop
 // Use darker colors instead.
 /*              RGB darker COLORS             */
 #   define RGB_DARKWHITE 0x33, 0x33, 0x33
@@ -58,12 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define RGB_DARKMAGENTA 0x33, 0x0, 0x33
 #   define RGB_DARKPINK 0x33, 0x19, 0x26
 
-<<<<<<< HEAD
 //  https://docs.qmk.fm/#/feature_rgb_matrix
 //  Enable suspend mode.
 #   define RGB_DISABLE_WHEN_USB_SUSPENDED
-=======
->>>>>>> develop
 #endif  // RGB_MATRIX_ENABLE
 
 /* Audio */

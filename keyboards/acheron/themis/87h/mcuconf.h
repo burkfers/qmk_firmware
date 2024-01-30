@@ -15,9 +15,7 @@
  */
 
 #pragma once
-#include_next <mcuconf.h>
 
-<<<<<<<< HEAD:keyboards/acheron/themis/87h/mcuconf.h
 #include_next <mcuconf.h>
 
 #undef STM32_PWM_USE_ADVANCED
@@ -25,10 +23,3 @@
 
 #undef STM32_PWM_USE_TIM1
 #define STM32_PWM_USE_TIM1 TRUE
-========
-#undef STM32_PWM_USE_TIM4
-#define STM32_PWM_USE_TIM4 TRUE
-
-#undef STM32_ST_USE_TIMER
-#define STM32_ST_USE_TIMER 5
->>>>>>>> develop:keyboards/mode/m60h/mcuconf.h

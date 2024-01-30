@@ -4,14 +4,9 @@
 #pragma once
 
 /* RGB Config */
-<<<<<<< HEAD
 #define DRIVER_1_CS B6
 #define DRIVER_1_EN B7
 #define RGB_MATRIX_LED_COUNT 67
-=======
-#define AW20216S_CS_PIN_1 B6
-#define AW20216S_EN_PIN_1 B7
->>>>>>> develop
 
 /* SPI Config */
 #define SPI_DRIVER SPIDQ
@@ -21,12 +16,9 @@
 
 /* SPI Flash */
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
-<<<<<<< HEAD
 
 /* RGB Matrix */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_KEYRELEASES
-=======
->>>>>>> develop

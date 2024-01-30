@@ -1,10 +1,6 @@
 #include "quantum.h"
 
-<<<<<<< HEAD
 const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
-=======
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
->>>>>>> develop
 	{0, C2_1,  C3_1,  C4_1},  // LA0
     {0, C1_1,  C3_2, C4_2},   // LA1
     {0, C1_2,  C2_2, C4_3},   // LA2

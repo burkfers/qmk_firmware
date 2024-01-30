@@ -1,9 +1,5 @@
-<<<<<<<< HEAD:keyboards/handwired/arcboard_mk17_tft/mcuconf.h
 /*
  * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
-========
-/* Copyright 2023 Gondolindrim <gondolindrim@acheronproject.com>
->>>>>>>> develop:keyboards/dark/magnum_ergo_1/mcuconf.h
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,11 +19,6 @@
 
 #include_next <mcuconf.h>
 
-<<<<<<<< HEAD:keyboards/handwired/arcboard_mk17_tft/mcuconf.h
 #undef RP_SPI_USE_SPI1
 #define RP_SPI_USE_SPI1 TRUE
 
-========
-#undef STM32_PWM_USE_TIM3
-#define STM32_PWM_USE_TIM3 TRUE
->>>>>>>> develop:keyboards/dark/magnum_ergo_1/mcuconf.h

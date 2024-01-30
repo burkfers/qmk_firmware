@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:keyboards/keychron/q1v1/iso_encoder/config.h
 /* Copyright 2021 @ Keychron (https://www.keychron.com)
-========
-/* Copyright 2023 splitkb.com <support@splitkb.com>
->>>>>>>> develop:keyboards/splitkb/aurora/helix/rev1/config.h
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,15 +16,8 @@
 
 #pragma once
 
-<<<<<<<< HEAD:keyboards/keychron/q1v1/iso_encoder/config.h
 /* RGB Matrix Configuration */
 #define RGB_MATRIX_LED_COUNT 83
 
 /* Enable caps-lock LED */
 #define CAPS_LOCK_LED_INDEX 44
-========
-#define SPLIT_HAND_PIN D3
-
-#define OLED_DISPLAY_128X32
-#define SPLIT_OLED_ENABLE
->>>>>>>> develop:keyboards/splitkb/aurora/helix/rev1/config.h

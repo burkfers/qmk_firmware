@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // RGB Matrix defines
 #define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
-<<<<<<< HEAD
 
 #define DRIVER_1_LED_TOTAL 87
 #define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
@@ -81,5 +80,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-=======
->>>>>>> develop

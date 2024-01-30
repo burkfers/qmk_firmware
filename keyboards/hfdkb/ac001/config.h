@@ -16,6 +16,9 @@
 
 #pragma once
 
+/* ws2812 RGB LED */
+#define RGB_MATRIX_LED_COUNT 5
+
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -29,7 +32,6 @@
 #define SPI_MOSI_PAL_MODE 5
 
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
-<<<<<<< HEAD
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 
@@ -85,7 +87,6 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 //#define ENABLE_RGB_MATRIX_SOLID_SPLASH
 //#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-=======
->>>>>>> develop
 
 #define USB_SUSPEND_WAKEUP_DELAY 1500              //Wakeup host USB
+

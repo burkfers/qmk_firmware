@@ -1,21 +1,10 @@
 # Momokai Aurora
 
-<<<<<<< HEAD
-=======
-![Momokai Aurora](https://i.imgur.com/A7iHqzAh.jpg)
-
-https://www.momokai.com/pages/aurora
-
->>>>>>> develop
 A 6 key keypad with a rotary encoder
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
 * Hardware Supported: Aurora
-<<<<<<< HEAD
 * Hardware Availability: [Momokai](https://www.momokai.com/)
-=======
-* Hardware Availability: [Momokai](https://www.momokai.com/pages/aurora)
->>>>>>> develop
 
 Make example for this keyboard (after setting up your build environment):
 

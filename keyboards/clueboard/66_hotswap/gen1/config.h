@@ -37,7 +37,6 @@
 #define I2C1_SCL_PIN B8
 #define I2C1_SDA_PIN B9
 
-<<<<<<< HEAD
 #define LED_MATRIX_LED_COUNT 71
 
 // LED Matrix Animation modes. Explicitly enabled
@@ -66,8 +65,6 @@
 #define ENABLE_LED_MATRIX_WAVE_LEFT_RIGHT
 #define ENABLE_LED_MATRIX_WAVE_UP_DOWN
 
-=======
->>>>>>> develop
 #define AUDIO_PIN A5
 #define AUDIO_PIN_ALT A4
 #define AUDIO_PIN_ALT_AS_NEGATIVE

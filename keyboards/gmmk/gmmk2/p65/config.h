@@ -21,6 +21,8 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
+
 /* SPI Config for LED Driver */
 #define SPI_DRIVER SPIDM2
 #define SPI_SCK_PIN B13
@@ -31,7 +33,6 @@
 #define AW20216S_CS_PIN_2 B9
 #define AW20216S_EN_PIN_1 C13
 #define AW20216S_EN_PIN_2 C13
-<<<<<<< HEAD
 
 #define DRIVER_1_LED_TOTAL 54
 #define DRIVER_2_LED_TOTAL 34
@@ -87,5 +88,3 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-=======
->>>>>>> develop

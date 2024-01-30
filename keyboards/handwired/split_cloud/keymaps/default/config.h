@@ -1,9 +1,5 @@
 /*
-<<<<<<<< HEAD:keyboards/handwired/split_cloud/keymaps/default/config.h
 Copyright 2023 Cloud Chagnon <cloud.chagnon@ucalgary.ca>
-========
-Copyright 2023 ziptyze
->>>>>>>> develop:keyboards/ziptyze/lets_split_v3/config.h
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,15 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-<<<<<<<< HEAD:keyboards/handwired/split_cloud/keymaps/default/config.h
 /* The defaults are different for the Tri Layers */
 #define TRI_LAYER_LOWER_LAYER 3
 #define TRI_LAYER_UPPER_LAYER 4
 #define TRI_LAYER_ADJUST_LAYER 6
-========
-#define SERIAL_USART_FULL_DUPLEX
-#define SERIAL_USART_TX_PIN GP16
-#define SERIAL_USART_RX_PIN GP17
-#define SERIAL_USART_PIN_SWAP
->>>>>>>> develop:keyboards/ziptyze/lets_split_v3/config.h
 

@@ -33,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-<<<<<<< HEAD
 #ifdef RGB_MATRIX_ENABLE
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
@@ -88,24 +87,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
 
-=======
->>>>>>> develop
 // i2c_master defines
-#define I2C_COUNT 2
-#define I2C1_CLOCK_SPEED 400000
+#    define I2C_COUNT 2
+#    define I2C1_CLOCK_SPEED 400000
 
-#define I2C1_SCL_PIN B0 // A2 on pinout = B0
-#define I2C1_SDA_PIN B1 // A2 on pinout = B1
-#define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATIVE_2
-#define I2C1_SDA_PAL_MODE PAL_MODE_ALTERNATIVE_2
+#    define I2C1_SCL_PIN B0 // A2 on pinout = B0
+#    define I2C1_SDA_PIN B1 // A2 on pinout = B1
+#    define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATIVE_2
+#    define I2C1_SDA_PAL_MODE PAL_MODE_ALTERNATIVE_2
 
-#define USE_I2C2
-#define I2C2_SCL_PIN C10 // A2 on pinout = C10
-#define I2C2_SDA_PIN C11 // A2 on pinout = C11
-#define I2C2_SCL_PAL_MODE PAL_MODE_ALTERNATIVE_2
-#define I2C2_SDA_PAL_MODE PAL_MODE_ALTERNATIVE_2
+#    define USE_I2C2
+#    define I2C2_SCL_PIN C10 // A2 on pinout = C10
+#    define I2C2_SDA_PIN C11 // A2 on pinout = C11
+#    define I2C2_SCL_PAL_MODE PAL_MODE_ALTERNATIVE_2
+#    define I2C2_SDA_PAL_MODE PAL_MODE_ALTERNATIVE_2
 
-<<<<<<< HEAD
 #    define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #    define IS31FL3733_I2C_ADDRESS_2 IS31FL3733_I2C_ADDRESS_GND_GND
 #    define IS31FL3733_DRIVER_COUNT 2
@@ -114,7 +110,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define DRIVER_2_LED_TOTAL 55
 #    define RGB_MATRIX_LED_COUNT IS31FL3733_LED_COUNT
 #endif
-=======
-#define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
-#define IS31FL3733_I2C_ADDRESS_2 IS31FL3733_I2C_ADDRESS_GND_GND
->>>>>>> develop

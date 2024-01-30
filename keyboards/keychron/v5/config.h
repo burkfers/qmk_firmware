@@ -46,7 +46,7 @@
 #define MATRIX_MASKED
 
 /* turn off effects when suspended */
-#define RGB_MATRIX_SLEEP
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 /* EEPROM Driver Configuration */
 #define WEAR_LEVELING_LOGICAL_SIZE 2048

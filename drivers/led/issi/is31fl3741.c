@@ -18,21 +18,12 @@
  */
 
 #include "is31fl3741.h"
-<<<<<<< HEAD
 #include <string.h>
 #include "i2c_master.h"
 #include "wait.h"
 
 #define IS31FL3741_PWM_REGISTER_COUNT 351
 
-=======
-#include "i2c_master.h"
-#include "wait.h"
-
-#define IS31FL3741_PWM_REGISTER_COUNT 351
-#define IS31FL3741_SCALING_REGISTER_COUNT 351
-
->>>>>>> develop
 #ifndef IS31FL3741_I2C_TIMEOUT
 #    define IS31FL3741_I2C_TIMEOUT 100
 #endif
@@ -60,15 +51,12 @@
 #ifndef IS31FL3741_GLOBAL_CURRENT
 #    define IS31FL3741_GLOBAL_CURRENT 0xFF
 #endif
-<<<<<<< HEAD
 
 // Transfer buffer for TWITransmitData()
 uint8_t g_twi_transfer_buffer[20] = {0xFF};
-=======
->>>>>>> develop
 
 // These buffers match the IS31FL3741 and IS31FL3741A PWM registers.
-// The scaling buffers match the page 2 and 3 LED On/Off registers.
+// The scaling buffers match the PG2 and PG3 LED On/Off registers.
 // Storing them like this is optimal for I2C transfers to the registers.
 // We could optimize this and take out the unused registers from these
 // buffers and the transfers in is31fl3741_write_pwm_buffer() but it's
@@ -77,7 +65,6 @@ uint8_t g_pwm_buffer[IS31FL3741_DRIVER_COUNT][IS31FL3741_PWM_REGISTER_COUNT];
 bool    g_pwm_buffer_update_required[IS31FL3741_DRIVER_COUNT]        = {false};
 bool    g_scaling_registers_update_required[IS31FL3741_DRIVER_COUNT] = {false};
 
-<<<<<<< HEAD
 uint8_t g_scaling_registers[IS31FL3741_DRIVER_COUNT][IS31FL3741_PWM_REGISTER_COUNT];
 
 void is31fl3741_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
@@ -90,31 +77,14 @@ void is31fl3741_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     }
 #else
     i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, IS31FL3741_I2C_TIMEOUT);
-=======
-uint8_t g_scaling_registers[IS31FL3741_DRIVER_COUNT][IS31FL3741_SCALING_REGISTER_COUNT];
-
-void is31fl3741_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
-#if IS31FL3741_I2C_PERSISTENCE > 0
-    for (uint8_t i = 0; i < IS31FL3741_I2C_PERSISTENCE; i++) {
-        if (i2c_write_register(addr << 1, reg, &data, 1, IS31FL3741_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
-    }
-#else
-    i2c_write_register(addr << 1, reg, &data, 1, IS31FL3741_I2C_TIMEOUT);
->>>>>>> develop
 #endif
 }
 
-void is31fl3741_select_page(uint8_t addr, uint8_t page) {
-    is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
-    is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, page);
-}
+bool is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
+    // Assume PG0 is already selected
 
-void is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t index) {
-    // Assume page 0 is already selected
-
-    for (uint16_t i = 0; i < 342; i += 18) {
+    for (int i = 0; i < 342; i += 18) {
         if (i == 180) {
-<<<<<<< HEAD
             // unlock the command register and select PG1
             is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
             is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, IS31FL3741_COMMAND_PWM_1);
@@ -133,22 +103,10 @@ void is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t index) {
         if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 19, IS31FL3741_I2C_TIMEOUT) != 0) {
             return false;
         }
-=======
-            is31fl3741_select_page(addr, IS31FL3741_COMMAND_PWM_1);
-        }
-
-#if IS31FL3741_I2C_PERSISTENCE > 0
-        for (uint8_t j = 0; j < IS31FL3741_I2C_PERSISTENCE; j++) {
-            if (i2c_write_register(addr << 1, i % 180, g_pwm_buffer[index] + i, 18, IS31FL3741_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
-        }
-#else
-        i2c_write_register(addr << 1, i % 180, g_pwm_buffer[index] + i, 18, IS31FL3741_I2C_TIMEOUT);
->>>>>>> develop
 #endif
     }
 
     // transfer the left cause the total number is 351
-<<<<<<< HEAD
     g_twi_transfer_buffer[0] = 162;
     memcpy(g_twi_transfer_buffer + 1, pwm_buffer + 342, 9);
 
@@ -162,45 +120,9 @@ void is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t index) {
     if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 10, IS31FL3741_I2C_TIMEOUT) != 0) {
         return false;
     }
-=======
-#if IS31FL3741_I2C_PERSISTENCE > 0
-    for (uint8_t i = 0; i < IS31FL3741_I2C_PERSISTENCE; i++) {
-        if (i2c_write_register(addr << 1, 162, g_pwm_buffer[index] + 342, 9, IS31FL3741_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
-    }
-#else
-    i2c_write_register(addr << 1, 162, g_pwm_buffer[index] + 342, 9, IS31FL3741_I2C_TIMEOUT);
-#endif
-}
-
-void is31fl3741_init_drivers(void) {
-    i2c_init();
-
-    is31fl3741_init(IS31FL3741_I2C_ADDRESS_1);
-#if defined(IS31FL3741_I2C_ADDRESS_2)
-    is31fl3741_init(IS31FL3741_I2C_ADDRESS_2);
-#    if defined(IS31FL3741_I2C_ADDRESS_3)
-    is31fl3741_init(IS31FL3741_I2C_ADDRESS_3);
-#        if defined(IS31FL3741_I2C_ADDRESS_4)
-    is31fl3741_init(IS31FL3741_I2C_ADDRESS_4);
-#        endif
-#    endif
->>>>>>> develop
 #endif
 
-    for (int i = 0; i < IS31FL3741_LED_COUNT; i++) {
-        is31fl3741_set_led_control_register(i, true, true, true);
-    }
-
-    is31fl3741_update_led_control_registers(IS31FL3741_I2C_ADDRESS_1, 0);
-#if defined(IS31FL3741_I2C_ADDRESS_2)
-    is31fl3741_update_led_control_registers(IS31FL3741_I2C_ADDRESS_2, 1);
-#    if defined(IS31FL3741_I2C_ADDRESS_3)
-    is31fl3741_update_led_control_registers(IS31FL3741_I2C_ADDRESS_3, 2);
-#        if defined(IS31FL3741_I2C_ADDRESS_4)
-    is31fl3741_update_led_control_registers(IS31FL3741_I2C_ADDRESS_4, 3);
-#        endif
-#    endif
-#endif
+    return true;
 }
 
 void is31fl3741_init_drivers(void) {
@@ -240,15 +162,11 @@ void is31fl3741_init(uint8_t addr) {
     // then disable software shutdown.
     // Unlock the command register.
 
-<<<<<<< HEAD
     // Unlock the command register.
     is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
 
     // Select PG4
     is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, IS31FL3741_COMMAND_FUNCTION);
-=======
-    is31fl3741_select_page(addr, IS31FL3741_COMMAND_FUNCTION);
->>>>>>> develop
 
     // Set to Normal operation
     is31fl3741_write_register(addr, IS31FL3741_FUNCTION_REG_CONFIGURATION, IS31FL3741_CONFIGURATION);
@@ -268,17 +186,12 @@ void is31fl3741_init(uint8_t addr) {
 
 void is31fl3741_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     is31fl3741_led_t led;
-<<<<<<< HEAD
-=======
-
->>>>>>> develop
     if (index >= 0 && index < IS31FL3741_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3741_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
             return;
         }
-
         g_pwm_buffer_update_required[led.driver] = true;
         g_pwm_buffer[led.driver][led.r]          = red;
         g_pwm_buffer[led.driver][led.g]          = green;
@@ -319,58 +232,40 @@ void is31fl3741_set_led_control_register(uint8_t index, bool red, bool green, bo
 
 void is31fl3741_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
-<<<<<<< HEAD
         // unlock the command register and select PG2
         is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
         is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, IS31FL3741_COMMAND_PWM_0);
-=======
-        is31fl3741_select_page(addr, IS31FL3741_COMMAND_PWM_0);
->>>>>>> develop
 
-        is31fl3741_write_pwm_buffer(addr, index);
-
-        g_pwm_buffer_update_required[index] = false;
+        is31fl3741_write_pwm_buffer(addr, g_pwm_buffer[index]);
     }
+
+    g_pwm_buffer_update_required[index] = false;
 }
 
 void is31fl3741_set_pwm_buffer(const is31fl3741_led_t *pled, uint8_t red, uint8_t green, uint8_t blue) {
-<<<<<<< HEAD
     g_pwm_buffer[pled->driver][pled->r] = red;
     g_pwm_buffer[pled->driver][pled->g] = green;
     g_pwm_buffer[pled->driver][pled->b] = blue;
 
-=======
-    g_pwm_buffer[pled->driver][pled->r]        = red;
-    g_pwm_buffer[pled->driver][pled->g]        = green;
-    g_pwm_buffer[pled->driver][pled->b]        = blue;
->>>>>>> develop
     g_pwm_buffer_update_required[pled->driver] = true;
 }
 
 void is31fl3741_update_led_control_registers(uint8_t addr, uint8_t index) {
     if (g_scaling_registers_update_required[index]) {
-<<<<<<< HEAD
         // unlock the command register and select PG2
         is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
         is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, IS31FL3741_COMMAND_SCALING_0);
-=======
-        is31fl3741_select_page(addr, IS31FL3741_COMMAND_SCALING_0);
->>>>>>> develop
 
-        // CS1_SW1 to CS30_SW6 are on page 2
+        // CS1_SW1 to CS30_SW6 are on PG2
         for (int i = CS1_SW1; i <= CS30_SW6; ++i) {
             is31fl3741_write_register(addr, i, g_scaling_registers[index][i]);
         }
 
-<<<<<<< HEAD
         // unlock the command register and select PG3
         is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
         is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, IS31FL3741_COMMAND_SCALING_1);
-=======
-        is31fl3741_select_page(addr, IS31FL3741_COMMAND_SCALING_1);
->>>>>>> develop
 
-        // CS1_SW7 to CS39_SW9 are on page 3
+        // CS1_SW7 to CS39_SW9 are on PG3
         for (int i = CS1_SW7; i <= CS39_SW9; ++i) {
             is31fl3741_write_register(addr, i - CS1_SW7, g_scaling_registers[index][i]);
         }
@@ -380,16 +275,10 @@ void is31fl3741_update_led_control_registers(uint8_t addr, uint8_t index) {
 }
 
 void is31fl3741_set_scaling_registers(const is31fl3741_led_t *pled, uint8_t red, uint8_t green, uint8_t blue) {
-<<<<<<< HEAD
     g_scaling_registers[pled->driver][pled->r] = red;
     g_scaling_registers[pled->driver][pled->g] = green;
     g_scaling_registers[pled->driver][pled->b] = blue;
 
-=======
-    g_scaling_registers[pled->driver][pled->r]        = red;
-    g_scaling_registers[pled->driver][pled->g]        = green;
-    g_scaling_registers[pled->driver][pled->b]        = blue;
->>>>>>> develop
     g_scaling_registers_update_required[pled->driver] = true;
 }
 

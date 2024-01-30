@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-<<<<<<< HEAD
 #ifdef LED_MATRIX_ENABLE
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_SDA
 #define I2C_DRIVER I2CD2
@@ -48,14 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_LED_MATRIX_SOLID_SPLASH	
 #define ENABLE_LED_MATRIX_SOLID_MULTISPLASH	
 
-=======
-#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_SDA
-
-#define LED_MATRIX_LED_COUNT 94
-
-#define I2C_DRIVER I2CD2
-#define I2C1_SCL_PIN B10
-#define I2C1_SDA_PIN B11
->>>>>>> develop
 #define I2C1_CLOCK_SPEED 400000
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
+
+#endif

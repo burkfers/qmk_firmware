@@ -16,11 +16,8 @@
  
 #pragma once
 
-#define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
-
 #define USB_SUSPEND_WAKEUP_DELAY 5000
 
-<<<<<<< HEAD
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
@@ -54,6 +51,4 @@
 #define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #define RGB_MATRIX_LED_COUNT 64
 #endif
-=======
->>>>>>> develop
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2

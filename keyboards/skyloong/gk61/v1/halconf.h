@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:keyboards/skyloong/gk61/v1/halconf.h
 /* Copyright 2021 JZ-Skyloong (@JZ-Skyloong)
-========
-/* Copyright 2022 LXF-YZP(yuezp)
->>>>>>>> develop:keyboards/bestway/halconf.h
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,17 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-<<<<<<<< HEAD:keyboards/skyloong/gk61/v1/halconf.h
 #pragma once
 
 #define HAL_USE_I2C TRUE
 
 #include_next <halconf.h>
-========
 
-#pragma once
-
-#define HAL_USE_PWM    TRUE
->>>>>>>> develop:keyboards/bestway/halconf.h
-
-#include_next <halconf.h>

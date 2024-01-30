@@ -29,7 +29,6 @@
 // VIA support won't fit otherwise
 #ifdef RGBLIGHT_ENABLE
 #undef RGBLIGHT_EFFECT_TWINKLE
-#undef RGBLIGHT_EFFECT_RGB_TEST
 #endif //RGB LIGHT_ENABLE
 
 // Split Options

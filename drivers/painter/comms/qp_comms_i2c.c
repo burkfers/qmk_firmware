@@ -28,26 +28,18 @@ bool qp_comms_i2c_init(painter_device_t device) {
 }
 
 bool qp_comms_i2c_start(painter_device_t device) {
-<<<<<<< HEAD
     painter_driver_t *     driver       = (painter_driver_t *)device;
     qp_comms_i2c_config_t *comms_config = (qp_comms_i2c_config_t *)driver->comms_config;
     return i2c_start(comms_config->chip_address << 1) == I2C_STATUS_SUCCESS;
-=======
-    return true;
->>>>>>> develop
 }
 
 uint32_t qp_comms_i2c_send_data(painter_device_t device, const void *data, uint32_t byte_count) {
     return qp_comms_i2c_send_raw(device, data, byte_count);
 }
 
-<<<<<<< HEAD
 void qp_comms_i2c_stop(painter_device_t device) {
     i2c_stop();
 }
-=======
-void qp_comms_i2c_stop(painter_device_t device) {}
->>>>>>> develop
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Command+Data I2C support

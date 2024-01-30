@@ -36,7 +36,8 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "layouts": {
+    "community_layouts": ["60_ansi"],
+   "layouts": {
         "LAYOUT_full_wtf": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},

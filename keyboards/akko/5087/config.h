@@ -16,10 +16,7 @@
 
 #pragma once
 
-<<<<<<< HEAD
 
-=======
->>>>>>> develop
 /* LED Indicators */
 #define LED_MAC_OS_PIN C10
 #define LED_WIN_LOCK_PIN C11
@@ -39,7 +36,6 @@
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
 
 /* I2C Config for LED Driver */
-<<<<<<< HEAD
 #define DRIVER_COUNT 2
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_ADDR_2 0b1110111
@@ -53,10 +49,3 @@
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
 
-=======
-#define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
-#define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_VDDIO
-
-#define I2C1_OPMODE OPMODE_I2C
-#define I2C1_CLOCK_SPEED 400000 /* 400000 */
->>>>>>> develop

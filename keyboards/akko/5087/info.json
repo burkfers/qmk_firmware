@@ -40,11 +40,7 @@
         "caps_lock": "A15"
     }, 
     "rgb_matrix": {
-<<<<<<< HEAD
         "driver": "ckled2001",
-=======
-        "driver": "snled27351",
->>>>>>> develop
         "max_brightness": 180,
         "animations": {
             "breathing": true,
@@ -159,13 +155,7 @@
             { "flags": 4, "matrix": [5, 15], "x":210, "y": 64},
             { "flags": 4, "matrix": [5, 16], "x":224, "y": 64}
 
-<<<<<<< HEAD
         ]
-=======
-        ],
-        "react_on_keyup": true,
-        "sleep": true
->>>>>>> develop
     },
     "community_layouts": ["tkl_ansi"],
     "layouts": {

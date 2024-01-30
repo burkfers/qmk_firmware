@@ -17,9 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
+#ifdef RGB_MATRIX_ENABLE
+#    define RGB_MATRIX_LED_PROCESS_LIMIT 4
+#    define RGB_MATRIX_LED_FLUSH_LIMIT 26
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
+#    define RGB_MATRIX_KEYPRESSES
 
-<<<<<<< HEAD
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
@@ -76,10 +79,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #else
 // WT_RGB IS31FL3741 driver code
 #    define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
-=======
-#ifndef RGB_MATRIX_ENABLE
-// WT_RGB IS31FL3741 driver code
->>>>>>> develop
 #    define IS31FL3741_LED_COUNT 98
 
 #    define RGB_BACKLIGHT_ENABLED 1

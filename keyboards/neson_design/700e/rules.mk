@@ -12,8 +12,4 @@ RGBLIGHT_ENABLE = yes		# Enable keyboard RGB underglow
 NO_USB_STARTUP_CHECK = yes
 
 QUANTUM_LIB_SRC += drivers/led/issi/is31fl3731.c
-<<<<<<< HEAD
-=======
-WS2812_DRIVER_REQUIRED = yes
->>>>>>> develop
 I2C_DRIVER_REQUIRED = yes

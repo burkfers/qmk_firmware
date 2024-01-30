@@ -21,13 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include "keycode.h"
 #include "util.h"
-<<<<<<< HEAD
-=======
-
-#ifdef JOYSTICK_ENABLE
-#    include "joystick.h"
-#endif
->>>>>>> develop
 
 // clang-format off
 

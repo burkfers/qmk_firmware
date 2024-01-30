@@ -91,11 +91,7 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 
 #ifdef HS60_ANSI
 
-<<<<<<< HEAD
 const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
-=======
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
->>>>>>> develop
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -203,11 +199,7 @@ led_config_t g_led_config = { {
 
 #else
 
-<<<<<<< HEAD
 const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
-=======
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
->>>>>>> develop
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location

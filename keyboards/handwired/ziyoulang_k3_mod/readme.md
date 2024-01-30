@@ -23,11 +23,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 [KiCAD wiring diagram](https://github.com/coomstoolbox/ZK3-BP-MOD-wiring-diagram)
 
-<<<<<<< HEAD
 ![explanation](https://i.imgur.com/yvhvhoBh.png)
-=======
-![explanation](https://i.imgur.com/thGIdOth.png)
->>>>>>> develop
 
 ## Bootloader
 

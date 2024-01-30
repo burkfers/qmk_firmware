@@ -6,11 +6,7 @@ int FN_MAC = 0;
 int L_WIN = 0;
 int L_MAC = 0;
 
-<<<<<<< HEAD
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
-=======
-const is31fl3743a_led_t PROGMEM g_is31fl3743a_leds[IS31FL3743A_LED_COUNT] = {
->>>>>>> develop
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location

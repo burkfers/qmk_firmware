@@ -36,7 +36,7 @@
 #define WIN_LED_INDEX 19
 
 /* turn off effects when suspended */
-#define RGB_MATRIX_SLEEP
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

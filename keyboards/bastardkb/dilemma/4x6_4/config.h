@@ -44,7 +44,6 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
 
 /* RGB matrix support. */
-<<<<<<< HEAD
 #define SPLIT_TRANSPORT_MIRROR
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_KEYPRESSES
@@ -53,6 +52,3 @@
 // Startup values.
 #define RGB_MATRIX_DEFAULT_VAL 64
 #define RGB_MATRIX_DEFAULT_SPD 32
-=======
-#define SPLIT_TRANSPORT_MIRROR
->>>>>>> develop

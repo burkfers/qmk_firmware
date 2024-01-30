@@ -16,12 +16,6 @@
 
 #pragma once
 
-<<<<<<<< HEAD:keyboards/keychron/q9_plus/halconf.h
 #define HAL_USE_I2C TRUE
 
 #include_next <halconf.h>
-========
-#define HAL_USE_PWM TRUE
-
-#include_next <halconf.h>
->>>>>>>> develop:keyboards/mode/m60s/halconf.h

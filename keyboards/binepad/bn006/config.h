@@ -3,7 +3,6 @@
 
 #pragma once
 
-<<<<<<< HEAD
 /*
  * RGB Matrix
  */
@@ -69,6 +68,3 @@
     #define ENABLE_RGB_MATRIX_SOLID_SPLASH
     // #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
-=======
-#define RGB_TRIGGER_ON_KEYDOWN  // Triggers RGB keypress events on key down. This makes RGB control feel more responsive. This may cause RGB to not function properly on some boards
->>>>>>> develop

@@ -14,9 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 #pragma once
 
-<<<<<<< HEAD
 
 
 #ifdef RGB_MATRIX_ENABLE
@@ -75,6 +75,3 @@
 #    define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #    define RGB_MATRIX_LED_COUNT 62
 #endif
-=======
-#define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
->>>>>>> develop

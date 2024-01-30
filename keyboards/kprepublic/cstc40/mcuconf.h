@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:keyboards/kprepublic/cstc40/mcuconf.h
 /* Copyright 2020 Nick Brassel (tzarc)
-========
-/* Copyright 2021 QMK
->>>>>>>> develop:keyboards/handwired/ziyoulang_k3_mod/mcuconf.h
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,15 +13,9 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 #pragma once
 
 #include_next <mcuconf.h>
 
-<<<<<<<< HEAD:keyboards/kprepublic/cstc40/mcuconf.h
 #undef STM32_I2C_USE_I2C1
 #define STM32_I2C_USE_I2C1 TRUE
-========
-#undef STM32_I2C_USE_I2C2
-#define STM32_I2C_USE_I2C2 TRUE
->>>>>>>> develop:keyboards/handwired/ziyoulang_k3_mod/mcuconf.h

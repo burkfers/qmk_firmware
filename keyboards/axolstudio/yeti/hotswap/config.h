@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-<<<<<<< HEAD
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_KEYPRESSES
@@ -65,6 +64,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #    define RGB_MATRIX_LED_COUNT 64
 #endif
-=======
-#define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
->>>>>>> develop

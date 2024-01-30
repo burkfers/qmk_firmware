@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "led_matrix_drivers.h"
+#include "led_matrix.h"
 
 /* Each driver needs to define a struct:
  *
@@ -55,7 +55,6 @@ const led_matrix_driver_t led_matrix_driver = {
     .flush         = is31fl3736_flush,
     .set_value     = is31fl3736_set_value,
     .set_value_all = is31fl3736_set_value_all,
-<<<<<<< HEAD
 };
 
 #elif defined(LED_MATRIX_IS31FL3737)
@@ -90,64 +89,4 @@ const led_matrix_driver_t led_matrix_driver = {
     .set_value_all = snled27351_set_value_all,
 };
 
-=======
-};
-
-#elif defined(LED_MATRIX_IS31FL3737)
-const led_matrix_driver_t led_matrix_driver = {
-    .init          = is31fl3737_init_drivers,
-    .flush         = is31fl3737_flush,
-    .set_value     = is31fl3737_set_value,
-    .set_value_all = is31fl3737_set_value_all,
-};
-
-#elif defined(LED_MATRIX_IS31FL3741)
-const led_matrix_driver_t led_matrix_driver = {
-    .init          = is31fl3741_init_drivers,
-    .flush         = is31fl3741_flush,
-    .set_value     = is31fl3741_set_value,
-    .set_value_all = is31fl3741_set_value_all,
-};
-
-#elif defined(LED_MATRIX_IS31FL3742A)
-const led_matrix_driver_t led_matrix_driver = {
-    .init          = is31fl3742a_init_drivers,
-    .flush         = is31fl3742a_flush,
-    .set_value     = is31fl3742a_set_value,
-    .set_value_all = is31fl3742a_set_value_all,
-};
-
-#elif defined(LED_MATRIX_IS31FL3743A)
-const led_matrix_driver_t led_matrix_driver = {
-    .init          = is31fl3743a_init_drivers,
-    .flush         = is31fl3743a_flush,
-    .set_value     = is31fl3743a_set_value,
-    .set_value_all = is31fl3743a_set_value_all,
-};
-
-#elif defined(LED_MATRIX_IS31FL3745)
-const led_matrix_driver_t led_matrix_driver = {
-    .init          = is31fl3745_init_drivers,
-    .flush         = is31fl3745_flush,
-    .set_value     = is31fl3745_set_value,
-    .set_value_all = is31fl3745_set_value_all,
-};
-
-#elif defined(LED_MATRIX_IS31FL3746A)
-const led_matrix_driver_t led_matrix_driver = {
-    .init          = is31fl3746a_init_drivers,
-    .flush         = is31fl3746a_flush,
-    .set_value     = is31fl3746a_set_value,
-    .set_value_all = is31fl3746a_set_value_all,
-};
-
-#elif defined(LED_MATRIX_SNLED27351)
-const led_matrix_driver_t led_matrix_driver = {
-    .init          = snled27351_init_drivers,
-    .flush         = snled27351_flush,
-    .set_value     = snled27351_set_value,
-    .set_value_all = snled27351_set_value_all,
-};
-
->>>>>>> develop
 #endif

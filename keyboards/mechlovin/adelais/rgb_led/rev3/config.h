@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_SPI_DRIVER SPID1 // default: SPID1
 #define WS2812_SPI_MOSI_PAL_MODE 5 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
 
-<<<<<<< HEAD
 #ifdef RGB_MATRIX_ENABLE
 //rgb matrix setting
 #define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_SDA
@@ -81,11 +80,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_MATRIX_DISABLE_KEYCODES
 
-=======
->>>>>>> develop
 #define I2C1_CLOCK_SPEED 400000
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
-#define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_SDA
-
-#define RGB_MATRIX_DISABLE_KEYCODES
+#endif

@@ -36,12 +36,9 @@
 
 /* RGB Matrix config */
 #define RGB_EN_PIN A8
-<<<<<<< HEAD
 #define RGBLED_NUM 83
 #define RGB_MATRIX_LED_COUNT 83
 #define RGB_MATRIX_CENTER { 62, 42 }
-=======
->>>>>>> develop
 
 // PWM RGB Underglow Defines
 #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB

@@ -3,11 +3,8 @@
 
 #pragma once
 
-<<<<<<< HEAD
 #define LED_MATRIX_LED_COUNT 63
 
-=======
->>>>>>> develop
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
 
 #define I2C1_CLOCK_SPEED 400000

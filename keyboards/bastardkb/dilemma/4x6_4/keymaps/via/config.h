@@ -1,10 +1,6 @@
-<<<<<<<< HEAD:keyboards/bastardkb/dilemma/4x6_4/keymaps/via/config.h
 /**
  * Copyright 2021 Charly Delay <charly@codesink.dev> (@0xcharly)
  * Copyright 2023 casuanoob <casuanoob@hotmail.com> (@casuanoob)
-========
-/* Copyright 2022 DZTECH <moyi4681@live.cn>
->>>>>>>> develop:keyboards/kbdfans/odin75/mcuconf.h
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,11 +17,4 @@
  */
 #pragma once
 
-<<<<<<<< HEAD:keyboards/bastardkb/dilemma/4x6_4/keymaps/via/config.h
 #define DYNAMIC_KEYMAP_LAYER_COUNT 8
-========
-#include_next <mcuconf.h>
-
-#undef RP_SPI_USE_SPI1
-#define RP_SPI_USE_SPI1 TRUE
->>>>>>>> develop:keyboards/kbdfans/odin75/mcuconf.h

@@ -13,7 +13,7 @@
 #define DEBOUNCE 15
 
 
-#define RGB_MATRIX_SLEEP
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 #undef  FORCE_NKRO
 #define FORCE_NKRO

@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* RGB matrix */
 #define I2C1_CLOCK_SPEED 400000  
-<<<<<<< HEAD
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2  
 #    define RGB_MATRIX_DISABLE_KEYCODES 
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
@@ -41,10 +40,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGB_MATRIX_STARTUP_VAL        128
 #    define DRIVER_ADDR_1                 0b0110000
 #    define RGB_MATRIX_LED_COUNT          101 
-=======
-#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
-
-#define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
-
-#define RGB_MATRIX_DISABLE_KEYCODES 
->>>>>>> develop

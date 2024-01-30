@@ -18,7 +18,6 @@
 
 // EEPROM i2c chip
 #define EEPROM_I2C_24LC256
-<<<<<<< HEAD
 
 /* Disable the animations you don't want/need.  You will need to disable a good number of these    *
  * because they take up a lot of space.  Disable until you can successfully compile your firmware. */
@@ -55,5 +54,3 @@
 #    define ENABLE_RGB_MATRIX_PIXEL_FLOW
 #    define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
-=======
->>>>>>> develop

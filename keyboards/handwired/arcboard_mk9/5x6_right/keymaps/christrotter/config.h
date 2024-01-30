@@ -1,4 +1,4 @@
-/* Copyright 2023 Samuel Lu
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,14 +16,7 @@
 
 #pragma once
 
-<<<<<<<< HEAD:keyboards/handwired/arcboard_mk9/5x6_right/keymaps/christrotter/config.h
 
 // #define ENCODER_DEFAULT_POS 0x3
 // #define DEBUG_MATRIX_SCAN_RATE
 
-========
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
->>>>>>>> develop:keyboards/kopibeng/mnk60_stm32/config.h

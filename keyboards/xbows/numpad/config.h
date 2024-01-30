@@ -15,7 +15,6 @@
  */
 #pragma once
 
-<<<<<<< HEAD
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 18
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 16
@@ -51,6 +50,3 @@
 #    define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_VCC
 #    define RGB_MATRIX_LED_COUNT 22
 #endif
-=======
-#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_VCC
->>>>>>> develop

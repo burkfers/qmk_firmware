@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:keyboards/monsgeek/m3/halconf.h
 /* Copyright (C) 2023 jonylee@hfd
-========
-/* Copyright 2022 LXF-YZP(yuezp)
->>>>>>>> develop:keyboards/bestway/config.h
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,16 +15,9 @@
  */
 #pragma once
 
-<<<<<<<< HEAD:keyboards/monsgeek/m3/halconf.h
 #define HAL_USE_I2C TRUE
 #define HAL_USE_SPI TRUE
 #define SPI_USE_WAIT TRUE
 #define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
 
 #include_next <halconf.h>
-========
-#define WS2812_PWM_DRIVER PWMD2
-#define WS2812_PWM_CHANNEL 4
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM2
-#define WS2812_DMA_CHANNEL 2
->>>>>>>> develop:keyboards/bestway/config.h

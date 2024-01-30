@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Build Options
 #   change yes to no to disable
 #
@@ -13,6 +12,3 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 DIP_SWITCH_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
-=======
-# This file intentionally left blank
->>>>>>> develop
