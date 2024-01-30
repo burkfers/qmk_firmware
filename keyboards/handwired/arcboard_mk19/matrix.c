@@ -26,7 +26,7 @@ void matrix_init_custom(void) {
 static inline void write_to_rows(uint16_t value) {
     // Burkfers: Message is 2 8 bit integers. Expression chops up value, a 16 bit integer, into two halves - necessary because spi_transmit below expects an array of bytes.
     uint8_t message[2] = {(uint8_t)(value & 0xFF), (value >> 8) & 0xFF};
-    // printf("value: %u message0: %u message1: %u \n", value, message[0],message[1]);
+    printf("value: %u message0: %u message1: %u \n", value, message[0],message[1]);
     spi_start(SPI_MATRIX_CHIP_SELECT_PIN_ROWS, true, SPI_MODE, SPI_MATRIX_DIVISOR);
     spi_transmit(message, 2);
     spi_stop();
@@ -35,7 +35,7 @@ static inline void write_to_rows(uint16_t value) {
 static inline void set_row_high(uint8_t row) {
     write_to_rows(1 << row); // bitshift the row over one position - uh why?
     // you definitely need the bitshift, but i'm fuzzy on what it's doing...
-
+    printf("row: %u bitshift: %u \n",row,(1 << row));
 }
 // MATRIX_ROWS
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
