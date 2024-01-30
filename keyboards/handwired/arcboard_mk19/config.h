@@ -23,8 +23,12 @@
 
 // 16 bits 8 per register // i think at some point we'd want COLS in case you were wanting to customize your matrix size?
 // Burkfers: this is binary bit masks: 0b1000000000000000, 0b0100000000000000, 0b0010000000000000, etc. For setting exactly one bit high.
-#define ROWS {0x8000, 0x4000, 0x2000, 0x1000, 0x0800, 0x0400, 0x0200, 0x0100, 0x0080, 0x0040, 0x0020, 0x0010, 0x0008, 0x0004, 0x0002, 0x0001}
-
+// #define ROWS (uint16_t[]){0x8000, 0x4000, 0x2000, 0x1000, 0x0800, 0x0400, 0x0200, 0x0100, 0x0080, 0x0040, 0x0020, 0x0010, 0x0008, 0x0004, 0x0002, 0x0001}
+// #define ROWS (uint16_t[]){0x4000, 0x2000, 0x1000, 0x0800, 0x0400, 0x0200, 0x0100, 0x0080, 0x0040, 0x0020, 0x0010, 0x0008, 0x0004, 0x0002, 0x0001}
+// Rows that should be scanned, by their bit position and thus row index.
+// #define ROWS { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 }
+// this makes sense if they are == PCB-ROW0, like the physical pin location
+#define ROWS { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }
 
 // Split settings
 #if defined(SPLIT_KEYBOARD)
