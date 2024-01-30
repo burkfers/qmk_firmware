@@ -28,10 +28,12 @@
 
 // Split settings
 #if defined(SPLIT_KEYBOARD)
-    #define EE_HANDS // replace this w. pin-handedness                           // cuz we are using hand-targeted flashing, which sets eeprom handednesss
-    // #define SERIAL_USART_FULL_DUPLEX
+    // #define EE_HANDS // replace this w. pin-handedness                           // cuz we are using hand-targeted flashing, which sets eeprom handednesss
+    #define SPLIT_HAND_PIN GP2
+    #define SERIAL_USART_FULL_DUPLEX
+    #define SERIAL_USART_PIN_SWAP
     #define SERIAL_USART_TX_PIN GP0             // I could never get full-duplex working; this is the only config needed for half-duplex
-    // #define SERIAL_USART_RX_PIN GP1
+    #define SERIAL_USART_RX_PIN GP1
     #define SERIAL_PIO_USE_PIO1                 // using PIO0 i get a lot of dropped packets; none using PIO1
     #define SERIAL_USART_SPEED 800000
     #define SPLIT_LAYER_STATE_ENABLE            // docs say use this if you are using split and rgb lighting per layer // this added 20 to scanrate???
