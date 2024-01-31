@@ -1,5 +1,23 @@
 # testing shift registers notes
 
+# whyfore is the iteration bumped by one
+christrotter:handwired/arcboard_mk19:1: Starting row: 0
+christrotter:handwired/arcboard_mk19:1: bitshifted row: 1 message:  1 / 0
+christrotter:handwired/arcboard_mk19:1: Starting row: 1
+christrotter:handwired/arcboard_mk19:1: bitshifted row: 2 message:  2 / 0
+christrotter:handwired/arcboard_mk19:1: Starting row: 2
+christrotter:handwired/arcboard_mk19:1: bitshifted row: 4 message:  4 / 0
+christrotter:handwired/arcboard_mk19:1: Starting row: 3
+christrotter:handwired/arcboard_mk19:1: bitshifted row: 8 message:  8 / 0
+christrotter:handwired/arcboard_mk19:1: Starting row: 4
+christrotter:handwired/arcboard_mk19:1: bitshifted row: 16 message:  16 / 0
+
+printf("iteration: %u [index: %u]; col received: %u [%u / %u] \n", row, rows[row], col_pin_state, temp_receive[0],(temp_receive[1] << 8));
+Trigger col1 to row15:
+`iteration: 0 [index: 0]; col received: 1 [1 / 0]`
+
+
+
 # add the extra cols/rows to the layout
 
 

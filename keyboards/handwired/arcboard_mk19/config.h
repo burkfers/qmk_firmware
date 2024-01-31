@@ -26,14 +26,15 @@
 // #define ROWS (uint16_t[]){0x8000, 0x4000, 0x2000, 0x1000, 0x0800, 0x0400, 0x0200, 0x0100, 0x0080, 0x0040, 0x0020, 0x0010, 0x0008, 0x0004, 0x0002, 0x0001}
 // #define ROWS (uint16_t[]){0x4000, 0x2000, 0x1000, 0x0800, 0x0400, 0x0200, 0x0100, 0x0080, 0x0040, 0x0020, 0x0010, 0x0008, 0x0004, 0x0002, 0x0001}
 // Rows that should be scanned, by their bit position and thus row index.
-// #define ROWS { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 }
+
 // this makes sense if they are == PCB-ROW0, like the physical pin location
-#define ROWS { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }
+// #define ROWS { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }
+// #define ROWS { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }
+#define ROWS { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 }
 
 // Split settings
 #if defined(SPLIT_KEYBOARD)
-    // #define EE_HANDS // replace this w. pin-handedness                           // cuz we are using hand-targeted flashing, which sets eeprom handednesss
-    #define SPLIT_HAND_PIN GP2
+    #define SPLIT_HAND_PIN GP2                  // validated this works!
     #define SERIAL_USART_FULL_DUPLEX
     #define SERIAL_USART_PIN_SWAP
     #define SERIAL_USART_TX_PIN GP0             // I could never get full-duplex working; this is the only config needed for half-duplex
