@@ -13,7 +13,7 @@
 // static const uint16_t row_values[MATRIX_COLS] = ROWS;
 // static const uint16_t col_values[MATRIX_COLS] = COLS;
 // static const uint16_t rows[] = ROWS;
-static const uint16_t row_values[MATRIX_ROWS / 2] = ROWS; // divided by 2 cuz split
+static const uint16_t row_values[16] = ROWS; // divided by 2 cuz split
 
 void matrix_init_custom(void) {
     // set both CS pins HIGH -> shift register reading/writing = off
@@ -48,19 +48,21 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     // cols function returns 2 bytes
     // take the col results and build row X of our temp_matrix
     // if changes, memcpy updates the matrix object that does keystrokes
-    static matrix_row_t temp_matrix[MATRIX_ROWS / 2] = {0}; // split makes this blow up
+    static matrix_row_t temp_matrix[16] = {0}; // split makes this blow up
     // printf("BEGIN SETTING ROWS HIGH \n");
-    for (uint8_t row = 0; row < (MATRIX_ROWS / 2); row++) {
+    for (uint8_t row = 0; row < (16); row++) {
         uint8_t temp_col_receive[MATRIX_COLS_SHIFT_REGISTER_COUNT] = {0};
         uint16_t temp_col_state;
 
         // printf("Starting row scan at: %d \n", row);
-
         set_row_high(row); // write row high via 595 shift registers
 
         // this calls the 589s and pulls 2 bytes of data, returns a uint16
         // e.g. 00000010 00000001 = col10 & col0
         // mash those two bytes together and return uint16 'col_pin_state'
+
+        spi_start(SPI_MATRIX_CHIP_SELECT_PIN_COLS, false, SPI_MODE, SPI_MATRIX_DIVISOR);
+        spi_stop();
         spi_start(SPI_MATRIX_CHIP_SELECT_PIN_COLS, false, SPI_MODE, SPI_MATRIX_DIVISOR);
         spi_receive((uint8_t*)temp_col_receive, MATRIX_COLS_SHIFT_REGISTER_COUNT); // receive col data via 589 shift registers
         spi_stop();
@@ -70,10 +72,10 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             printf("row/row_val/col: [ %u / %u / %u ] \n", row, row_values[row], temp_col_state);
             // printf("row_t size: %u \n", sizeof(matrix_row_t)); // this is 1, btw
         }
-        for (uint16_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-            temp_matrix[row] |= (((temp_col_state & (1 << current_col)) ? 1 : 0) << row);
-        }
-        // temp_matrix[row] = temp_col_state;
+        // for (uint16_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
+        //     temp_matrix[row] |= (((temp_col_state & (1 << current_col)) ? 1 : 0) << row);
+        // }
+        temp_matrix[row] = temp_col_state;
     }
     // printf("END SETTING ROWS HIGH \n");
     bool matrix_has_changed = memcmp(current_matrix, temp_matrix, sizeof(temp_matrix)) != 0;

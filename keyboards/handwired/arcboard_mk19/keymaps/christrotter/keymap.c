@@ -15,17 +15,6 @@
 #endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /*
-     * ┌───┬───┬───┬───┬───┬───┐
-     * │Tab│ Q │ W │ E │ R │ T │
-     * ├───┼───┼───┼───┼───┼───┤
-     * │Bsp│ A │ S │ D │ F │ G │
-     * ├───┼───┼───┼───┼───┼───┤
-     * │Sft│ Z │ X │ C │ V │ B │
-     * ├───┼───┼───┼───┼───┼───┤
-     * │Ctl│App│GUI│Alt│Spc│Spc│
-     * └───┴───┴───┴───┴───┴───┘
-     */
     [0] = LAYOUT(
     KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,                                    KC_6,KC_7,KC_8,KC_9,KC_0,KC_EQUAL,
     KC_TILD,LT(0,KC_1),LT(0,KC_2),LT(0,KC_3),LT(0,KC_4),LT(0,KC_5),     LT(0,KC_6),LT(0,KC_7),LT(0,KC_8),LT(0,KC_9),KC_0,KC_EQUAL,

@@ -1,5 +1,34 @@
 # testing shift registers notes
 
+
+# trying to explain how this works...
+`matrix_scan_custom` runs on every loop of the controller.  It runs before any kind of keystroke logic is applied.
+the function returns the matrix object with which all other logic runs against.
+
+config data needed: rows = array of bits
+1. set up a temporary matrix object (same dimensional sizes as the 'current' matrix)
+row0[col0,col1,col2,etc]
+row1[col0,col1,col2,etc]
+row2[col0,col1,col2,etc]
+etc 
+2. loop over every row, row0 -> rowX
+  - your row loop index should match, positionally, a config item that is a list of hex bits
+    - e.g. 8 bits = #define ROWS {0x0080, 0x0040, 0x0020, 0x0010, 0x0008, 0x0004, 0x0002, 0x0001}
+  - create a temporary column state object
+    - temp_state[col0,col1,col2,etc] e.g. temp_state[01000000] = col1 HIGH in row0
+  - set row0 pin high
+    - create data-to-transmit from your row pin, 
+      - value = 10000000 = set row0 high
+    - spi_transmit 2 bytes; your row is 1, all other row pins are 0
+  - pull all column shift register data - 1 byte / 8 bits per shift register
+    - spi_receive, expect 2 bytes - it receives 8 bits at a time, therefore
+    - receive_data[0] = 01000000 & receive_data[1] = 00000000
+    - combine the two bytes received into a single 16-bit value
+        combined_data = 0100000000000000
+    - that becomes our row0
+3. 
+
+
 # trying to revert to full bitmasks
 christrotter:handwired/arcboard_mk19:3: Receive all cols: 8 [8 / 0]
 christrotter:handwired/arcboard_mk19:3: row iteration: 9 [row index: 4]; col bit received: 8
