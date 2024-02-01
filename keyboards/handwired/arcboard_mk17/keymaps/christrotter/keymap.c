@@ -35,7 +35,7 @@
     #include "print.h"
     void keyboard_post_init_user(void) {
         // Customise these values to desired behaviour
-        debug_enable=true;
+        // debug_enable=true;
         // debug_matrix=true;
         // debug_keyboard=true;
         // debug_mouse=true;
@@ -169,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, EE_CLR, QK_BOOT,               QK_BOOT, EE_CLR, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,               KC_CHRMBACK, KC_CHRMFWD, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,               KC_CHRMBACK, KC_MS_BTN1,KC_MS_BTN3,KC_MS_BTN2, _______, _______,
-    _______, _______, _______, _______, _______, KC_SHRUG,               KC_CHRMFWD, KC_MS_BTN1,KC_MS_BTN3,KC_MS_BTN2, _______, MEET_VID,
+    _______, _______, _______, _______, _______, _______,               KC_CHRMFWD, KC_MS_BTN1,KC_MS_BTN3,KC_MS_BTN2, _______, MEET_VID,
     _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, KC_MUTE
 ),
@@ -205,7 +205,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #if defined(DRAGSCROLL_ENABLE)
         if (keycode == DRAG_SCROLL && record->event.pressed) {
             set_scrolling = !set_scrolling;
-            uprintf("Scrolling bool: %s \n", set_scrolling ? "true" : "false");
+            // uprintf("Scrolling bool: %s \n", set_scrolling ? "true" : "false");
             return false;
         }
     #endif
@@ -213,26 +213,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // note there is a macos bug that means any unicode ending in 0 doesn't register.
     #if defined(CUSTOM_KEYCODES)
         switch (keycode) {
-                case KC_SHRUG:
-                  if (record->event.pressed) {
-                    send_unicode_string("¯\\_(ツ)_/¯");
-                  }
-                  break;
-                case KC_TABLE:
-                  if (record->event.pressed) {
-                    send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
-                  }
-                  break;
-                case KC_TABLE2:
-                  if (record->event.pressed) {
-                    send_unicode_string("(╯°□°)╯︵┻━┻");
-                  }
-                  break;
-                case KC_DISA:
-                  if (record->event.pressed) {
-                    send_unicode_string("ಠ_ಠ");
-                  }
-                  break;
                 case LT(0,KC_YAY):
                 if (record->event.pressed) {
                     SEND_STRING("\\o/");
@@ -417,7 +397,7 @@ const ledmap ledmaps[] = {
       ___n___,   ___n___, ___n___, ___n___, YELLOW, RED,               RED,  YELLOW, ___n___, ___n___, ___n___, ___n___,
       GOLD, ___n___, ___n___, ___n___, ___n___, ___n___,               RED,   GREEN, ___n___, ___n___, ___n___, ___n___,
      GREEN, ___n___, ___n___, ___n___, ___n___, ___n___,               RED,    CYAN,    PINK,    CYAN, ___n___, ___n___,
-     ORANGE, ___n___, ___n___, ___n___, ___n___, PURPLE,         GREEN,    CYAN,    PINK,    CYAN, ___n___,     RED,
+     ORANGE, ___n___, ___n___, ___n___, ___n___, ___n___,         GREEN,    CYAN,    PINK,    CYAN, ___n___,     RED,
      DEL,     TOG_NAV, DEL,     ESC,     SHIFT, ___n___,           GREEN,   TOG_NAV,   TOG_SYM, ENTER,   SPACE, ___n___,
     ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,          ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
    ),

@@ -1,7 +1,7 @@
 
 # Unicode support
-UNICODE_COMMON = yes
-UNICODE_ENABLE = yes
+# UNICODE_COMMON = yes
+# UNICODE_ENABLE = yes
 
 
 ifeq ($(strip $(RGB_MATRIX_LEDMAPS_ENABLED)), yes)

@@ -1,5 +1,33 @@
 # testing shift registers notes
 
+# trying to revert to full bitmasks
+christrotter:handwired/arcboard_mk19:3: Receive all cols: 8 [8 / 0]
+christrotter:handwired/arcboard_mk19:3: row iteration: 9 [row index: 4]; col bit received: 8
+
+christrotter:handwired/arcboard_mk19:1: Receive all cols: 1 [1 / 0]
+christrotter:handwired/arcboard_mk19:1: row iteration: 7 [row index: 16]; col bit received: 1
+christrotter:handwired/arcboard_mk19:1: Receive all cols: 32 [32 / 0]
+christrotter:handwired/arcboard_mk19:1: row iteration: 7 [row index: 16]; col bit received: 32
+
+christrotter:handwired/arcboard_mk19:3: Receive all cols: 1 [1 / 0]
+christrotter:handwired/arcboard_mk19:3: row iteration: 11 [row index: 1]; col bit received: 1
+christrotter:handwired/arcboard_mk19:3: Receive all cols: 33 [33 / 0]
+christrotter:handwired/arcboard_mk19:3: row iteration: 11 [row index: 1]; col bit received: 33
+christrotter:handwired/arcboard_mk19:2: Receive all cols: 32 [32 / 0]
+christrotter:handwired/arcboard_mk19:2: row iteration: 11 [row index: 1]; col bit received: 32
+
+
+
+christrotter:handwired/arcboard_mk19:1: col_pin_state: 8 [8 / 0]
+christrotter:handwired/arcboard_mk19:1: row iteration: 1 [row index: 1024]; col bit received: 8
+christrotter:handwired/arcboard_mk19:1:
+christrotter:handwired/arcboard_mk19:1: r/c 01234567
+christrotter:handwired/arcboard_mk19:1: 00: 00000000
+christrotter:handwired/arcboard_mk19:1: keyboard_report: 00 | 10 00 00 00 00 00
+
+
+
+
 # whyfore is the iteration bumped by one
 christrotter:handwired/arcboard_mk19:1: Starting row: 0
 christrotter:handwired/arcboard_mk19:1: bitshifted row: 1 message:  1 / 0
