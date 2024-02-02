@@ -1,5 +1,124 @@
 # testing shift registers notes
 
+# what does the message thing even mean
+```c
+static inline void write_to_rows(uint16_t value) {
+    printf("value: %u \n", value);
+    printf("value >> 8: %u \n",(value >> 8));
+    printf("(value >> 8) & 0xFF: %u \n",(value >> 8) & 0xFF);
+    printf("(value & 0xFF): %u \n",(value & 0xFF));
+    uint8_t message[2] = {(value >> 8) & 0xFF, (uint8_t)(value & 0xFF)};
+    spi_start(SPI_MATRIX_CHIP_SELECT_PIN_ROWS, false, SPI_MODE, SPI_MATRIX_DIVISOR);
+    spi_transmit(message, 2);
+    spi_stop();
+}
+```
+
+```
+value: 32768
+value >> 8: 128
+(value >> 8) & 0xFF: 128
+(value & 0xFF): 0
+value: 16384
+value >> 8: 64
+(value >> 8) & 0xFF: 64
+(value & 0xFF): 0
+value: 8192
+value >> 8: 32
+(value >> 8) & 0xFF: 32
+(value & 0xFF): 0
+value: 4096
+value >> 8: 16
+(value >> 8) & 0xFF: 16
+(value & 0xFF): 0
+value: 2048
+value >> 8: 8
+(value >> 8) & 0xFF: 8
+(value & 0xFF): 0
+value: 1024
+value >> 8: 4
+(value >> 8) & 0xFF: 4
+(value & 0xFF): 0
+value: 512
+value >> 8: 2
+(value >> 8) & 0xFF: 2
+(value & 0xFF): 0
+value: 256
+value >> 8: 1
+(value >> 8) & 0xFF: 1
+(value & 0xFF): 0
+value: 128
+value >> 8: 0
+(value >> 8) & 0xFF: 0
+(value & 0xFF): 128
+value: 64
+value >> 8: 0
+(value >> 8) & 0xFF: 0
+(value & 0xFF): 64
+value: 32
+value >> 8: 0
+(value >> 8) & 0xFF: 0
+(value & 0xFF): 32
+value: 16
+value >> 8: 0
+(value >> 8) & 0xFF: 0
+(value & 0xFF): 16
+value: 8
+value >> 8: 0
+(value >> 8) & 0xFF: 0
+(value & 0xFF): 8
+value: 4
+value >> 8: 0
+(value >> 8) & 0xFF: 0
+(value & 0xFF): 4
+value: 2
+value >> 8: 0
+(value >> 8) & 0xFF: 0
+(value & 0xFF): 2
+value: 1
+value >> 8: 0
+(value >> 8) & 0xFF: 0
+(value & 0xFF): 1
+```
+
+so value = bit value from ROWS converted to int8, e.g. `0x8000` hex = `32768` int = `10000000 00000000` binary -> 
+
+so `10000000 00000000` in binary looks like this in our output...
+```
+value: 32768
+value >> 8: 128
+(value >> 8) & 0xFF: 128
+(value & 0xFF): 0
+```
+
+From the `config.h`...
+- the raw value in our config is `0x8000`
+
+...into `matrix.c`...
+- when you `uint16_t value` that it becomes `32768`
+- `uint8_t message[2] = {(value >> 8) & 0xFF, (uint8_t)(value & 0xFF)};`
+- when you bitshift `10000000 00000000` over to the right 8 bits (`00000000`)...
+- ...you get `00000000 10000000`...
+- which in base2 = `128` (128 64 32 16 8 4 2 1)
+- and b/c we need to send two messages, one for each shift register...
+
+...first shift register...
+- the first shift register gets `(value >> 8) & 0xFF` ----> `10000000` (value needs to be bit-shifted cuz the register only understands 8 bits)
+- so you take `10000000 00000000` and bitshift >> to get `00000000 100000000`
+- the `& 0xFF` is "bitwise AND".  "return only the bits matching hex `FF` aka `11111111`; everything else zero out"
+- so, the bitshifted `00000000 100000000` suddenly becomes `100000000`; 
+- our first byte of the message is therefore `100000000`, or, set the first (last?) pin HIGH.
+
+...second shift register...
+- the second gets `(value & 0xFF)` ----> `10000000 00000000`, but only give me the bits under `11111111`
+- so the second byte of the message is therefore `00000000`, or, set NO pins HIGH.
+
+
+going back to ordering, if we are seeing ROW0 HIGH, when we expect ROW7 HIGH that means our bit message is completely reversed.
+what could reverse it?
+- the order the row bits are processed
+- um
+
 
 # trying to explain how this works...
 `matrix_scan_custom` runs on every loop of the controller.  It runs before any kind of keystroke logic is applied.

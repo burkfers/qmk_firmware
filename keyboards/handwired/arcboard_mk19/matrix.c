@@ -30,9 +30,15 @@ static inline void write_to_rows(uint16_t value) {
     // this sends 2 bytes of data to the 595s
     // e.g. 00000000 00000001 = row0
 
+    // uint8_t message[2] = {(value >> 8) & 0xFF, (uint8_t)(value & 0xFF)}; // old
+    // the batching (0-7 and 8-15 at the correct shift register) of these is correct
+    // but they are mapped in reverse
+    printf("value: %u \n", value);
+    printf("value >> 8: %u \n",(value >> 8));
+    printf("(value >> 8) & 0xFF: %u \n",(value >> 8) & 0xFF);
+    printf("(value & 0xFF): %u \n",(value & 0xFF));
     uint8_t message[2] = {(value >> 8) & 0xFF, (uint8_t)(value & 0xFF)};
-    // uint8_t message[2] = {(uint8_t)(value & 0xFF), (value >> 8) & 0xFF};
-    spi_start(SPI_MATRIX_CHIP_SELECT_PIN_ROWS, true, SPI_MODE, SPI_MATRIX_DIVISOR);
+    spi_start(SPI_MATRIX_CHIP_SELECT_PIN_ROWS, false, SPI_MODE, SPI_MATRIX_DIVISOR);
     spi_transmit(message, 2);
     spi_stop();
 }
