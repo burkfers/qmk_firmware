@@ -30,15 +30,12 @@ static inline void write_to_rows(uint16_t value) {
     // this sends 2 bytes of data to the 595s
     // e.g. 00000000 00000001 = row0
 
-    // uint8_t message[2] = {(value >> 8) & 0xFF, (uint8_t)(value & 0xFF)}; // old
-    // the batching (0-7 and 8-15 at the correct shift register) of these is correct
-    // but they are mapped in reverse
-    printf("value: %u \n", value);
-    printf("value >> 8: %u \n",(value >> 8));
-    printf("(value >> 8) & 0xFF: %u \n",(value >> 8) & 0xFF);
-    printf("(value & 0xFF): %u \n",(value & 0xFF));
-    uint8_t message[2] = {(value >> 8) & 0xFF, (uint8_t)(value & 0xFF)};
-    spi_start(SPI_MATRIX_CHIP_SELECT_PIN_ROWS, false, SPI_MODE, SPI_MATRIX_DIVISOR);
+    // Scan begins at row 0, setting leftmost bit high.
+    // The first sent bit will initially appear on A, moving onto B when the second bit is inserted, ending up on H' when all is sent. => The last bit must be sent first
+    // => Row 0 is displayed as 0b0000000000000001 and it must be sent left to right
+    // uint8_t message[2] = {(value >> 8) & 0xFF, (uint8_t)(value & 0xFF)}; // cut 0xABCD into {0xAB, 0xCD}
+    uint8_t message[2] = {(uint8_t)(value & 0xFF), (value >> 8) & 0xFF}; // cut 0xABCD into {0xAB, 0xCD}
+    spi_start(SPI_MATRIX_CHIP_SELECT_PIN_ROWS, true, SPI_MODE, SPI_MATRIX_DIVISOR);
     spi_transmit(message, 2);
     spi_stop();
 }
@@ -67,9 +64,12 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         // e.g. 00000010 00000001 = col10 & col0
         // mash those two bytes together and return uint16 'col_pin_state'
 
-        spi_start(SPI_MATRIX_CHIP_SELECT_PIN_COLS, false, SPI_MODE, SPI_MATRIX_DIVISOR);
+        // toggle CS once, so the latch is released and new data is not only sampled, but fully loaded into the latch
+        // writePinHigh(SPI_MATRIX_CHIP_SELECT_PIN_ROWS);
+        // writePinLow(SPI_MATRIX_CHIP_SELECT_PIN_ROWS);
+        spi_start(SPI_MATRIX_CHIP_SELECT_PIN_COLS, true, SPI_MODE, SPI_MATRIX_DIVISOR);
         spi_stop();
-        spi_start(SPI_MATRIX_CHIP_SELECT_PIN_COLS, false, SPI_MODE, SPI_MATRIX_DIVISOR);
+        spi_start(SPI_MATRIX_CHIP_SELECT_PIN_COLS, true, SPI_MODE, SPI_MATRIX_DIVISOR);
         spi_receive((uint8_t*)temp_col_receive, MATRIX_COLS_SHIFT_REGISTER_COUNT); // receive col data via 589 shift registers
         spi_stop();
 
