@@ -10,10 +10,7 @@
     #include "print.h"
 #endif
 
-// static const uint16_t row_values[MATRIX_COLS] = ROWS;
-// static const uint16_t col_values[MATRIX_COLS] = COLS;
-// static const uint16_t rows[] = ROWS;
-static const uint16_t row_values[16] = ROWS; // divided by 2 cuz split
+static const uint16_t row_values[] = ROWS;
 
 void matrix_init_custom(void) {
     // set both CS pins HIGH -> shift register reading/writing = off
@@ -51,9 +48,9 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     // cols function returns 2 bytes
     // take the col results and build row X of our temp_matrix
     // if changes, memcpy updates the matrix object that does keystrokes
-    static matrix_row_t temp_matrix[16] = {0}; // split makes this blow up
+    static matrix_row_t temp_matrix[ARRAY_SIZE(row_values)] = {0};
     // printf("BEGIN SETTING ROWS HIGH \n");
-    for (uint8_t row = 0; row < (16); row++) {
+    for (uint8_t row = 0; row < ARRAY_SIZE(row_values); row++) {
         uint8_t temp_col_receive[MATRIX_COLS_SHIFT_REGISTER_COUNT] = {0};
         uint16_t temp_col_state;
 
