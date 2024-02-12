@@ -29,14 +29,20 @@
 #define CRC8_USE_TABLE
 #define CRC8_OPTIMIZE_SPEED
 
-/* Cirque trackpad over SPI. */
-//#define SPI_DRIVER SPID0
-//#define SPI_SCK_PIN GP22
-//#define SPI_MOSI_PIN GP23
-//#define SPI_MISO_PIN GP20
-//#define POINTING_DEVICE_CS_PIN GP21
-//#undef CIRQUE_PINNACLE_DIAMETER_MM
-//#define CIRQUE_PINNACLE_DIAMETER_MM 40
+/* SPI. */
+#define SPI_DRIVER SPID0
+#define SPI_SCK_PIN GP22
+#define SPI_MOSI_PIN GP23
+#define SPI_MISO_PIN GP20
+// #define POINTING_DEVICE_CS_PIN GP21
+// #undef CIRQUE_PINNACLE_DIAMETER_MM
+// #define CIRQUE_PINNACLE_DIAMETER_MM 40
+#define LCD_CS_PIN GP13    // qfn16
+#define LCD_DC_PIN GP12    // qfn15
+#define LCD_RESET_PIN GP11 // qfn14
+#define LCD_BL_PIN GP14
+#define LCD_SPI_DIVISOR 16
+#define LCD_SPI_MODE 0
 
 /* Reset. */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
