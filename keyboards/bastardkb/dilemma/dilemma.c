@@ -100,10 +100,19 @@ static uint16_t get_pointer_sniping_dpi(dilemma_config_t* config) {
 /** \brief Set the appropriate DPI for the input config. */
 static void maybe_update_pointing_device_cpi(dilemma_config_t* config) {
     if (config->is_dragscroll_enabled) {
+#ifdef POINTING_DEVICE_DRIVER_azoteq_iqs5xx
+        wait_ms(2);
+#endif
         pointing_device_set_cpi(DILEMMA_DRAGSCROLL_DPI);
     } else if (config->is_sniping_enabled) {
+#ifdef POINTING_DEVICE_DRIVER_azoteq_iqs5xx
+        wait_ms(2);
+#endif
         pointing_device_set_cpi(get_pointer_sniping_dpi(config));
     } else {
+#ifdef POINTING_DEVICE_DRIVER_azoteq_iqs5xx
+        wait_ms(2);
+#endif
         pointing_device_set_cpi(get_pointer_default_dpi(config));
     }
 }
