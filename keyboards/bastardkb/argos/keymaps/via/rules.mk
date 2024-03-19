@@ -4,6 +4,7 @@ COMBO_ENABLE = yes
 
 MACCEL_ENABLE = yes
 VIA_ENABLE = yes
+
 ifeq ($(strip $(MACCEL_ENABLE)), yes)
 	SRC += ./maccel.c
 	ifeq ($(strip $(VIA_ENABLE)), yes)

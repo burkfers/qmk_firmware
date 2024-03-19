@@ -26,12 +26,12 @@
 #define POINTING_DEVICE_TASK_THROTTLE_MS 10
 
 // #undef  PRINTF_SUPPORT_DECIMAL_SPECIFIERS
-// #define PRINTF_SUPPORT_DECIMAL_SPECIFIERS 1 
+// #define PRINTF_SUPPORT_DECIMAL_SPECIFIERS 1
 
 #define MACCEL_TAKEOFF 2.0 // lower/higher value = curve takes off more smoothly/abrubtly
-#define MACCEL_GROWTH 0.25 // lower/higher value = curve reaches its upper limit slower/faster 
+#define MACCEL_GROWTH 0.25 // lower/higher value = curve reaches its upper limit slower/faster
 #define MACCEL_OFFSET 2.2  // lower/higher value = acceleration kicks in earlier/later
-#define MACCEL_LIMIT 6.0   // upper limit of accel curve (maximum acceleration factor)
+#define MACCEL_LIMIT 0.2   // upper limit of accel curve (maximum acceleration factor)
 // #define MACCEL_USE_KEYCODES
 
 #define EECONFIG_USER_DATA_SIZE 20
