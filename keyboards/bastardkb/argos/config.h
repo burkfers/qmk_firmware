@@ -18,14 +18,6 @@
 
 #pragma once
 
-/* Pointing device configuration. */
-
-// Enable use of pointing device on slave split.
-#define SPLIT_POINTING_ENABLE
-
-// Pointing device is on the right split.
-#define POINTING_DEVICE_RIGHT
-
 // Enables support for extended i16 mouse reports (instead of i8).
 #define MOUSE_EXTENDED_REPORT
 
@@ -44,9 +36,7 @@
 // #define POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE // flicking
 //
 /* Handedness. */
-#define SPLIT_HAND_PIN GP29
-#undef SPLIT_HAND_PIN_LOW_IS_LEFT // High -> right, Low -> left.
-#define SPLIT_HAND_PIN_LOW_IS_RIGHT
+#define MASTER_RIGHT
 
 /* VBUS detection. */
 #define USB_VBUS_PIN GP19
