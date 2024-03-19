@@ -13,12 +13,11 @@ AUDIO_ENABLE = no           # Audio output
 MAGIC_ENABLE = yes			# Magic keycodes
 TRI_LAYER_ENABLE = yes		# Tri Layers
 CAPS_WORD_ENABLE = yes		# Caps Word
-ENCODER_ENABLE	= yes		# Enable encoder support
+ENCODER_ENABLE	= no		# Enable encoder support
 
 AUDIO_SUPPORTED = no        # Audio is not supported
-RGB_MATRIX_SUPPORTED = yes  # RGB matrix is supported and enabled by default
-RGBLIGHT_SUPPORTED = no     # RGB underglow is supported, but not enabled by default
-RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix functionality
+RGB_MATRIX_SUPPORTED = no   # RGB matrix is not supported
+RGBLIGHT_SUPPORTED = no     # RGB underglow is not supported
 
 SERIAL_DRIVER = vendor
 
