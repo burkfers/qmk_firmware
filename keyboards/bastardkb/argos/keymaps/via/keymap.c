@@ -19,7 +19,6 @@
 #include QMK_KEYBOARD_H
 #include "maccel.h"
 
-
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     return pointing_device_task_maccel(mouse_report);
 }
@@ -62,15 +61,10 @@ enum dilemma_keymap_layers {
 #    define SNIPING KC_NO
 #endif // !POINTING_DEVICE_ENABLE
 
-
-
 const uint16_t PROGMEM test_combo1[] = {KC_BTN1, KC_BTN2, COMBO_END};
-combo_t key_combos[] = {
+combo_t                key_combos[]  = {
     COMBO(test_combo1, KC_BTN3),
 };
-
-
-
 
 // clang-format off
 /** \brief QWERTY layout (3 rows, 10 columns). */
@@ -238,10 +232,10 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #endif // ENCODER_MAP_ENABLE
 
 void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-//   debug_enable=true;
-//   debug_matrix=true;
-  keyboard_post_init_maccel();
-  //debug_keyboard=true;
-  //debug_mouse=true;
+    // Customise these values to desired behaviour
+    //   debug_enable=true;
+    //   debug_matrix=true;
+    keyboard_post_init_maccel();
+    // debug_keyboard=true;
+    // debug_mouse=true;
 }
