@@ -19,9 +19,5 @@ AUDIO_SUPPORTED = no        # Audio is not supported
 RGB_MATRIX_SUPPORTED = no   # RGB matrix is not supported
 RGBLIGHT_SUPPORTED = no     # RGB underglow is not supported
 
-SERIAL_DRIVER = vendor
-
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = cirque_pinnacle_spi
-
-SPLIT_KEYBOARD = yes

@@ -35,8 +35,6 @@
 // #define POINTING_DEVICE_GESTURES_SCROLL_ENABLE // Circular scroll.
 // #define POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE // flicking
 //
-/* Handedness. */
-#define MASTER_RIGHT
 
 /* VBUS detection. */
 #define USB_VBUS_PIN GP19
