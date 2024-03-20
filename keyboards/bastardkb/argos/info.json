@@ -3,7 +3,7 @@
     "url": "https://bastardkb.com/argos"
     "usb": {
         "device_version": "2.0.0",
-        "pid": "0x1836"
+        "pid": "0x1838"
     },
     "rgb_matrix": {
         "driver": "ws2812"
