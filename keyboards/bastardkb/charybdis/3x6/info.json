@@ -3,6 +3,11 @@
     "usb": {
         "pid": "0x1834"
     },
+    "split": {
+        "bootmagic": {
+            "matrix": [4, 0]
+        }
+    },
     "layout_aliases": {
         "LAYOUT_charybdis_3x6": "LAYOUT"
     },

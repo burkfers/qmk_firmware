@@ -7,6 +7,11 @@
         "led_count": 58,
         "split_count": [29, 29]
     },
+    "split": {
+        "bootmagic": {
+            "matrix": [5, 0]
+        }
+    },
     "layouts": {
         "LAYOUT_split_4x6_5": {
             "layout": [
