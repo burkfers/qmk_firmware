@@ -36,6 +36,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // }
     return true;
 }
+#ifdef COMBO_ENABLE
+#    include "g/keymap_combo.h"
+#endif
 
 enum dilemma_keymap_layers { LAYER_BASE = 0 };
 
@@ -51,8 +54,8 @@ enum dilemma_keymap_layers { LAYER_BASE = 0 };
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LAYER_BASE] = LAYOUT_wrapper(
-        KC_A, KC_B, KC_C,
-        KC_D, KC_E, KC_F
+        KC_BTN1, KC_BTN2, KC_BTN3,
+           KC_T, DRGSCRL,    KC_V
     ),
 };
 // clang-format on

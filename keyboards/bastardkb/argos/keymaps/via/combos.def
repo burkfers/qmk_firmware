@@ -1,0 +1,2 @@
+COMB(boot,          QK_BOOT,        KC_BTN1, KC_BTN2, KC_T, DRGSCRL)
+COMB(eeclr,         EE_CLR,         KC_BTN2, KC_BTN3, DRGSCRL, KC_V)
