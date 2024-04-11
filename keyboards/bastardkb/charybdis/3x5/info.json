@@ -22,6 +22,12 @@
             "matrix": [4, 0]
         }
     },
+    "bootmagic": {
+        "enabled": true
+    },
+    "mouse_key": {
+        "enabled": true
+    },
     "ws2812": {
         "pin": "GP0",
         "driver": "vendor"
