@@ -105,7 +105,7 @@ ALL_FIRMWARES: Sequence[FirmwareList] = (
       # their "vendor" configuration is using the `default` keymap instead.
       *tuple(
         Firmware(
-          keyboard=f"{keyboard}/v2/splinky_3",
+          keyboard=f"{keyboard}",
           keyboard_alias=keyboard,
           keymap="default",
           keymap_alias="vendor",
@@ -117,7 +117,7 @@ ALL_FIRMWARES: Sequence[FirmwareList] = (
       # the `via` keymap instead.
       *tuple(
         Firmware(
-          keyboard=f"{keyboard}/v2/splinky_3",
+          keyboard=f"{keyboard}",
           keyboard_alias=keyboard,
           keymap="via",
           keymap_alias="vendor",
