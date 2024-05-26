@@ -54,8 +54,8 @@ enum dilemma_keymap_layers { LAYER_BASE = 0 };
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LAYER_BASE] = LAYOUT_wrapper(
-        KC_BTN1, KC_BTN2, KC_BTN3,
-           KC_T, DRGSCRL,    KC_V
+        KC_BTN1, KC_BTN2,
+        KC_BTN3, DRGSCRL
     ),
 };
 // clang-format on
