@@ -18,7 +18,9 @@
  */
 
 #include "charybdis.h"
+#include "pointing_device_modes.h"
 #include "transactions.h"
+#include <stdint.h>
 #include <string.h>
 
 #ifdef CONSOLE_ENABLE
@@ -176,6 +178,14 @@ void charybdis_set_pointer_dragscroll_enabled(bool enable) {
     maybe_update_pointing_device_cpi(&g_charybdis_config);
 }
 
+uint8_t get_pointing_mode_divisor_kb(uint8_t mode_id, uint8_t direction) {
+    switch (mode_id) {
+        case PM_PRE:
+            return 2 + (2 * g_charybdis_config.pointer_sniping_dpi);
+    };
+    return false;
+}
+
 /**
  * \brief Augment the pointing device behavior.
  *
@@ -283,22 +293,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 // Step forward if shifted, backward otherwise.
                 charybdis_cycle_pointer_sniping_dpi(/* forward= */ has_shift_mod());
-            }
-            break;
-        case SNIPING_MODE:
-            charybdis_set_pointer_sniping_enabled(record->event.pressed);
-            break;
-        case SNIPING_MODE_TOGGLE:
-            if (record->event.pressed) {
-                charybdis_set_pointer_sniping_enabled(!charybdis_get_pointer_sniping_enabled());
-            }
-            break;
-        case DRAGSCROLL_MODE:
-            charybdis_set_pointer_dragscroll_enabled(record->event.pressed);
-            break;
-        case DRAGSCROLL_MODE_TOGGLE:
-            if (record->event.pressed) {
-                charybdis_set_pointer_dragscroll_enabled(!charybdis_get_pointer_dragscroll_enabled());
             }
             break;
     }
