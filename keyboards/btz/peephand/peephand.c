@@ -13,7 +13,7 @@ _Static_assert(sizeof(ph_config_t) == EECONFIG_KB_DATA_SIZE, "Mismatch in keyboa
 #define NUM_CALIBRATION_SAMPLES 10
 #define INNER_DEADZONE 60
 #define OUTER_DEADZONE 60
-#define STICK_ANGLE -110
+#define STICK_ANGLE -90
 
 #define CLAMP(val, min, max) (val < min ? min : (val > max ? max : val))
 #define PROJECT(val, rmin, rmax, tmin, tmax) CLAMP((((float)(val - rmin) / (float)(rmax - rmin)) * (float)(tmax - tmin)) + tmin, tmin, tmax)
@@ -125,8 +125,8 @@ void ph_handle_stick_keys_4(int8_t x, int8_t y, uint16_t u, uint16_t l, uint16_t
 }
 
 void ph_read_stick(joystick_calibration_t* stick, int8_t* outx, int8_t* outy) {
-    const int16_t rawx = analogReadPin(GP28);
-    const int16_t rawy = analogReadPin(GP29);
+    const int16_t rawx = analogReadPin(GP29);
+    const int16_t rawy = analogReadPin(GP28);
 
     // find neutral - hacky, but I don't want to store many samples for an avg
     if (stick->calibration_samples > 0) {
