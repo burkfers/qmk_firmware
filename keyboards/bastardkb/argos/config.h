@@ -59,3 +59,5 @@
 /* Bootmagic. */
 #define BOOTMAGIC_LITE_ROW_RIGHT 4
 #define BOOTMAGIC_LITE_COLUMN_RIGHT 0
+
+#define DRIVER_LED_TOTAL 4
