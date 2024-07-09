@@ -25,30 +25,30 @@
 #endif // CONSOLE_ENABLE
 
 #ifdef POINTING_DEVICE_ENABLE
-#    ifndef DILEMMA_MINIMUM_DEFAULT_DPI
-#        define DILEMMA_MINIMUM_DEFAULT_DPI 300
-#    endif // DILEMMA_MINIMUM_DEFAULT_DPI
+#    ifndef ARGOS_MINIMUM_DEFAULT_DPI
+#        define ARGOS_MINIMUM_DEFAULT_DPI 300
+#    endif // ARGOS_MINIMUM_DEFAULT_DPI
 
-#    ifndef DILEMMA_DEFAULT_DPI_CONFIG_STEP
-#        define DILEMMA_DEFAULT_DPI_CONFIG_STEP 100
-#    endif // DILEMMA_DEFAULT_DPI_CONFIG_STEP
+#    ifndef ARGOS_DEFAULT_DPI_CONFIG_STEP
+#        define ARGOS_DEFAULT_DPI_CONFIG_STEP 100
+#    endif // ARGOS_DEFAULT_DPI_CONFIG_STEP
 
-#    ifndef DILEMMA_MINIMUM_SNIPING_DPI
-#        define DILEMMA_MINIMUM_SNIPING_DPI 200
-#    endif // DILEMMA_MINIMUM_SNIPING_DPI
+#    ifndef ARGOS_MINIMUM_SNIPING_DPI
+#        define ARGOS_MINIMUM_SNIPING_DPI 200
+#    endif // ARGOS_MINIMUM_SNIPING_DPI
 
-#    ifndef DILEMMA_SNIPING_DPI_CONFIG_STEP
-#        define DILEMMA_SNIPING_DPI_CONFIG_STEP 100
-#    endif // DILEMMA_SNIPING_DPI_CONFIG_STEP
+#    ifndef ARGOS_SNIPING_DPI_CONFIG_STEP
+#        define ARGOS_SNIPING_DPI_CONFIG_STEP 100
+#    endif // ARGOS_SNIPING_DPI_CONFIG_STEP
 
 // Fixed DPI for drag-scroll.
-#    ifndef DILEMMA_DRAGSCROLL_DPI
-#        define DILEMMA_DRAGSCROLL_DPI 100
-#    endif // DILEMMA_DRAGSCROLL_DPI
+#    ifndef ARGOS_DRAGSCROLL_DPI
+#        define ARGOS_DRAGSCROLL_DPI 100
+#    endif // ARGOS_DRAGSCROLL_DPI
 
-#    ifndef DILEMMA_DRAGSCROLL_BUFFER_SIZE
-#        define DILEMMA_DRAGSCROLL_BUFFER_SIZE 6
-#    endif // !DILEMMA_DRAGSCROLL_BUFFER_SIZE
+#    ifndef ARGOS_DRAGSCROLL_BUFFER_SIZE
+#        define ARGOS_DRAGSCROLL_BUFFER_SIZE 6
+#    endif // !ARGOS_DRAGSCROLL_BUFFER_SIZE
 
 typedef union {
     uint8_t raw;
@@ -58,9 +58,9 @@ typedef union {
         bool    is_dragscroll_enabled : 1;
         bool    is_sniping_enabled : 1;
     } __attribute__((packed));
-} dilemma_config_t;
+} argos_config_t;
 
-static dilemma_config_t g_dilemma_config = {0};
+static argos_config_t g_argos_config = {0};
 
 /**
  * \brief Set the value of `config` from EEPROM.
@@ -70,7 +70,7 @@ static dilemma_config_t g_dilemma_config = {0};
  * this state is always written to maximize write-performances.  Therefore, we
  * explicitly set them to `false` in this function.
  */
-static void read_dilemma_config_from_eeprom(dilemma_config_t* config) {
+static void read_argos_config_from_eeprom(argos_config_t* config) {
     config->raw                   = eeconfig_read_kb() & 0xff;
     config->is_dragscroll_enabled = false;
     config->is_sniping_enabled    = false;
@@ -80,28 +80,28 @@ static void read_dilemma_config_from_eeprom(dilemma_config_t* config) {
  * \brief Save the value of `config` to eeprom.
  *
  * Note that all values are written verbatim, including whether drag-scroll
- * and/or sniper mode are enabled.  `read_dilemma_config_from_eeprom(…)`
+ * and/or sniper mode are enabled.  `read_argos_config_from_eeprom(…)`
  * resets these 2 values to `false` since it does not make sense to persist
  * these across reboots of the board.
  */
-static void write_dilemma_config_to_eeprom(dilemma_config_t* config) {
+static void write_argos_config_to_eeprom(argos_config_t* config) {
     eeconfig_update_kb(config->raw);
 }
 
 /** \brief Return the current value of the pointer's default DPI. */
-static uint16_t get_pointer_default_dpi(dilemma_config_t* config) {
-    return (uint16_t)config->pointer_default_dpi * DILEMMA_DEFAULT_DPI_CONFIG_STEP + DILEMMA_MINIMUM_DEFAULT_DPI;
+static uint16_t get_pointer_default_dpi(argos_config_t* config) {
+    return (uint16_t)config->pointer_default_dpi * ARGOS_DEFAULT_DPI_CONFIG_STEP + ARGOS_MINIMUM_DEFAULT_DPI;
 }
 
 /** \brief Return the current value of the pointer's sniper-mode DPI. */
-static uint16_t get_pointer_sniping_dpi(dilemma_config_t* config) {
-    return (uint16_t)config->pointer_sniping_dpi * DILEMMA_SNIPING_DPI_CONFIG_STEP + DILEMMA_MINIMUM_SNIPING_DPI;
+static uint16_t get_pointer_sniping_dpi(argos_config_t* config) {
+    return (uint16_t)config->pointer_sniping_dpi * ARGOS_SNIPING_DPI_CONFIG_STEP + ARGOS_MINIMUM_SNIPING_DPI;
 }
 
 /** \brief Set the appropriate DPI for the input config. */
-static void maybe_update_pointing_device_cpi(dilemma_config_t* config) {
+static void maybe_update_pointing_device_cpi(argos_config_t* config) {
     if (config->is_dragscroll_enabled) {
-        pointing_device_set_cpi(DILEMMA_DRAGSCROLL_DPI);
+        pointing_device_set_cpi(ARGOS_DRAGSCROLL_DPI);
     } else if (config->is_sniping_enabled) {
         pointing_device_set_cpi(get_pointer_sniping_dpi(config));
     } else {
@@ -113,9 +113,9 @@ static void maybe_update_pointing_device_cpi(dilemma_config_t* config) {
  * \brief Update the pointer's default DPI to the next or previous step.
  *
  * Increases the DPI value if `forward` is `true`, decreases it otherwise.
- * The increment/decrement steps are equal to DILEMMA_DEFAULT_DPI_CONFIG_STEP.
+ * The increment/decrement steps are equal to ARGOS_DEFAULT_DPI_CONFIG_STEP.
  */
-static void step_pointer_default_dpi(dilemma_config_t* config, bool forward) {
+static void step_pointer_default_dpi(argos_config_t* config, bool forward) {
     config->pointer_default_dpi += forward ? 1 : -1;
     maybe_update_pointing_device_cpi(config);
 }
@@ -124,59 +124,59 @@ static void step_pointer_default_dpi(dilemma_config_t* config, bool forward) {
  * \brief Update the pointer's sniper-mode DPI to the next or previous step.
  *
  * Increases the DPI value if `forward` is `true`, decreases it otherwise.
- * The increment/decrement steps are equal to DILEMMA_SNIPING_DPI_CONFIG_STEP.
+ * The increment/decrement steps are equal to ARGOS_SNIPING_DPI_CONFIG_STEP.
  */
-static void step_pointer_sniping_dpi(dilemma_config_t* config, bool forward) {
+static void step_pointer_sniping_dpi(argos_config_t* config, bool forward) {
     config->pointer_sniping_dpi += forward ? 1 : -1;
     maybe_update_pointing_device_cpi(config);
 }
 
-uint16_t dilemma_get_pointer_default_dpi(void) {
-    return get_pointer_default_dpi(&g_dilemma_config);
+uint16_t argos_get_pointer_default_dpi(void) {
+    return get_pointer_default_dpi(&g_argos_config);
 }
 
-uint16_t dilemma_get_pointer_sniping_dpi(void) {
-    return get_pointer_sniping_dpi(&g_dilemma_config);
+uint16_t argos_get_pointer_sniping_dpi(void) {
+    return get_pointer_sniping_dpi(&g_argos_config);
 }
 
-void dilemma_cycle_pointer_default_dpi_noeeprom(bool forward) {
-    step_pointer_default_dpi(&g_dilemma_config, forward);
+void argos_cycle_pointer_default_dpi_noeeprom(bool forward) {
+    step_pointer_default_dpi(&g_argos_config, forward);
 }
 
-void dilemma_cycle_pointer_default_dpi(bool forward) {
-    step_pointer_default_dpi(&g_dilemma_config, forward);
-    write_dilemma_config_to_eeprom(&g_dilemma_config);
+void argos_cycle_pointer_default_dpi(bool forward) {
+    step_pointer_default_dpi(&g_argos_config, forward);
+    write_argos_config_to_eeprom(&g_argos_config);
 }
 
-void dilemma_cycle_pointer_sniping_dpi_noeeprom(bool forward) {
-    step_pointer_sniping_dpi(&g_dilemma_config, forward);
+void argos_cycle_pointer_sniping_dpi_noeeprom(bool forward) {
+    step_pointer_sniping_dpi(&g_argos_config, forward);
 }
 
-void dilemma_cycle_pointer_sniping_dpi(bool forward) {
-    step_pointer_sniping_dpi(&g_dilemma_config, forward);
-    write_dilemma_config_to_eeprom(&g_dilemma_config);
+void argos_cycle_pointer_sniping_dpi(bool forward) {
+    step_pointer_sniping_dpi(&g_argos_config, forward);
+    write_argos_config_to_eeprom(&g_argos_config);
 }
 
-bool dilemma_get_pointer_sniping_enabled(void) {
-    return g_dilemma_config.is_sniping_enabled;
+bool argos_get_pointer_sniping_enabled(void) {
+    return g_argos_config.is_sniping_enabled;
 }
 
-void dilemma_set_pointer_sniping_enabled(bool enable) {
-    g_dilemma_config.is_sniping_enabled = enable;
-    maybe_update_pointing_device_cpi(&g_dilemma_config);
+void argos_set_pointer_sniping_enabled(bool enable) {
+    g_argos_config.is_sniping_enabled = enable;
+    maybe_update_pointing_device_cpi(&g_argos_config);
 }
 
-bool dilemma_get_pointer_dragscroll_enabled(void) {
-    return g_dilemma_config.is_dragscroll_enabled;
+bool argos_get_pointer_dragscroll_enabled(void) {
+    return g_argos_config.is_dragscroll_enabled;
 }
 
-void dilemma_set_pointer_dragscroll_enabled(bool enable) {
-    g_dilemma_config.is_dragscroll_enabled = enable;
-    maybe_update_pointing_device_cpi(&g_dilemma_config);
+void argos_set_pointer_dragscroll_enabled(bool enable) {
+    g_argos_config.is_dragscroll_enabled = enable;
+    maybe_update_pointing_device_cpi(&g_argos_config);
 }
 
 void pointing_device_init_kb(void) {
-    maybe_update_pointing_device_cpi(&g_dilemma_config);
+    maybe_update_pointing_device_cpi(&g_argos_config);
     pointing_device_init_user();
 }
 
@@ -185,27 +185,27 @@ void pointing_device_init_kb(void) {
  *
  * Implement drag-scroll.
  */
-static void pointing_device_task_dilemma(report_mouse_t* mouse_report) {
+static void pointing_device_task_argos(report_mouse_t* mouse_report) {
     static int16_t scroll_buffer_x = 0;
     static int16_t scroll_buffer_y = 0;
-    if (g_dilemma_config.is_dragscroll_enabled) {
-#    ifdef DILEMMA_DRAGSCROLL_REVERSE_X
+    if (g_argos_config.is_dragscroll_enabled) {
+#    ifdef ARGOS_DRAGSCROLL_REVERSE_X
         scroll_buffer_x -= mouse_report->x;
 #    else
         scroll_buffer_x += mouse_report->x;
-#    endif // DILEMMA_DRAGSCROLL_REVERSE_X
-#    ifdef DILEMMA_DRAGSCROLL_REVERSE_Y
+#    endif // ARGOS_DRAGSCROLL_REVERSE_X
+#    ifdef ARGOS_DRAGSCROLL_REVERSE_Y
         scroll_buffer_y -= mouse_report->y;
 #    else
         scroll_buffer_y += mouse_report->y;
-#    endif // DILEMMA_DRAGSCROLL_REVERSE_Y
+#    endif // ARGOS_DRAGSCROLL_REVERSE_Y
         mouse_report->x = 0;
         mouse_report->y = 0;
-        if (abs(scroll_buffer_x) > DILEMMA_DRAGSCROLL_BUFFER_SIZE) {
+        if (abs(scroll_buffer_x) > ARGOS_DRAGSCROLL_BUFFER_SIZE) {
             mouse_report->h = scroll_buffer_x > 0 ? 1 : -1;
             scroll_buffer_x = 0;
         }
-        if (abs(scroll_buffer_y) > DILEMMA_DRAGSCROLL_BUFFER_SIZE) {
+        if (abs(scroll_buffer_y) > ARGOS_DRAGSCROLL_BUFFER_SIZE) {
             mouse_report->v = scroll_buffer_y > 0 ? 1 : -1;
             scroll_buffer_y = 0;
         }
@@ -216,13 +216,13 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     // print("test 1");
     if (is_keyboard_master()) {
         // print("test 2");
-        pointing_device_task_dilemma(&mouse_report);
+        pointing_device_task_argos(&mouse_report);
         mouse_report = pointing_device_task_user(mouse_report);
     }
     return mouse_report;
 }
 
-#    if defined(POINTING_DEVICE_ENABLE) && !defined(NO_DILEMMA_KEYCODES)
+#    if defined(POINTING_DEVICE_ENABLE) && !defined(NO_ARGOS_KEYCODES)
 /** \brief Whether SHIFT mod is enabled. */
 static bool has_shift_mod(void) {
 #        ifdef NO_ACTION_ONESHOT
@@ -231,10 +231,10 @@ static bool has_shift_mod(void) {
     return mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
 #        endif // NO_ACTION_ONESHOT
 }
-#    endif // POINTING_DEVICE_ENABLE && !NO_DILEMMA_KEYCODES
+#    endif // POINTING_DEVICE_ENABLE && !NO_ARGOS_KEYCODES
 
 /**
- * \brief Outputs the Dilemma configuration to console.
+ * \brief Outputs the argos configuration to console.
  *
  * Prints the in-memory configuration structure to console, for debugging.
  * Includes:
@@ -244,9 +244,9 @@ static bool has_shift_mod(void) {
  *   - default DPI: internal table index/actual DPI
  *   - sniping DPI: internal table index/actual DPI
  */
-static void debug_dilemma_config_to_console(dilemma_config_t* config) {
+static void debug_argos_config_to_console(argos_config_t* config) {
 #    ifdef CONSOLE_ENABLE
-    dprintf("(dilemma) process_record_kb: config = {\n"
+    dprintf("(argos) process_record_kb: config = {\n"
             "\traw = 0x%X,\n"
             "\t{\n"
             "\t\tis_dragscroll_enabled=%u\n"
@@ -261,72 +261,72 @@ static void debug_dilemma_config_to_console(dilemma_config_t* config) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (!process_record_user(keycode, record)) {
-        debug_dilemma_config_to_console(&g_dilemma_config);
+        debug_argos_config_to_console(&g_argos_config);
         return false;
     }
 #    ifdef POINTING_DEVICE_ENABLE
-#        ifndef NO_DILEMMA_KEYCODES
+#        ifndef NO_ARGOS_KEYCODES
     switch (keycode) {
         case POINTER_DEFAULT_DPI_FORWARD:
             if (record->event.pressed) {
                 // Step backward if shifted, forward otherwise.
-                dilemma_cycle_pointer_default_dpi(/* forward= */ !has_shift_mod());
+                argos_cycle_pointer_default_dpi(/* forward= */ !has_shift_mod());
             }
             break;
         case POINTER_DEFAULT_DPI_REVERSE:
             if (record->event.pressed) {
                 // Step forward if shifted, backward otherwise.
-                dilemma_cycle_pointer_default_dpi(/* forward= */ has_shift_mod());
+                argos_cycle_pointer_default_dpi(/* forward= */ has_shift_mod());
             }
             break;
         case POINTER_SNIPING_DPI_FORWARD:
             if (record->event.pressed) {
                 // Step backward if shifted, forward otherwise.
-                dilemma_cycle_pointer_sniping_dpi(/* forward= */ !has_shift_mod());
+                argos_cycle_pointer_sniping_dpi(/* forward= */ !has_shift_mod());
             }
             break;
         case POINTER_SNIPING_DPI_REVERSE:
             if (record->event.pressed) {
                 // Step forward if shifted, backward otherwise.
-                dilemma_cycle_pointer_sniping_dpi(/* forward= */ has_shift_mod());
+                argos_cycle_pointer_sniping_dpi(/* forward= */ has_shift_mod());
             }
             break;
         case SNIPING_MODE:
-            dilemma_set_pointer_sniping_enabled(record->event.pressed);
+            argos_set_pointer_sniping_enabled(record->event.pressed);
             break;
         case SNIPING_MODE_TOGGLE:
             if (record->event.pressed) {
-                dilemma_set_pointer_sniping_enabled(!dilemma_get_pointer_sniping_enabled());
+                argos_set_pointer_sniping_enabled(!argos_get_pointer_sniping_enabled());
             }
             break;
         case DRAGSCROLL_MODE:
-            dilemma_set_pointer_dragscroll_enabled(record->event.pressed);
+            argos_set_pointer_dragscroll_enabled(record->event.pressed);
             break;
         case DRAGSCROLL_MODE_TOGGLE:
             if (record->event.pressed) {
-                dilemma_set_pointer_dragscroll_enabled(!dilemma_get_pointer_dragscroll_enabled());
+                argos_set_pointer_dragscroll_enabled(!argos_get_pointer_dragscroll_enabled());
             }
             break;
     }
-#        endif // !NO_DILEMMA_KEYCODES
+#        endif // !NO_ARGOS_KEYCODES
 #    endif     // POINTING_DEVICE_ENABLE
-    debug_dilemma_config_to_console(&g_dilemma_config);
+    debug_argos_config_to_console(&g_argos_config);
     if (IS_QK_KB(keycode) || IS_MOUSEKEY(keycode)) {
-        debug_dilemma_config_to_console(&g_dilemma_config);
+        debug_argos_config_to_console(&g_argos_config);
     }
     return true;
 }
 
 void eeconfig_init_kb(void) {
-    g_dilemma_config.raw                 = 0;
-    g_dilemma_config.pointer_default_dpi = 4; // DPI=1000
-    write_dilemma_config_to_eeprom(&g_dilemma_config);
-    maybe_update_pointing_device_cpi(&g_dilemma_config);
+    g_argos_config.raw                 = 0;
+    g_argos_config.pointer_default_dpi = 4; // DPI=1000
+    write_argos_config_to_eeprom(&g_argos_config);
+    maybe_update_pointing_device_cpi(&g_argos_config);
     eeconfig_init_user();
 }
 
 void matrix_init_kb(void) {
-    read_dilemma_config_from_eeprom(&g_dilemma_config);
+    read_argos_config_from_eeprom(&g_argos_config);
     matrix_init_user();
 }
 #endif // POINTING_DEVICE_ENABLE
