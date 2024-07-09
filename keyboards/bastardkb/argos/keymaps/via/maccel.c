@@ -103,6 +103,8 @@ void maccel_toggle_enabled(void) {
 #define CONSTRAIN_REPORT(val) (mouse_xy_report_t) _CONSTRAIN(val, XY_REPORT_MIN, XY_REPORT_MAX)
 
 report_mouse_t pointing_device_task_maccel(report_mouse_t mouse_report) {
+    dprintf("finger: %i\n", pointing_device_is_touch_down());
+
     // rounding carry to recycle dropped floats from int mouse reports, to smoothen low speed movements (credit @ankostis)
     static float rounding_carry_x = 0;
     static float rounding_carry_y = 0;
