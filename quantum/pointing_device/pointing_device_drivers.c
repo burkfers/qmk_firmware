@@ -249,11 +249,18 @@ void cirque_pinnacle_configure_cursor_glide(float trigger_px) {
 
 #    if CIRQUE_PINNACLE_POSITION_MODE
 
-#        ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+#        if defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE) || defined(POINTING_DEVICE_TOUCHDOWN)
 static bool is_touch_down;
+#        endif
 
+#        ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
 bool auto_mouse_activation(report_mouse_t mouse_report) {
     return is_touch_down || mouse_report.x != 0 || mouse_report.y != 0 || mouse_report.h != 0 || mouse_report.v != 0 || mouse_report.buttons;
+}
+#        endif
+#        ifdef POINTING_DEVICE_TOUCHDOWN
+bool pointing_device_is_touch_down(void) {
+    return is_touch_down;
 }
 #        endif
 
@@ -264,7 +271,7 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     static uint16_t   x = 0, y = 0, last_scale = 0;
 
 #        if defined(CIRQUE_PINNACLE_TAP_ENABLE)
-    mouse_report.buttons        = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
+    mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
 #        endif
 #        ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
     cursor_glide_t glide_report = {0};
@@ -289,7 +296,7 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
         pd_dprintf("cirque_pinnacle touchData x=%4d y=%4d z=%2d\n", touchData.xValue, touchData.yValue, touchData.zValue);
     }
 
-#        ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+#        if defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE) || defined(POINTING_DEVICE_TOUCHDOWN)
     is_touch_down = touchData.touchDown;
 #        endif
 

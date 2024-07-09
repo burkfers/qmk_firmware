@@ -132,3 +132,7 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
 report_mouse_t pointing_device_adjust_by_defines_right(report_mouse_t mouse_report);
 #    endif // defined(POINTING_DEVICE_COMBINED)
 #endif     // defined(SPLIT_POINTING_ENABLE)
+
+#ifdef POINTING_DEVICE_TOUCHDOWN
+bool pointing_device_is_touch_down(void);
+#endif
