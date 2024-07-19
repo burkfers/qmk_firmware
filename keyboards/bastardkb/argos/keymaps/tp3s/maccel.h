@@ -17,6 +17,7 @@ typedef struct _maccel_config_t {
     float takeoff;
     bool  enabled;
     bool  glide;
+    float glide_decay_factor;
 } maccel_config_t;
 
 extern maccel_config_t g_maccel_config;

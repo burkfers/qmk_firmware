@@ -37,7 +37,8 @@ maccel_config_t g_maccel_config = {
     .limit =        MACCEL_LIMIT,
     .takeoff =      MACCEL_TAKEOFF,
     .enabled =      true,
-    .glide =        true
+    .glide =        true,
+    .glide_decay_factor = 1.1
     // clang-format on
 };
 
@@ -123,8 +124,42 @@ report_mouse_t pointing_device_task_maccel(report_mouse_t mouse_report) {
     static float rounding_carry_y = 0;
     // time since last mouse report:
     const uint16_t delta_time = timer_elapsed32(maccel_timer);
+
+    // gliding
+    static mouse_xy_report_t prev_x     = 0;
+    static mouse_xy_report_t prev_y     = 0;
+    static bool              was_finger = false;
+    static bool              is_glide   = false;
+
+    if (g_maccel_config.glide) {
+        const bool is_finger = pointing_device_is_touch_down();
+
+        // did we gain or lose touch?
+        if (was_finger != is_finger) {
+            if (is_finger) { // gained finger
+                is_glide = false;
+                dprintf("gained finger!\n");
+            } else {
+                is_glide = true;
+                dprintf("lost finger!\n");
+            }
+        }
+        if (is_glide) {
+            mouse_report.x = prev_x / g_maccel_config.glide_decay_factor;
+            mouse_report.y = prev_y / g_maccel_config.glide_decay_factor;
+            dprintf("gliding speed: %i %i\n", mouse_report.x, mouse_report.y);
+
+            if (mouse_report.x == 0 && mouse_report.y == 0) {
+                is_glide = false;
+            }
+        }
+
+        prev_x     = mouse_report.x;
+        prev_y     = mouse_report.y;
+        was_finger = is_finger;
+    }
+
     // skip maccel maths if report = 0, or if maccel not enabled.
-    // if ((mouse_report.x == 0 && mouse_report.y == 0) || !g_maccel_config.enabled) {
     if (!g_maccel_config.enabled) {
         return mouse_report;
     }
@@ -151,36 +186,7 @@ report_mouse_t pointing_device_task_maccel(report_mouse_t mouse_report) {
     // calculate delta velocity: dv = distance/dt
     const float velocity_raw = distance / delta_time;
     // correct raw velocity for dpi
-    // const float velocity = dpi_correction * velocity_raw;
-
-    bool finger_present = pointing_device_is_touch_down();
-
-    static float velocity         = 0;
-    static float velocity_carry   = 0;
-    const float  glide_decel_rate = 0.1;
-    static mouse_xy_report_t prevx;
-    static mouse_xy_report_t prevy;
-
-    if (finger_present) {
-        // if finger is on touchpad
-        // normal cursor movement
-        velocity       = dpi_correction * velocity_raw;
-        velocity_carry = velocity;
-        dprintf("v %.3f, c %.3f normal\n", velocity, velocity_carry);
-    } else if (velocity_carry > glide_decel_rate) {
-        // if no finger on touchpad && velocity > decelleration rate
-        // glide cursor movement
-        velocity       = velocity_carry - glide_decel_rate;
-        velocity_carry = velocity;
-        mouse_report.x = prevx; mouse_report.y = prevy;
-        dprintf("v %.3f, c %.3f gliding\n", velocity, velocity_carry);
-    } else {
-        // if velocity < decelleration rate
-        // Stop cursor movement
-        // dprintf("v %.3f, c %.3f not moving\n", velocity, velocity_carry);
-        velocity       = 0;
-        velocity_carry = velocity;
-    }
+    const float velocity = dpi_correction * velocity_raw;
 
     // letter variables for readability of maths:
     const float k = g_maccel_config.takeoff;
@@ -199,15 +205,13 @@ report_mouse_t pointing_device_task_maccel(report_mouse_t mouse_report) {
     // clamp values
     const mouse_xy_report_t x = CONSTRAIN_REPORT(new_x);
     const mouse_xy_report_t y = CONSTRAIN_REPORT(new_y);
-    prevx = x;
-    prevy = y;
 
 // console output for debugging (enable/disable in config.h)
 #ifdef MACCEL_DEBUG
-    if (x!=0 || y!=0) {
-    const float distance_out = sqrtf(x * x + y * y);
-    const float velocity_out = velocity * maccel_factor;
-    printf("MACCEL: DPI:%4i Tko: %.3f Grw: %.3f Ofs: %.3f Lmt: %.3f | Fct: %.3f v.in: %.3f v.out: %.3f d.in: %3i d.out: %3i\n", device_cpi, g_maccel_config.takeoff, g_maccel_config.growth_rate, g_maccel_config.offset, g_maccel_config.limit, maccel_factor, velocity, velocity_out, CONSTRAIN_REPORT(distance), CONSTRAIN_REPORT(distance_out));
+    if (x != 0 || y != 0) {
+        const float distance_out = sqrtf(x * x + y * y);
+        const float velocity_out = velocity * maccel_factor;
+        printf("MACCEL: DPI:%4i Tko: %.3f Grw: %.3f Ofs: %.3f Lmt: %.3f | Fct: %.3f v.in: %.3f v.out: %.3f d.in: %3i d.out: %3i\n", device_cpi, g_maccel_config.takeoff, g_maccel_config.growth_rate, g_maccel_config.offset, g_maccel_config.limit, maccel_factor, velocity, velocity_out, CONSTRAIN_REPORT(distance), CONSTRAIN_REPORT(distance_out));
     }
 #endif // MACCEL_DEBUG
 
