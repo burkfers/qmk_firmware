@@ -100,10 +100,19 @@ static uint16_t get_pointer_sniping_dpi(dilemma_config_t* config) {
 /** \brief Set the appropriate DPI for the input config. */
 static void maybe_update_pointing_device_cpi(dilemma_config_t* config) {
     if (config->is_dragscroll_enabled) {
+#ifdef POINTING_DEVICE_DRIVER_azoteq_iqs5xx
+        wait_ms(2);
+#endif
         pointing_device_set_cpi(DILEMMA_DRAGSCROLL_DPI);
     } else if (config->is_sniping_enabled) {
+#ifdef POINTING_DEVICE_DRIVER_azoteq_iqs5xx
+        wait_ms(2);
+#endif
         pointing_device_set_cpi(get_pointer_sniping_dpi(config));
     } else {
+#ifdef POINTING_DEVICE_DRIVER_azoteq_iqs5xx
+        wait_ms(2);
+#endif
         pointing_device_set_cpi(get_pointer_default_dpi(config));
     }
 }
@@ -211,12 +220,16 @@ static void pointing_device_task_dilemma(report_mouse_t* mouse_report) {
     }
 }
 
+__attribute__((weak)) report_mouse_t pointing_device_task_kb2(report_mouse_t mouse_report) {
+    return mouse_report;
+}
+
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     if (is_keyboard_master()) {
         pointing_device_task_dilemma(&mouse_report);
         mouse_report = pointing_device_task_user(mouse_report);
     }
-    return mouse_report;
+    return pointing_device_task_kb2(mouse_report);
 }
 
 #    if defined(POINTING_DEVICE_ENABLE) && !defined(NO_DILEMMA_KEYCODES)
