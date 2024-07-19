@@ -261,7 +261,7 @@ static void debug_argos_config_to_console(argos_config_t* config) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (!process_record_user(keycode, record)) {
-        debug_argos_config_to_console(&g_argos_config);
+        // debug_argos_config_to_console(&g_argos_config);
         return false;
     }
 #    ifdef POINTING_DEVICE_ENABLE
@@ -310,7 +310,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     }
 #        endif // !NO_ARGOS_KEYCODES
 #    endif     // POINTING_DEVICE_ENABLE
-    debug_argos_config_to_console(&g_argos_config);
     if (IS_QK_KB(keycode) || IS_MOUSEKEY(keycode)) {
         debug_argos_config_to_console(&g_argos_config);
     }

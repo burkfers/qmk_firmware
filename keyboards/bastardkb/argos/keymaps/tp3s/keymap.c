@@ -24,16 +24,18 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 }
 
 enum my_keycodes {
-    MA_STEEPNESS = QK_USER, // mouse acceleration curve steepness step key
+    MA_TAKEOFF = QK_USER, // mouse acceleration curve steepness step key
+    MA_STEEPNESS,
     MA_OFFSET,              // mouse acceleration curve offset step key
     MA_LIMIT,               // mouse acceleration curve limit step key
-    MA_TAKEOFF
+    MA_GLIDE,
+    MA_TOGGLE
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // if (!process_record_maccel(keycode, record, MA_STEEPNESS, MA_OFFSET, MA_LIMIT)) {
-    //     return false;
-    // }
+    if (!process_record_maccel(keycode, record, MA_TOGGLE, MA_GLIDE, MA_TAKEOFF, MA_STEEPNESS, MA_OFFSET, MA_LIMIT)) {
+        return false;
+    }
     return true;
 }
 #ifdef COMBO_ENABLE
@@ -51,15 +53,14 @@ enum dilemma_keymap_layers { LAYER_BASE = 0 };
 
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
-
 #define LAYOUT_wrapper_TP3S(sw1, sw2, sw3) LAYOUT_wrapper(sw2, sw3, KC_NO, sw1)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LAYER_BASE] = LAYOUT_wrapper_TP3S(
         KC_BTN1,
-                KC_BTN2,
-        DRGSCRL
+                MA_GLIDE,
+        MA_TOGGLE
     )
 };
 // clang-format on
@@ -67,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
     debug_enable = true;
-    debug_matrix = true;
+    // debug_matrix = true;
     keyboard_post_init_maccel();
     // debug_keyboard=true;
     // debug_mouse=true;

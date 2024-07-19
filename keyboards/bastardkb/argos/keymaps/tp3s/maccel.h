@@ -8,7 +8,7 @@
 #include "report.h"
 
 report_mouse_t pointing_device_task_maccel(report_mouse_t mouse_report);
-bool           process_record_maccel(uint16_t keycode, keyrecord_t *record, uint16_t toggle, uint16_t takeoff, uint16_t growth_rate, uint16_t offset, uint16_t limit);
+bool           process_record_maccel(uint16_t keycode, keyrecord_t *record, uint16_t toggle, uint16_t glide, uint16_t takeoff, uint16_t growth_rate, uint16_t offset, uint16_t limit);
 
 typedef struct _maccel_config_t {
     float growth_rate;
@@ -16,6 +16,7 @@ typedef struct _maccel_config_t {
     float limit;
     float takeoff;
     bool  enabled;
+    bool  glide;
 } maccel_config_t;
 
 extern maccel_config_t g_maccel_config;
@@ -23,6 +24,9 @@ extern maccel_config_t g_maccel_config;
 void maccel_enabled(bool enable);
 bool maccel_get_enabled(void);
 void maccel_toggle_enabled(void);
+void maccel_glide(bool glide);
+bool maccel_get_glide(void);
+void maccel_toggle_glide(void);
 
 float maccel_get_takeoff(void);
 float maccel_get_growth_rate(void);

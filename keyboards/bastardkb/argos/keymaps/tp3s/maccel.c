@@ -36,7 +36,8 @@ maccel_config_t g_maccel_config = {
     .offset =       MACCEL_OFFSET,
     .limit =        MACCEL_LIMIT,
     .takeoff =      MACCEL_TAKEOFF,
-    .enabled =      true
+    .enabled =      true,
+    .glide =        true
     // clang-format on
 };
 
@@ -98,12 +99,24 @@ bool maccel_get_enabled(void) {
 void maccel_toggle_enabled(void) {
     maccel_enabled(!maccel_get_enabled());
 }
+void maccel_glide(bool glide) {
+    g_maccel_config.glide = glide;
+#ifdef MACCEL_DEBUG
+    printf("maccel: gliding: %d\n", g_maccel_config.glide);
+#endif
+}
+bool maccel_get_glide(void) {
+    return g_maccel_config.glide;
+}
+void maccel_toggle_glide(void) {
+    maccel_glide(!maccel_get_glide());
+}
 
 #define _CONSTRAIN(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
 #define CONSTRAIN_REPORT(val) (mouse_xy_report_t) _CONSTRAIN(val, XY_REPORT_MIN, XY_REPORT_MAX)
 
 report_mouse_t pointing_device_task_maccel(report_mouse_t mouse_report) {
-    //dprintf("finger: %i\n", pointing_device_is_touch_down());
+    // dprintf("finger: %i\n", pointing_device_is_touch_down());
 
     // rounding carry to recycle dropped floats from int mouse reports, to smoothen low speed movements (credit @ankostis)
     static float rounding_carry_x = 0;
@@ -122,6 +135,7 @@ report_mouse_t pointing_device_task_maccel(report_mouse_t mouse_report) {
         rounding_carry_x = 0;
         rounding_carry_y = 0;
     }
+
     // Reset carry when pointer swaps direction, to follow user's hand.
     if (mouse_report.x * rounding_carry_x < 0) rounding_carry_x = 0;
     if (mouse_report.y * rounding_carry_y < 0) rounding_carry_y = 0;
@@ -138,7 +152,6 @@ report_mouse_t pointing_device_task_maccel(report_mouse_t mouse_report) {
     const float velocity_raw = distance / delta_time;
     // correct raw velocity for dpi
     // const float velocity = dpi_correction * velocity_raw;
-
 
     bool finger_present = pointing_device_is_touch_down();
 
@@ -217,10 +230,14 @@ static inline float get_mod_step(float step) {
     return step;
 }
 
-bool process_record_maccel(uint16_t keycode, keyrecord_t *record, uint16_t toggle, uint16_t takeoff, uint16_t growth_rate, uint16_t offset, uint16_t limit) {
+bool process_record_maccel(uint16_t keycode, keyrecord_t *record, uint16_t toggle, uint16_t glide, uint16_t takeoff, uint16_t growth_rate, uint16_t offset, uint16_t limit) {
     if (record->event.pressed) {
         if (keycode == toggle) {
             maccel_toggle_enabled();
+            return false;
+        }
+        if (keycode == glide) {
+            maccel_toggle_glide();
             return false;
         }
         if (keycode == takeoff) {
@@ -247,7 +264,7 @@ bool process_record_maccel(uint16_t keycode, keyrecord_t *record, uint16_t toggl
     return true;
 }
 #else
-bool process_record_maccel(uint16_t keycode, keyrecord_t *record, uint16_t toggle, uint16_t takeoff, uint16_t growth_rate, uint16_t offset, uint16_t limit) {
+bool process_record_maccel(uint16_t keycode, keyrecord_t *record, uint16_t toggle, uint16_t glide, uint16_t takeoff, uint16_t growth_rate, uint16_t offset, uint16_t limit) {
     // provide a do-nothing keyrecord function so a user doesn't need to un-shim when disabling the keycodes
     return true;
 }
