@@ -34,8 +34,10 @@
 #define MACCEL_LIMIT 0.2   // upper limit of accel curve (maximum acceleration factor)
 // #define MACCEL_USE_KEYCODES
 
-#define EECONFIG_USER_DATA_SIZE 20
+#define EECONFIG_USER_DATA_SIZE 24
 
 #define MACCEL_DEBUG
 #undef PRINTF_SUPPORT_DECIMAL_SPECIFIERS
 #define PRINTF_SUPPORT_DECIMAL_SPECIFIERS 1
+
+#define MACCEL_USE_KEYCODES

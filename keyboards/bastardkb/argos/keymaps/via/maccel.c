@@ -36,7 +36,9 @@ maccel_config_t g_maccel_config = {
     .offset =       MACCEL_OFFSET,
     .limit =        MACCEL_LIMIT,
     .takeoff =      MACCEL_TAKEOFF,
-    .enabled =      true
+    .enabled =      true,
+    .glide =        true,
+    .glide_decay_factor = 1.1
     // clang-format on
 };
 
@@ -98,20 +100,67 @@ bool maccel_get_enabled(void) {
 void maccel_toggle_enabled(void) {
     maccel_enabled(!maccel_get_enabled());
 }
+void maccel_glide(bool glide) {
+    g_maccel_config.glide = glide;
+#ifdef MACCEL_DEBUG
+    printf("maccel: gliding: %d\n", g_maccel_config.glide);
+#endif
+}
+bool maccel_get_glide(void) {
+    return g_maccel_config.glide;
+}
+void maccel_toggle_glide(void) {
+    maccel_glide(!maccel_get_glide());
+}
 
 #define _CONSTRAIN(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
 #define CONSTRAIN_REPORT(val) (mouse_xy_report_t) _CONSTRAIN(val, XY_REPORT_MIN, XY_REPORT_MAX)
 
 report_mouse_t pointing_device_task_maccel(report_mouse_t mouse_report) {
-    dprintf("finger: %i\n", pointing_device_is_touch_down());
+    // dprintf("finger: %i\n", pointing_device_is_touch_down());
 
     // rounding carry to recycle dropped floats from int mouse reports, to smoothen low speed movements (credit @ankostis)
     static float rounding_carry_x = 0;
     static float rounding_carry_y = 0;
     // time since last mouse report:
     const uint16_t delta_time = timer_elapsed32(maccel_timer);
+
+    // gliding
+    static mouse_xy_report_t prev_x     = 0;
+    static mouse_xy_report_t prev_y     = 0;
+    static bool              was_finger = false;
+    static bool              is_glide   = false;
+
+    if (g_maccel_config.glide) {
+        const bool is_finger = pointing_device_is_touch_down();
+
+        // did we gain or lose touch?
+        if (was_finger != is_finger) {
+            if (is_finger) { // gained finger
+                is_glide = false;
+                dprintf("gained finger!\n");
+            } else {
+                is_glide = true;
+                dprintf("lost finger!\n");
+            }
+        }
+        if (is_glide) {
+            mouse_report.x = prev_x / g_maccel_config.glide_decay_factor;
+            mouse_report.y = prev_y / g_maccel_config.glide_decay_factor;
+            dprintf("gliding speed: %i %i\n", mouse_report.x, mouse_report.y);
+
+            if (mouse_report.x == 0 && mouse_report.y == 0) {
+                is_glide = false;
+            }
+        }
+
+        prev_x     = mouse_report.x;
+        prev_y     = mouse_report.y;
+        was_finger = is_finger;
+    }
+
     // skip maccel maths if report = 0, or if maccel not enabled.
-    if ((mouse_report.x == 0 && mouse_report.y == 0) || !g_maccel_config.enabled) {
+    if (!g_maccel_config.enabled) {
         return mouse_report;
     }
     // reset timer:
@@ -121,6 +170,7 @@ report_mouse_t pointing_device_task_maccel(report_mouse_t mouse_report) {
         rounding_carry_x = 0;
         rounding_carry_y = 0;
     }
+
     // Reset carry when pointer swaps direction, to follow user's hand.
     if (mouse_report.x * rounding_carry_x < 0) rounding_carry_x = 0;
     if (mouse_report.y * rounding_carry_y < 0) rounding_carry_y = 0;
@@ -137,6 +187,7 @@ report_mouse_t pointing_device_task_maccel(report_mouse_t mouse_report) {
     const float velocity_raw = distance / delta_time;
     // correct raw velocity for dpi
     const float velocity = dpi_correction * velocity_raw;
+
     // letter variables for readability of maths:
     const float k = g_maccel_config.takeoff;
     const float g = g_maccel_config.growth_rate;
@@ -157,9 +208,11 @@ report_mouse_t pointing_device_task_maccel(report_mouse_t mouse_report) {
 
 // console output for debugging (enable/disable in config.h)
 #ifdef MACCEL_DEBUG
-    const float distance_out = sqrtf(x * x + y * y);
-    const float velocity_out = velocity * maccel_factor;
-    printf("MACCEL: DPI:%4i Tko: %.3f Grw: %.3f Ofs: %.3f Lmt: %.3f | Fct: %.3f v.in: %.3f v.out: %.3f d.in: %3i d.out: %3i\n", device_cpi, g_maccel_config.takeoff, g_maccel_config.growth_rate, g_maccel_config.offset, g_maccel_config.limit, maccel_factor, velocity, velocity_out, CONSTRAIN_REPORT(distance), CONSTRAIN_REPORT(distance_out));
+    if (x != 0 || y != 0) {
+        const float distance_out = sqrtf(x * x + y * y);
+        const float velocity_out = velocity * maccel_factor;
+        printf("MACCEL: DPI:%4i Tko: %.3f Grw: %.3f Ofs: %.3f Lmt: %.3f | Fct: %.3f v.in: %.3f v.out: %.3f d.in: %3i d.out: %3i\n", device_cpi, g_maccel_config.takeoff, g_maccel_config.growth_rate, g_maccel_config.offset, g_maccel_config.limit, maccel_factor, velocity, velocity_out, CONSTRAIN_REPORT(distance), CONSTRAIN_REPORT(distance_out));
+    }
 #endif // MACCEL_DEBUG
 
     // report back accelerated values
@@ -181,10 +234,14 @@ static inline float get_mod_step(float step) {
     return step;
 }
 
-bool process_record_maccel(uint16_t keycode, keyrecord_t *record, uint16_t toggle, uint16_t takeoff, uint16_t growth_rate, uint16_t offset, uint16_t limit) {
+bool process_record_maccel(uint16_t keycode, keyrecord_t *record, uint16_t toggle, uint16_t glide, uint16_t takeoff, uint16_t growth_rate, uint16_t offset, uint16_t limit) {
     if (record->event.pressed) {
         if (keycode == toggle) {
             maccel_toggle_enabled();
+            return false;
+        }
+        if (keycode == glide) {
+            maccel_toggle_glide();
             return false;
         }
         if (keycode == takeoff) {
@@ -211,7 +268,7 @@ bool process_record_maccel(uint16_t keycode, keyrecord_t *record, uint16_t toggl
     return true;
 }
 #else
-bool process_record_maccel(uint16_t keycode, keyrecord_t *record, uint16_t toggle, uint16_t takeoff, uint16_t growth_rate, uint16_t offset, uint16_t limit) {
+bool process_record_maccel(uint16_t keycode, keyrecord_t *record, uint16_t toggle, uint16_t glide, uint16_t takeoff, uint16_t growth_rate, uint16_t offset, uint16_t limit) {
     // provide a do-nothing keyrecord function so a user doesn't need to un-shim when disabling the keycodes
     return true;
 }

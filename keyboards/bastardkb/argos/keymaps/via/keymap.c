@@ -27,7 +27,9 @@ enum my_keycodes {
     MA_STEEPNESS = QK_USER, // mouse acceleration curve steepness step key
     MA_OFFSET,              // mouse acceleration curve offset step key
     MA_LIMIT,               // mouse acceleration curve limit step key
-    MA_TAKEOFF
+    MA_TAKEOFF,
+    MA_ENABLE,
+    MA_GLIDE
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -54,8 +56,8 @@ enum dilemma_keymap_layers { LAYER_BASE = 0 };
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LAYER_BASE] = LAYOUT_wrapper(
-        KC_BTN1, KC_BTN2,
-        KC_BTN3, DRGSCRL
+        KC_BTN1, MA_GLIDE,
+        MA_GLIDE, DRGSCRL
     ),
 };
 // clang-format on

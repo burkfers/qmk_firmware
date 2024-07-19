@@ -1,6 +1,7 @@
 // Copyright 2024 burkfers (@burkfers)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include <sys/types.h>
 #include "maccel.h"
 #include "via.h"
 #ifdef MACCEL_DEBUG
@@ -20,7 +21,9 @@ enum via_maccel_ids {
     id_maccel_growth_rate = 2,
     id_maccel_offset      = 3,
     id_maccel_limit       = 4,
-    id_maccel_enabled     = 5
+    id_maccel_enabled     = 5,
+    id_glide_enabled      = 6,
+    id_glide_decay_factor = 7
     // clang-format on
 };
 
@@ -35,6 +38,9 @@ enum via_maccel_ids {
 
 #define MACCEL_VIA_UINT16_MIN 0
 #define MACCEL_VIA_UINT16_MAX 60000 // Not using the full range for historic reasons. Should be changed with breaking change requiring via json update.
+
+#define MACCEL_VIA_DECAY_MIN 1.001
+#define MACCEL_VIA_DECAY_MAX 2
 
 #define PROJECT(val, rmin, rmax, tmin, tmax) (((float)(val - rmin) / (float)(rmax - rmin)) * (float)(tmax - tmin)) + tmin
 #define PROJECT_TO_VIA(val, rmin, rmax) PROJECT(val, rmin, rmax, MACCEL_VIA_UINT16_MIN, MACCEL_VIA_UINT16_MAX)
@@ -86,7 +92,20 @@ void maccel_config_set_value(uint8_t *data) {
             break;
         }
         case id_maccel_enabled: {
-            g_maccel_config.enabled = value_data[0];
+            maccel_enabled(value_data[0]);
+            break;
+        }
+        case id_glide_enabled: {
+            maccel_glide(value_data[0]);
+            break;
+        }
+        case id_glide_decay_factor: {
+            uint16_t factor = COMBINE_UINT8(value_data[0], value_data[1]);
+
+            g_maccel_config.glide_decay_factor = PROJECT_FROM_VIA(factor, MACCEL_VIA_DECAY_MIN, MACCEL_VIA_DECAY_MAX);
+#ifdef MACCEL_DEBUG
+            printf("MACCEL:via: glide decay: %.3f\n", g_maccel_config.glide_decay_factor);
+#endif
             break;
         }
     }
@@ -127,6 +146,15 @@ void maccel_config_get_value(uint8_t *data) {
         case id_maccel_enabled: {
             value_data[0] = g_maccel_config.enabled;
             break;
+        }
+        case id_glide_enabled: {
+            value_data[0] = g_maccel_config.glide;
+            break;
+        }
+        case id_glide_decay_factor: {
+            uint16_t factor = PROJECT_TO_VIA(g_maccel_config.glide_decay_factor, MACCEL_VIA_DECAY_MIN, MACCEL_VIA_DECAY_MAX);
+            value_data[0]  = factor >> 8;
+            value_data[1]  = factor & 0xFF;
         }
     }
 }
