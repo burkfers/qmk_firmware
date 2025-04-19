@@ -39,34 +39,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    dprintf("hi\n");
     if (!(process_record_keymap(keycode, record)
           && true)) {
         return false;
     }
 
-    // now we check for specific keycodes...
-    #if defined(CUSTOM_KEYCODES)
-        switch (keycode) {
-            case KC_TEST:
-                if (record->event.pressed) {
-                    xprintf("KC_TEST pressed\n");
-                    uint8_t data[32];
-                    memset(data, 0, 32);
-                    data[0] = _RELAY_FROM_DEVICE;
-                    data[1] = _LAYER;
-                    data[2] = get_highest_layer(state);
-                    printf("Sending data...\n");
-                    dprintf("Sending data...\n");
-                    raw_hid_send(data, 32);
-                    return false;
-                }
+    switch (keycode) {
+        case KC_TEST:
+            if (record->event.pressed) {
+                xprintf("KC_TEST pressed\n");
+                uint8_t data[32];
+                memset(data, 0, 32);
+                data[0] = _RELAY_FROM_DEVICE;
+                data[1] = _LAYER;
+                data[2] = get_highest_layer(layer_state);
+                printf("Sending data...\n");
+                dprintf("Sending data...\n");
+                raw_hid_send(data, 32);
+                return false;
+            }
             return true;
+        default:
+            return true;
+                
     }
-    #endif // end CUSTOM_KEYCODES (for troubleshooting)
-    return true;
 }
 
-void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
+void raw_hid_receive(uint8_t *data, uint8_t length) {
     xprintf("usb-hid data incoming...\n");
     dprintf("Receive data: %u %u %u \n", data[0], data[1], data[2]);
 }
