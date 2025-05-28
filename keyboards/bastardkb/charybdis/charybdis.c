@@ -48,7 +48,7 @@
 #    endif // CHARYBDIS_DRAGSCROLL_DPI
 
 #    ifndef CHARYBDIS_DRAGSCROLL_BUFFER_SIZE
-#        define CHARYBDIS_DRAGSCROLL_BUFFER_SIZE 6
+#        define CHARYBDIS_DRAGSCROLL_BUFFER_SIZE 1
 #    endif // !CHARYBDIS_DRAGSCROLL_BUFFER_SIZE
 
 typedef union {
@@ -173,7 +173,7 @@ bool charybdis_get_pointer_dragscroll_enabled(void) {
 
 void charybdis_set_pointer_dragscroll_enabled(bool enable) {
     g_charybdis_config.is_dragscroll_enabled = enable;
-    maybe_update_pointing_device_cpi(&g_charybdis_config);
+    //maybe_update_pointing_device_cpi(&g_charybdis_config);
 }
 
 /**
